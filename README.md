@@ -46,6 +46,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[async-messaging](plugins/backend/skills/async-messaging/SKILL.md)**: Reliable SQS/SNS: standard vs FIFO, versioned envelopes, idempotent consumers, visibility timeouts, delete-after-success, DLQs, compatible schema evolution.
 - **[performance-engineering](plugins/backend/skills/performance-engineering/SKILL.md)**: Measurement-driven performance: a percentile target, realistic reproduction, profiling to the real bottleneck, highest-leverage fix, same-conditions before/after.
 - **[backend-engineer](plugins/backend/agents/backend-engineer.md)** (agent): Implements one approved task at a time test-first, instrumented, within scope; reports verified results; never approves its own work.
+- **[database-engineer](plugins/backend/agents/database-engineer.md)** (agent): Schema changes, deploy-compatible migrations, resumable backfills and EXPLAIN-verified queries with rehearsal evidence; never touches production.
 
 ### melvin-fintech
 
