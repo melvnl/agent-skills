@@ -14,6 +14,10 @@ Depends on `melvin-backend`, `melvin-observability`, and `melvin-security` (inst
 - **[financial-system-reliability](skills/financial-system-reliability/SKILL.md)**: Correctness-first reliability: owner-defined fail-closed or degraded modes, single effects, safe replay, rerunnable jobs, decision-distribution canaries, peak capacity.
 - **[money-and-decimal-arithmetic](skills/money-and-decimal-arithmetic/SKILL.md)**: Exact money: Decimal from strings, amount plus currency, explicit policy rounding, total-preserving allocation, DECIMAL storage, string serialization.
 
+## Agents
+
+- **[fintech-domain-reviewer](agents/fintech-domain-reviewer.md)**: Read-only check that decision logic implements the approved credit and risk policy: thresholds, precedence, fallbacks, reasons, versions, authority.
+
 ## Extension catalog (not implemented)
 
 These domains are deliberately out of scope until a real project needs them. They are listed so additions follow the same structure:

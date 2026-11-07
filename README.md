@@ -55,6 +55,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[financial-auditability](plugins/fintech/skills/financial-auditability/SKILL.md)**: Reconstructable actions and decisions: append-only audit records separate from logs, written atomically, integrity-protected, retained, as-of reconstruction.
 - **[financial-system-reliability](plugins/fintech/skills/financial-system-reliability/SKILL.md)**: Correctness-first reliability: owner-defined fail-closed or degraded modes, single effects, safe replay, rerunnable jobs, decision-distribution canaries, peak capacity.
 - **[money-and-decimal-arithmetic](plugins/fintech/skills/money-and-decimal-arithmetic/SKILL.md)**: Exact money: Decimal from strings, amount plus currency, explicit policy rounding, total-preserving allocation, DECIMAL storage, string serialization.
+- **[fintech-domain-reviewer](plugins/fintech/agents/fintech-domain-reviewer.md)** (agent): Read-only check that decision logic implements the approved credit and risk policy: thresholds, precedence, fallbacks, reasons, versions, authority.
 
 ### melvin-observability
 
