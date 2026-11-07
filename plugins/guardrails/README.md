@@ -48,6 +48,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `protect-production-config` | PreToolUse | `Edit\|Write\|MultiEdit` | Asks before editing production settings, prod deploy, Kubernetes, Helm and Terraform paths (defaults plus `production_config`). |
 | `protect-database-migrations` | PreToolUse | `Edit\|Write\|MultiEdit` | Asks before editing a migration file that is already committed (it may have run); new migrations and `__init__.py` pass. |
 | `financial-test-gate` | PreToolUse | `Bash` | Denies a `git commit` that changes `financial_core` files without changing any test (staged files, plus tracked changes for `-a`). |
+| `migration-safety-check` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back destructive or locking operations in edited migrations (drops, renames, NOT NULL without default, irreversible RunPython, MODIFY, CREATE INDEX). |
 
 ## Development
 
