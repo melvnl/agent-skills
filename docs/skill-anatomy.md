@@ -14,7 +14,7 @@ plugins/<profile>/skills/<skill-name>/
   assets/         optional: files the skill copies into a target project
 ```
 
-Move a section into `references/` once it passes ~80 lines or is only needed in some runs. Link every reference file from `SKILL.md` with the condition under which to read it ("Read [references/redaction-catalog.md](references/redaction-catalog.md) when classifying a field").
+Move a section into `references/` once it passes ~80 lines or is only needed in some runs. Link every reference file from `SKILL.md` with the condition under which to read it (for example: "Read `references/redaction-catalog.md` when classifying a field").
 
 ## Frontmatter
 
