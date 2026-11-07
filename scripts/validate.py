@@ -9,7 +9,8 @@ Checks
                equal to the directory and unique repo-wide, `description` present and <= 1024 chars
                (WARN above 500: descriptions are always in context).
   wiring       README.md links every skill; each plugin README links its own skills.
-  links        relative Markdown links in SKILL.md and skill references/*.md resolve.
+  links        relative Markdown links in SKILL.md and skill references/*.md resolve and stay
+               inside the skill's directory (other skills are referenced by name).
   sync         bundled copies stay byte-identical to their source.
 
 Usage: python3 scripts/validate.py [-q]     (-q prints only WARN/FAIL lines and the summary)
@@ -122,15 +123,21 @@ CODE_FENCE = re.compile(r"^```.*?^```", re.DOTALL | re.MULTILINE)
 CODE_SPAN = re.compile(r"`[^`\n]*`")
 
 
-def check_links(md_file):
-    """Relative Markdown links must resolve. Code fences and inline code are not links."""
+def check_links(md_file, boundary=None):
+    """Relative Markdown links must resolve, and stay inside `boundary` (a skill's directory)
+    when given: skills reference other skills by name, never by path. Code is not a link."""
     text = CODE_SPAN.sub("", CODE_FENCE.sub("", md_file.read_text(encoding="utf-8")))
     for target in MD_LINK.findall(text):
         if re.match(r"^[a-z]+:", target) or target.startswith("#") or "{" in target or "<" in target:
             continue
         path = target.split("#", 1)[0]
-        if path and not (md_file.parent / path).exists():
+        if not path:
+            continue
+        resolved = (md_file.parent / path).resolve()
+        if not resolved.exists():
             report("FAIL", f"{rel(md_file)}: broken link -> {target}")
+        elif boundary is not None and boundary.resolve() not in (resolved, *resolved.parents):
+            report("FAIL", f"{rel(md_file)}: link leaves the skill directory -> {target} (reference the skill by name)")
 
 
 def check_skills(plugins):
@@ -169,9 +176,9 @@ def check_skills(plugins):
                 report("FAIL", f"README.md does not link {rel(skill_md)}"); ok = False
             if f"(skills/{sk}/SKILL.md)" not in preadme:
                 report("FAIL", f"{rel(plugin_readme)} does not link skills/{sk}/SKILL.md"); ok = False
-            check_links(skill_md)
+            check_links(skill_md, skill_md.parent)
             for ref in sorted((skill_md.parent / "references").glob("*.md")):
-                check_links(ref)
+                check_links(ref, skill_md.parent)
             if ok:
                 report("OK", rel(skill_md))
 
