@@ -19,6 +19,12 @@
       "category": "productivity"
     },
     {
+      "name": "melvin-backend",
+      "source": "./plugins/backend",
+      "description": "Python, Django, FastAPI, APIs, databases and migrations, MySQL, Redis, distributed systems, SQS/SNS, performance.",
+      "category": "development"
+    },
+    {
       "name": "melvin-observability",
       "source": "./plugins/observability",
       "description": "Structured logging, correlation and tracing, PII-safe logging, observability review.",

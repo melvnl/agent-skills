@@ -11,6 +11,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 | Plugin | Contents |
 |---|---|
 | [melvin-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
+| [melvin-backend](plugins/backend/README.md) | Python, Django, FastAPI, APIs, databases, MySQL, Redis, messaging, performance |
 | [melvin-observability](plugins/observability/README.md) | Structured logging, correlation, PII-safe logging, observability review |
 | [melvin-writing](plugins/writing/README.md) | Engineering blog pipeline |
 
@@ -28,6 +29,10 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[test-driven-development](plugins/engineering/skills/test-driven-development/SKILL.md)**: Red-green-refactor from the acceptance criteria: each test observed failing for the right reason, minimal change, refactor under green. Python/pytest aware.
 - **[debugging-and-error-recovery](plugins/engineering/skills/debugging-and-error-recovery/SKILL.md)**: Diagnoses from evidence: reproduce, minimize, one hypothesis at a time, bisect, root cause, same pattern elsewhere, and safe recovery to green.
 - **[git-workflow](plugins/engineering/skills/git-workflow/SKILL.md)**: Small Conventional Commits with explicit staging and reviewed diffs; no unrelated changes, secrets, history rewrites or pushes without approval.
+
+### melvin-backend
+
+- **[python-backend-engineering](plugins/backend/skills/python-backend-engineering/SKILL.md)**: Version-safe Python backend code: typed boundaries, explicit timeouts, aware datetimes, Decimal money, exception chaining, pure domain logic.
 
 ### melvin-observability
 
