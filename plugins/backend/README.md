@@ -9,3 +9,4 @@ Depends on `melvin-engineering` and `melvin-observability` (installed automatica
 - **[python-backend-engineering](skills/python-backend-engineering/SKILL.md)**: Version-safe Python backend code: typed boundaries, explicit timeouts, aware datetimes, Decimal money, exception chaining, pure domain logic.
 - **[django-engineering](skills/django-engineering/SKILL.md)**: Version-correct Django/DRF: service-layer rules, constraints, efficient querysets, transactions with on_commit side effects, safe bulk ops, explicit permissions.
 - **[fastapi-engineering](skills/fastapi-engineering/SKILL.md)**: Version-correct FastAPI/Pydantic: sync vs async endpoints, auth and session dependencies, leak-proof response models, safe errors, lifespan, durable work on queues.
+- **[api-design](skills/api-design/SKILL.md)**: HTTP contracts: status semantics, a stable error model, idempotency keys, pagination, money and time formats, compatible evolution, contract tests.
