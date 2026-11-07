@@ -38,7 +38,7 @@ Arrows are `dependencies` in `plugin.json`. Installing a plugin installs what it
 
 | Plugin | Purpose | Status |
 |---|---|---|
-| spec-driven-engineering | Software Factory (11 workflows), PRD analysis, decomposition, acceptance criteria, traceability, planning, loop and context engineering, TDD, debugging, git | 12 skills, 5 agents, PRD eval suite |
+| spec-driven-engineering | Software Factory (11 workflows), product discovery, PRD analysis, decomposition, acceptance criteria, traceability, planning, loop and context engineering, TDD, debugging, git | 13 skills, 5 agents, PRD eval suite |
 | technical-writing | Engineering blog pipeline | 4 skills |
 | observability | Logging, tracing, redaction, observability design and review | 5 skills, 1 agent, observability eval suite |
 | python-backend | Python, Django, FastAPI, APIs, databases, migrations, MySQL, Redis, distributed systems, messaging, performance | 11 skills, 2 agents |

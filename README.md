@@ -27,7 +27,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 | | Count | Where |
 |---|---|---|
 | Plugins (installable profiles) | 7 | `plugins/<profile>/` |
-| Skills | 40 | `plugins/<profile>/skills/` |
+| Skills | 41 | `plugins/<profile>/skills/` |
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
 | Guardrail hooks | 18 (92 unit tests) | `plugins/guardrails/` |
 | Software Factory workflows | 11 (+ fintech overlay) | `plugins/engineering/skills/factory-init/assets/factory/workflows/` |
@@ -68,7 +68,7 @@ cd ~/work/eligibility-service
 
 | Profile | Plugin | What it gives you | Depends on |
 |---|---|---|---|
-| `core` | [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, PRD analysis, specs, planning, loop and context engineering, TDD, debugging, git discipline | none |
+| `core` | [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, product discovery, PRD analysis, specs, planning, loop and context engineering, TDD, debugging, git discipline | none |
 | `observability` | [observability](plugins/observability/README.md) | Structured logging, correlation and tracing, PII-safe logging, observability design and review | none |
 | `security` | [application-security](plugins/security/README.md) | Authorization and IDOR, injection, SSRF, webhook verification, secrets | none |
 | `backend` | [python-backend](plugins/backend/README.md) | Python, Django, FastAPI, API and database design, migrations, MySQL/Aurora, Redis, distributed systems, SQS/SNS, performance | spec-driven-engineering, observability |
@@ -137,7 +137,7 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 
 ---
 
-## All 40 skills
+## All 41 skills
 
 ### spec-driven-engineering: define, plan, build, verify
 
@@ -145,6 +145,7 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 |---|---|---|
 | [factory-init](plugins/engineering/skills/factory-init/SKILL.md) | Installs or verifies the `.factory/` Software Factory, populates project docs from evidence, merges `CLAUDE.md` without overwriting | Adopting spec-driven development in a repo (`/factory-init [--verify]`) |
 | [factory-router](plugins/engineering/skills/factory-router/SKILL.md) | Classifies, sizes and routes every request to the right workflow and gates | Any development request in a factory repo |
+| [product-discovery](plugins/engineering/skills/product-discovery/SKILL.md) | One-question-at-a-time interview that turns an idea or an undocumented request into an owner-approved brief, PRD and roadmap, traced to an interview record and self-checked with `prd-analysis` | Starting from an idea, or there is no PRD |
 | [prd-analysis](plugins/engineering/skills/prd-analysis/SKILL.md) | Extracts requirements with source references; surfaces contradictions, ambiguities, duplicates, missing NFRs, AI artifacts | A PRD or requirements document arrives |
 | [specification-decomposition](plugins/engineering/skills/specification-decomposition/SKILL.md) | Stable ids, domain groups, feature catalog, atomic feature specs | After analysis, to cut buildable features |
 | [acceptance-criteria-engineering](plugins/engineering/skills/acceptance-criteria-engineering/SKILL.md) | Given/When/Then criteria covering a 12-category matrix (boundaries, permissions, failures, idempotency, time, money, audit...) | Writing or reviewing "done" |
