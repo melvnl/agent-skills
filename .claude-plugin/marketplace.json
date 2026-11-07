@@ -25,6 +25,12 @@
       "category": "development"
     },
     {
+      "name": "melvin-fintech",
+      "source": "./plugins/fintech",
+      "description": "Credit scoring, eligibility and risk decisioning: integrity, decimal money, auditability, authorization, reliability.",
+      "category": "development"
+    },
+    {
       "name": "melvin-observability",
       "source": "./plugins/observability",
       "description": "Structured logging, correlation and tracing, PII-safe logging, observability review.",

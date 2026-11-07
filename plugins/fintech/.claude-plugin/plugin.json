@@ -1,0 +1,9 @@
+{
+  "name": "melvin-fintech",
+  "version": "0.1.0",
+  "description": "Fintech backend engineering for credit scoring, eligibility and risk decisioning: data integrity, decimal money, decision engineering, authorization, auditability, reliability.",
+  "author": { "name": "Melvin" },
+  "license": "MIT",
+  "keywords": ["fintech", "credit-scoring", "eligibility", "risk", "auditability"],
+  "dependencies": ["melvin-backend", "melvin-observability", "melvin-security"]
+}

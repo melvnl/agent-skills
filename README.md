@@ -12,6 +12,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 |---|---|
 | [melvin-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
 | [melvin-backend](plugins/backend/README.md) | Python, Django, FastAPI, APIs, databases, MySQL, Redis, messaging, performance |
+| [melvin-fintech](plugins/fintech/README.md) | Credit scoring, eligibility, risk decisioning: integrity, money, auditability, reliability |
 | [melvin-observability](plugins/observability/README.md) | Structured logging, correlation, PII-safe logging, observability review |
 | [melvin-security](plugins/security/README.md) | Backend application security: authz, injection, SSRF, webhooks, secrets |
 | [melvin-writing](plugins/writing/README.md) | Engineering blog pipeline |
@@ -44,6 +45,10 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[distributed-systems](plugins/backend/skills/distributed-systems/SKILL.md)**: Partial-failure-safe interactions: timeouts, bounded jittered retries, unknown-outcome handling, idempotent consumers, outbox not dual writes, sagas, breakers, parity migrations.
 - **[async-messaging](plugins/backend/skills/async-messaging/SKILL.md)**: Reliable SQS/SNS: standard vs FIFO, versioned envelopes, idempotent consumers, visibility timeouts, delete-after-success, DLQs, compatible schema evolution.
 - **[performance-engineering](plugins/backend/skills/performance-engineering/SKILL.md)**: Measurement-driven performance: a percentile target, realistic reproduction, profiling to the real bottleneck, highest-leverage fix, same-conditions before/after.
+
+### melvin-fintech
+
+- **[financial-data-integrity](plugins/fintech/skills/financial-data-integrity/SKILL.md)**: Invariants enforced and checked, immutable history, duplicate prevention, cross-service reconciliation, evidence-validated migrations.
 
 ### melvin-observability
 

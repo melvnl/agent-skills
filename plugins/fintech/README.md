@@ -1,0 +1,27 @@
+# melvin-fintech
+
+Fintech backend engineering, scoped to **credit scoring, eligibility, and risk decisioning** in backend services and APIs: data integrity, exact money, decision engineering, authorization, auditability, and reliability.
+
+Depends on `melvin-backend`, `melvin-observability`, and `melvin-security` (installed automatically).
+
+## Skills
+
+- **[financial-data-integrity](skills/financial-data-integrity/SKILL.md)**: Invariants enforced and checked, immutable history, duplicate prevention, cross-service reconciliation, evidence-validated migrations.
+
+## Extension catalog (not implemented)
+
+These domains are deliberately out of scope until a real project needs them. They are listed so additions follow the same structure:
+
+| Domain | Would cover |
+|---|---|
+| Payment processing | provider integration, authorization/capture, refunds, idempotent payment intents |
+| Checkout and payment gateway integration | redirects, callbacks, status polling, timeouts |
+| Double-entry ledger and accounting | journals, balanced postings, immutability, period close |
+| Loan lifecycle management | origination to closure state machines |
+| Loan disbursement and repayment | payout flows, schedules, allocation of payments |
+| Interest and fee calculation | day-count conventions, accrual, rounding policy |
+| Payment settlement | settlement files, timing, fees |
+| Financial reconciliation | statement matching, break management |
+| Fraud detection and transaction monitoring | rules and models, alert queues, feedback loops |
+
+Before adding one: confirm the need with a real requirement, check overlap with existing skills (especially `financial-data-integrity` and `money-and-decimal-arithmetic`), and follow `docs/skill-anatomy.md`.
