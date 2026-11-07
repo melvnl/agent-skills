@@ -31,7 +31,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
 | Guardrail hooks | 18 (92 unit tests) | `plugins/guardrails/` |
 | Software Factory workflows | 11 (+ fintech overlay) | `plugins/engineering/skills/factory-init/assets/factory/workflows/` |
-| Eval cases (native `claude plugin eval`) | 34 | `plugins/<profile>/evals/` |
+| Eval cases (native `claude plugin eval`) | 39 | `plugins/<profile>/evals/` |
 
 ---
 
@@ -266,7 +266,7 @@ Project `commands` come from the repository, so they run only after you enable t
 
 ## Evals
 
-Native `claude plugin eval` suites per plugin: observability (the 12 required scenarios plus false-positive and must-not-trigger cases), PRD analysis, fintech, and security. Each case pairs an `llm` rubric with concrete PASS/FAIL conditions, a `tool_used` grader that the expected skill fired, and, for sensitive data, a free `regex` grader that fails if the reply echoes the sentinel value.
+Native `claude plugin eval` suites per plugin: observability (the 12 required scenarios plus false-positive and must-not-trigger cases), product discovery, PRD analysis, fintech, and security. Each case pairs an `llm` rubric with concrete PASS/FAIL conditions, a `tool_used` grader that the expected skill fired, and, for sensitive data, a free `regex` grader that fails if the reply echoes the sentinel value.
 
 ```bash
 claude plugin eval plugins/observability --case missing-error-context --runs 1 --ablation none
