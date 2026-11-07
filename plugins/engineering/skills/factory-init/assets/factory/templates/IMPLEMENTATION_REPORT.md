@@ -39,22 +39,29 @@ Instructions for agents:
 | E2E tests | {{cmd}} | {{result}} |
 | Build | {{cmd}} | {{result}} |
 
-## 5. Key decisions
+## 5. Instrumentation
+<!-- What was added for observability and why, or an explicit statement that none was justified. -->
+| Signal | Location | Purpose |
+|---|---|---|
+| {{event / metric / span}} | {{path:line}} | {{why it is needed}} |
+Deliberately not added: {{...}} · Correlation verified: {{how}} · Sensitive data check: {{how}}
+
+## 6. Key decisions
 - {{decision — link ADR if any}}
 
-## 6. Assumptions
+## 7. Assumptions
 - {{assumption and why it was reasonable}}
 
-## 7. Known limitations and issues
+## 8. Known limitations and issues
 | Issue | Severity | Follow-up task |
 |---|---|---|
 | {{issue}} | {{Critical/High/Medium/Low}} | {{task ref}} |
 
-## 8. Open questions
+## 9. Open questions
 - {{question — what it blocks}}
 
-## 9. Definition of Done status
+## 10. Definition of Done status
 {{All met / list unmet items}}
 
-## 10. Recommended next step
+## 11. Recommended next step
 {{next step}}
