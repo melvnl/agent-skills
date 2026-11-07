@@ -6,6 +6,11 @@
 
 Catch defects, risks, and maintainability problems before they reach the main branch, and confirm the change satisfies its specification.
 
+## Entry conditions
+
+- A change is ready for review, with its verification output.
+- The reviewer did not implement the change (an agent's self-review is a first pass, never the review of record).
+
 ## Inputs
 
 - The diff.
@@ -47,6 +52,21 @@ A list of findings, each with: **severity**, location (`file:line`), the problem
 - [ ] Authorization enforced at the server/data layer; per-user/tenant isolation preserved.
 - [ ] Input validated at trust boundaries; output encoded.
 - [ ] No secrets, tokens, or personal data in code, logs, fixtures, or client bundles.
+- [ ] For endpoints, integrations, callbacks, or auth changes, run `SECURITY_REVIEW.md`.
+
+### Observability
+- [ ] Important operations in the change have outcome, failure, and latency signals (or existing middleware or tracing covers them).
+- [ ] Log calls are structured, at the right level, concise, not duplicated across layers, and carry correlation ids.
+- [ ] No secrets or raw personal or financial data in logs; no whole objects, bodies, or headers logged.
+- [ ] Correlation survives every boundary the change touches; metric labels are bounded.
+- [ ] For substantial backend changes, run `OBSERVABILITY_REVIEW.md`.
+
+### Data integrity
+- [ ] Invariants touched are enforced (constraints or domain code) and tested.
+- [ ] Retried or duplicated requests and messages produce one effect.
+- [ ] Concurrent updates can't lose writes (atomic updates, conditional transitions, or locks).
+- [ ] Money and decision-relevant ratios use exact decimal arithmetic with explicit rounding.
+- [ ] Records of past events are not overwritten; corrections supersede.
 
 ### Performance
 - [ ] No unbounded queries/loops over user data; no N+1 patterns.
@@ -75,6 +95,10 @@ A list of findings, each with: **severity**, location (`file:line`), the problem
 
 - No open Blocker findings.
 - Major findings fixed or explicitly deferred with human approval and a task reference.
+
+## Exit conditions
+
+- Verdict recorded; Blockers fixed and re-reviewed; Majors fixed or deferred with approval and a task reference.
 
 ## Human approval required
 
