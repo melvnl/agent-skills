@@ -4,6 +4,7 @@ from helpers import HookTestCase, decision, reason
 
 AWS = "AKIA" + "QWERTYUIOPASDFGH"
 GH = "ghp_" + "a1B2c3D4e5F6g7H8i9J0k1L2m3N4o5P6q7R8"
+PEM_HEADER = "-----BEGIN RSA " + "PRIVATE KEY-----"
 JWT = "eyJhbGciOiJIUzI1NiJ9" + "." + "eyJzdWIiOiIxMjM0NTY3ODkwIn0" + "." + "dozjgNryP4J3jVmNHl0w5N_XgL0n3I9PlFUP0THsR8U"
 
 
@@ -21,7 +22,7 @@ class DetectSecretExposureTest(HookTestCase):
         self.assertEqual(decision(out), "deny")
         code, out, _ = self.hook({"tool_name": "Bash", "tool_input": {"command": f"curl -H 'Authorization: Bearer {JWT}' https://api"}})
         self.assertEqual(decision(out), "deny")
-        code, out, _ = self.hook({"tool_name": "Write", "tool_input": {"file_path": "/p/k", "content": "-----BEGIN RSA PRIVATE KEY-----\nMIIE\n"}})
+        code, out, _ = self.hook({"tool_name": "Write", "tool_input": {"file_path": "/p/k", "content": PEM_HEADER + "\nMIIE\n"}})
         self.assertEqual(decision(out), "deny")
 
     def test_placeholders_and_normal_code_allowed(self):
