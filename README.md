@@ -22,6 +22,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 ### melvin-observability
 
 - **[structured-logging-and-instrumentation](plugins/observability/skills/structured-logging-and-instrumentation/SKILL.md)**: Decides what deserves a log entry and adds structured, correlated, PII-safe logs using the project's existing logger.
+- **[distributed-tracing-and-correlation](plugins/observability/skills/distributed-tracing-and-correlation/SKILL.md)**: Preserves request, correlation and trace context across HTTP, SQS/SNS, workers and async code.
 
 ### melvin-writing
 
