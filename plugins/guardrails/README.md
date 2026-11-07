@@ -38,6 +38,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `detect-hardcoded-credentials` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back credential-named variables assigned string literals (`password = "..."`), with file:line; skips tests, examples and placeholders. |
 | `format-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.format` on the edited file; asks Claude to re-read a reformatted file; feeds back formatter failures. |
 | `lint-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.lint` on the edited file and feeds back reported problems. |
+| `typecheck-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.typecheck` on the edited file and feeds back type errors. |
 
 ## Development
 
