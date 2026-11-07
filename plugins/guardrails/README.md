@@ -29,6 +29,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | Hook | Event | Matcher | Behavior |
 |---|---|---|---|
 | `protect-sensitive-files` | PreToolUse | `Read\|Edit\|Write\|MultiEdit\|NotebookEdit\|Grep\|Bash` | Denies reading or writing `.env`, keys and credential files, including via parsed Bash commands; templates allowed. |
+| `block-destructive-commands` | PreToolUse | `Bash` | Parses commands; denies catastrophic ones (force-push, `rm -rf` outside the project, DB drops, `terraform destroy`, S3 deletion); asks before push, `reset --hard`, `clean -f`, rebase, amend. |
 
 ## Development
 
