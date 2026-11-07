@@ -37,6 +37,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `detect-secret-exposure` | PreToolUse | `Write\|Edit\|MultiEdit\|Bash` | Denies new content or commands containing known secret formats (AWS, private keys, GitHub, Slack, Stripe, JWT, URL credentials); reports pattern and line, never the value. |
 | `detect-hardcoded-credentials` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back credential-named variables assigned string literals (`password = "..."`), with file:line; skips tests, examples and placeholders. |
 | `format-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.format` on the edited file; asks Claude to re-read a reformatted file; feeds back formatter failures. |
+| `lint-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.lint` on the edited file and feeds back reported problems. |
 
 ## Development
 

@@ -68,6 +68,19 @@
             "timeout": 60
           }
         ]
+      },
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/post-tool-use/lint-after-edit.py"
+            ],
+            "timeout": 70
+          }
+        ]
       }
     ]
   }
