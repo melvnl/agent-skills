@@ -20,6 +20,8 @@ Checks
   evals        plugins/<plugin>/evals/**/prompt.md (native `claude plugin eval` format): frontmatter keys
                are allowed ones, each case has graders/*.md with a known type and that type's options,
                and `tool_used` Skill graders name a skill that exists in the plugin.
+  counts       the skill, agent and hook counts shown in the README banner and "What's inside" table
+               match the repository.
   sync         bundled copies stay byte-identical to their source.
 
 Usage: python3 scripts/validate.py [-q]     (-q prints only WARN/FAIL lines and the summary)
@@ -334,6 +336,33 @@ def check_evals(plugins):
                 report("OK", rel(prompt))
 
 
+BANNER = "docs/assets/agent-skills-banner.svg"
+
+
+def check_counts(plugins):
+    actual = {
+        "skills": sum(len(list((pdir / "skills").glob("*/SKILL.md"))) for pdir, _ in plugins.values()),
+        "agents": sum(len(list((pdir / "agents").glob("*.md"))) for pdir, _ in plugins.values()),
+        "hooks": sum(len(list((pdir / d).glob("*.py"))) for pdir, _ in plugins.values() for d in HOOK_DIRS),
+    }
+    banner = ROOT / BANNER
+    if banner.exists():
+        svg = banner.read_text(encoding="utf-8")
+        for kind, n in actual.items():
+            m = re.search(r">(\d+)</text>\s*<text[^>]*>%s<" % kind, svg)
+            if not m:
+                report("FAIL", f"{BANNER}: no count found for {kind}")
+            elif int(m.group(1)) != n:
+                report("FAIL", f"{BANNER}: shows {m.group(1)} {kind}, repository has {n}")
+            else:
+                report("OK", f"banner {kind} = {n}")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    for label, kind in (("Skills", "skills"), ("Specialist agents", "agents"), ("Guardrail hooks", "hooks")):
+        m = re.search(r"^\| %s \| (\d+)" % re.escape(label), readme, re.M)
+        if m and int(m.group(1)) != actual[kind]:
+            report("FAIL", f"README.md 'What's inside' shows {m.group(1)} {kind}, repository has {actual[kind]}")
+
+
 def check_sync():
     for src, copy in SYNCED_COPIES:
         a, b = ROOT / src, ROOT / copy
@@ -349,6 +378,7 @@ def main():
     check_agents(plugins)
     check_hooks(plugins)
     check_evals(plugins)
+    check_counts(plugins)
     check_sync()
     print(f"summary: {counts['FAIL']} FAIL, {counts['WARN']} WARN, {counts['OK']} OK")
     return 1 if counts["FAIL"] else 0
