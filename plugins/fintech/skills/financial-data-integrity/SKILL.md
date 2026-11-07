@@ -1,6 +1,6 @@
 ---
 name: financial-data-integrity
-description: Keeps financially relevant data correct over time and across services: explicit invariants enforced by constraints and checked by queries, immutable history, duplicate prevention and detection, cross-service reconciliation, exact monetary values, and validated data migrations with before/after evidence. Use when changing data that feeds credit, eligibility, limits, pricing or any financial decision, migrating such data, or investigating inconsistent records.
+description: Keeps financially relevant data correct: invariants enforced by constraints and checked by queries, immutable history, duplicate and lost-update prevention, cross-service reconciliation, exact money, and evidence-validated migrations. Use when writing or reviewing code that reads and updates limits, balances, decisions or other financial records (races, retries, duplicates), migrating such data, or investigating inconsistent records.
 ---
 
 # Financial Data Integrity

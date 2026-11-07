@@ -1,6 +1,6 @@
 ---
 name: credit-scoring-and-eligibility
-description: Builds and changes credit scoring and eligibility pipelines that are consistent, versioned, explainable and reconstructable: one source of truth for rules, deterministic evaluation, immutable decision records, owner-defined fallbacks, golden-dataset regression tests, and parity-proven service migrations. Use when implementing or changing scoring, eligibility rules, thresholds, limits, decision services, or migrating decision logic between services.
+description: Builds and changes credit scoring and eligibility pipelines that are consistent, versioned, explainable and reconstructable: one source of truth for rules, deterministic evaluation, immutable decision records, owner-defined fallbacks, golden-dataset regression tests, and parity-proven service migrations. Use when implementing, changing or reviewing scoring, eligibility rules, thresholds, limits or decision services, or migrating decision logic between services.
 ---
 
 # Credit Scoring and Eligibility
