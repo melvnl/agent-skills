@@ -39,6 +39,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `format-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.format` on the edited file; asks Claude to re-read a reformatted file; feeds back formatter failures. |
 | `lint-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.lint` on the edited file and feeds back reported problems. |
 | `typecheck-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.typecheck` on the edited file and feeds back type errors. |
+| `verify-before-stop` | Stop | `*` | Opt-in: when the working tree changed, runs the project's `commands.verify` before Claude finishes and blocks the stop once on failure; `stop_hook_active` prevents loops. |
 
 ## Development
 

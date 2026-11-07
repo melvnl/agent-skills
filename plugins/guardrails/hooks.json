@@ -95,6 +95,20 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/stop/verify-before-stop.py"
+            ],
+            "timeout": 600
+          }
+        ]
+      }
     ]
   }
 }
