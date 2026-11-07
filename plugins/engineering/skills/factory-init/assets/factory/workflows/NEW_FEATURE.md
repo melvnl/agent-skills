@@ -39,7 +39,7 @@ flowchart TD
   V --> R[8 Code review] --> P[9 Report + docs] --> H[Human approval]
 ```
 
-1. **Understand the request.** Restate it in one paragraph. Identify the user, the problem, and the expected outcome. List ambiguities.
+1. **Understand the request.** Restate it in one paragraph. Identify the user, the problem, and the expected outcome. List ambiguities. If no written requirement source exists (no PRD rows, ticket, or brief) or the request is too vague for acceptance criteria, interview the owner one question at a time and record it as `product/sources/discovery-<date>-<slug>.md` before writing the spec (the `product-discovery` skill, mode B, if available).
 2. **Analyze existing requirements and architecture.** Read the PRD/feature catalog entry, related specs, architecture, data model, and the code in the affected area. Note constraints and conflicts.
 3. **Produce or update the feature specification.** Fill `FEATURE_SPEC.md`: problem, goals, non-goals, user stories, functional/non-functional requirements (with IDs), edge cases, dependencies, open questions.
 4. **Define acceptance criteria.** Given/When/Then, each mapped to requirement IDs and to a planned verification (unit/integration/E2E/manual).

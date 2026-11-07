@@ -45,7 +45,7 @@ A project may adapt names, but must document the mapping in `CLAUDE.md`.
 ### Stage A — Discover (no code)
 
 1. **Inspect the repository** (if any): structure, existing docs, configs, source, conventions. Record what exists and what will be preserved.
-2. **Interview / read the brief**: problem, users, goals, non-goals, constraints (budget, timeline, platform, compliance, data sensitivity).
+2. **Interview / read the brief**: problem, users, goals, non-goals, constraints (budget, timeline, platform, compliance, data sensitivity). Ask one question at a time, starting with whatever the existing notes don't answer; calibrate depth to the project (personal, business, regulated). Save the interview, with the owner's answers in their words, as `product/sources/discovery-<date>-<slug>.md`: it is the source the PRD traces to. If the `product-discovery` skill is available, use it for this stage and stage B.
 3. **List open questions** and classify each as blocking or non-blocking.
 
 ### Stage B — Define the product
@@ -55,29 +55,30 @@ A project may adapt names, but must document the mapping in `CLAUDE.md`.
 6. Write `product/PRD.md` from `templates/PRD.md`: functional and non-functional requirements with stable IDs.
 7. Write `product/FEATURES.md`: a catalog mapping feature IDs → requirements → phase → status.
 8. Write `product/ROADMAP.md`: phases, each with deliverables, explicit acceptance criteria, and exit criteria. The first phase must be independently useful.
+9. **Self-check the drafts** before approval: contradictions, vague terms, untestable statements, and missing non-functional categories (the `prd-analysis` skill does this if available). Label every statement Confirmed, Proposed, Open question, or Future consideration; never present a proposal as confirmed.
 
 ### Stage C — Define the engineering foundation
 
-9. Select the stack; write `engineering/TECH_STACK.md` with rationale, alternatives, and phase applicability.
-10. Write `engineering/ARCHITECTURE.md`: system context, module boundaries, data flow, trade-offs (Mermaid diagrams encouraged).
-11. Write `engineering/DATA_MODEL.md`: entities, ownership, invariants, units, history stability, migration strategy.
-12. Write `engineering/API_CONTRACTS.md`: service/API boundaries and schemas.
-13. Write `engineering/SECURITY_AND_PRIVACY.md`: data classification, auth, isolation, secrets, retention/deletion.
-14. Record the foundational decisions in `engineering/adr/0001-*.md`.
-15. Write `engineering/DEVELOPMENT_GUIDE.md`: prerequisites, setup, commands (mark planned vs. existing), directory conventions, quality gates mapped to commands.
+10. Select the stack; write `engineering/TECH_STACK.md` with rationale, alternatives, and phase applicability.
+11. Write `engineering/ARCHITECTURE.md`: system context, module boundaries, data flow, trade-offs (Mermaid diagrams encouraged).
+12. Write `engineering/DATA_MODEL.md`: entities, ownership, invariants, units, history stability, migration strategy.
+13. Write `engineering/API_CONTRACTS.md`: service/API boundaries and schemas.
+14. Write `engineering/SECURITY_AND_PRIVACY.md`: data classification, auth, isolation, secrets, retention/deletion.
+15. Record the foundational decisions in `engineering/adr/0001-*.md`.
+16. Write `engineering/DEVELOPMENT_GUIDE.md`: prerequisites, setup, commands (mark planned vs. existing), directory conventions, quality gates mapped to commands.
 
 ### Stage D — Agent entry point
 
-16. Write `CLAUDE.md`: concise identity, stack, structure, reading order per task type, reference to `.factory/core/AGENT_BEHAVIOR.md` and workflows, commands, current phase, architectural constraints. **Do not copy factory content into it — link.**
-17. Create `tasks/STATUS.md` with the current phase, next actions, and blockers.
+17. Write `CLAUDE.md`: concise identity, stack, structure, reading order per task type, reference to `.factory/core/AGENT_BEHAVIOR.md` and workflows, commands, current phase, architectural constraints. **Do not copy factory content into it — link.**
+18. Create `tasks/STATUS.md` with the current phase, next actions, and blockers.
 
 ### Stage E — Initialize the stack *(separate, approved step)*
 
-18. Scaffold the application using the chosen stack's official generator.
-19. Configure: strict typing, formatter, linter, test runner(s), E2E runner, environment validation, `.env.example`, `.gitignore`.
-20. Add one trivial passing test per test level to prove the pipeline.
-21. **Verify the environment:** install, lint, type-check, test, build, run locally. Record the actual outputs.
-22. Update `DEVELOPMENT_GUIDE.md` and `CLAUDE.md` so documented commands match real ones.
+19. Scaffold the application using the chosen stack's official generator.
+20. Configure: strict typing, formatter, linter, test runner(s), E2E runner, environment validation, `.env.example`, `.gitignore`.
+21. Add one trivial passing test per test level to prove the pipeline.
+22. **Verify the environment:** install, lint, type-check, test, build, run locally. Record the actual outputs.
+23. Update `DEVELOPMENT_GUIDE.md` and `CLAUDE.md` so documented commands match real ones.
 
 ## Quality gates
 
