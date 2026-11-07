@@ -1,4 +1,20 @@
 {
   "description": "melvin-guardrails: deterministic checks. Contract and policy: docs/hook-anatomy.md in the source repository.",
-  "hooks": {}
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|MultiEdit|NotebookEdit|Grep|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3",
+            "args": [
+              "${CLAUDE_PLUGIN_ROOT}/pre-tool-use/protect-sensitive-files.py"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
 }

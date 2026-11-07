@@ -24,6 +24,12 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 }
 ```
 
+## Hooks
+
+| Hook | Event | Matcher | Behavior |
+|---|---|---|---|
+| `protect-sensitive-files` | PreToolUse | `Read|Edit|Write|MultiEdit|NotebookEdit|Grep|Bash` | Denies reading or writing `.env`, keys and credential files, including via parsed Bash commands; templates allowed. |
+
 ## Development
 
 ```bash
