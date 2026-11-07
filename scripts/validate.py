@@ -15,6 +15,8 @@ Checks
                description present, required sections present, read-only agents (disallowedTools
                containing Write and Edit) don't list Write/Edit in tools, every `melvin-x:name`
                reference resolves to a skill or agent in that plugin, and the agent is linked from README.md and its plugin README.
+  hooks        a plugin's hooks file (manifest "hooks") parses; every registered script exists under the
+               plugin; every hook script is registered; each has tests/test_<name>.py and a README entry.
   sync         bundled copies stay byte-identical to their source.
 
 Usage: python3 scripts/validate.py [-q]     (-q prints only WARN/FAIL lines and the summary)
@@ -240,6 +242,45 @@ def check_agents(plugins):
                 report("OK", rel(agent))
 
 
+HOOK_DIRS = ("pre-tool-use", "post-tool-use", "stop", "session")
+
+
+def check_hooks(plugins):
+    for name, (pdir, manifest) in sorted(plugins.items()):
+        hooks_rel = manifest.get("hooks")
+        if not isinstance(hooks_rel, str):
+            continue
+        hooks_path = (pdir / hooks_rel).resolve()
+        data, err = load_json(hooks_path)
+        if err or not isinstance(data, dict) or not isinstance(data.get("hooks"), dict):
+            report("FAIL", f"{name}: hooks file {hooks_rel} missing or invalid ({err or 'no hooks object'})")
+            continue
+        registered = set()
+        for event, groups in data["hooks"].items():
+            for group in groups:
+                for h in group.get("hooks", []):
+                    for arg in [h.get("command", "")] + list(h.get("args", [])):
+                        if "${CLAUDE_PLUGIN_ROOT}/" in arg:
+                            rel_script = arg.split("${CLAUDE_PLUGIN_ROOT}/", 1)[1]
+                            script = pdir / rel_script
+                            if not script.is_file():
+                                report("FAIL", f"{name}: {event} hook script not found: {rel_script}")
+                            registered.add(script.resolve())
+        readme = (pdir / "README.md").read_text(encoding="utf-8") if (pdir / "README.md").exists() else ""
+        for d in HOOK_DIRS:
+            for script in sorted((pdir / d).glob("*.py")):
+                hook = script.stem
+                ok = True
+                if script.resolve() not in registered:
+                    report("FAIL", f"{rel(script)}: not registered in {hooks_rel}"); ok = False
+                if not (pdir / "tests" / f"test_{hook.replace('-', '_')}.py").is_file():
+                    report("FAIL", f"{rel(script)}: missing tests/test_{hook.replace('-', '_')}.py"); ok = False
+                if f"`{hook}`" not in readme:
+                    report("FAIL", f"{rel(script)}: not documented in {name} README"); ok = False
+                if ok:
+                    report("OK", rel(script))
+
+
 def check_sync():
     for src, copy in SYNCED_COPIES:
         a, b = ROOT / src, ROOT / copy
@@ -253,6 +294,7 @@ def main():
     plugins = check_marketplace()
     check_skills(plugins)
     check_agents(plugins)
+    check_hooks(plugins)
     check_sync()
     print(f"summary: {counts['FAIL']} FAIL, {counts['WARN']} WARN, {counts['OK']} OK")
     return 1 if counts["FAIL"] else 0
