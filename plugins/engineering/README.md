@@ -26,3 +26,7 @@ Spec-driven engineering core: the Software Factory and the skills for turning re
 - **[test-driven-development](skills/test-driven-development/SKILL.md)**: Red-green-refactor from the acceptance criteria: each test observed failing for the right reason, minimal change, refactor under green. Python/pytest aware.
 - **[debugging-and-error-recovery](skills/debugging-and-error-recovery/SKILL.md)**: Diagnoses from evidence: reproduce, minimize, one hypothesis at a time, bisect, root cause, same pattern elsewhere, and safe recovery to green.
 - **[git-workflow](skills/git-workflow/SKILL.md)**: Small Conventional Commits with explicit staging and reviewed diffs; no unrelated changes, secrets, history rewrites or pushes without approval.
+
+## Agents
+
+- **[engineering-orchestrator](agents/engineering-orchestrator.md)**: Sequences Software Factory stages and gates, assigns implementation and independent reviews to specialists, keeps STATUS current; edits state docs only.
