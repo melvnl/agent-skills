@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+*.log
+.env
+__pycache__/
+*.pyc
+
+# local-only planning notes
+docs/ROADMAP.md
+docs/IMPLEMENTATION_PLAN.md

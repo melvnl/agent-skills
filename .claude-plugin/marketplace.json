@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "melvin-skills",
+  "owner": {
+    "name": "Melvin"
+  },
+  "description": "Melvin's personal agent skills marketplace.",
+  "plugins": [
+    {
+      "name": "melvin-skills",
+      "source": "./",
+      "description": "Engineering blog writing pipeline and the .factory software factory.",
+      "category": "productivity",
+      "keywords": ["skills", "writing", "blog", "software-factory"]
+    }
+  ]
+}
