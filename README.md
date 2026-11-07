@@ -221,7 +221,7 @@ Scoped to credit scoring, eligibility and risk decisioning. Payments, ledgers an
 | Agent | Plugin | Role | Authority |
 |---|---|---|---|
 | [engineering-orchestrator](plugins/engineering/agents/engineering-orchestrator.md) | spec-driven-engineering | Sequences stages and gates, assigns roles, keeps STATUS current | State documents only |
-| [product-requirements-analyst](plugins/engineering/agents/product-requirements-analyst.md) | spec-driven-engineering | PRD analysis, decomposition, draft specs | Requirement documents only |
+| [product-requirements-analyst](plugins/engineering/agents/product-requirements-analyst.md) | spec-driven-engineering | Discovery interviews, PRD analysis, decomposition, draft specs | Requirement documents only |
 | [solution-architect](plugins/engineering/agents/solution-architect.md) | spec-driven-engineering | Designs, failure scenarios, observability plan, ADRs | Design documents only |
 | [qa-engineer](plugins/engineering/agents/qa-engineer.md) | spec-driven-engineering | Independent verification against acceptance criteria | Read-only, runs tests |
 | [code-reviewer](plugins/engineering/agents/code-reviewer.md) | spec-driven-engineering | Spec conformance and standards review | Read-only |
