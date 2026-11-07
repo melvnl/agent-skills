@@ -27,9 +27,9 @@ def read_input(stream=None):
     return data
 
 
-def _clip(text):
+def _clip(text, limit=MAX_REASON):
     text = " ".join(str(text).split()) if "\n" not in str(text) else str(text).strip()
-    return text if len(text) <= MAX_REASON else text[: MAX_REASON - 3] + "..."
+    return text if len(text) <= limit else text[: limit - 3] + "..."
 
 
 def _emit(payload):
@@ -51,9 +51,9 @@ def ask(reason):
                                   "permissionDecisionReason": _clip(reason)}})
 
 
-def feedback(reason):
+def feedback(reason, limit=MAX_REASON):
     """PostToolUse / Stop: `decision: block` with a reason Claude must address."""
-    _emit({"decision": "block", "reason": _clip(reason)})
+    _emit({"decision": "block", "reason": _clip(reason, limit)})
 
 
 def add_context(event, text):

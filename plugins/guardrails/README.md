@@ -24,6 +24,10 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 }
 ```
 
+### Running project commands (opt-in)
+
+`format-after-edit`, `lint-after-edit`, `typecheck-after-edit` and `verify-before-stop` run commands that come from the repository's `guardrails.json`. A cloned repository could put anything there, so these hooks do nothing until you enable the plugin option **`run_project_commands`** (`/config`, or the prompt shown when the plugin is enabled). Enable it only if you trust the repositories you open. The hooks never guess a tool: an unconfigured command is skipped.
+
 ## Hooks
 
 | Hook | Event | Matcher | Behavior |
@@ -32,6 +36,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `block-destructive-commands` | PreToolUse | `Bash` | Parses commands; denies catastrophic ones (force-push, `rm -rf` outside the project, DB drops, `terraform destroy`, S3 deletion); asks before push, `reset --hard`, `clean -f`, rebase, amend. |
 | `detect-secret-exposure` | PreToolUse | `Write\|Edit\|MultiEdit\|Bash` | Denies new content or commands containing known secret formats (AWS, private keys, GitHub, Slack, Stripe, JWT, URL credentials); reports pattern and line, never the value. |
 | `detect-hardcoded-credentials` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back credential-named variables assigned string literals (`password = "..."`), with file:line; skips tests, examples and placeholders. |
+| `format-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.format` on the edited file; asks Claude to re-read a reformatted file; feeds back formatter failures. |
 
 ## Development
 

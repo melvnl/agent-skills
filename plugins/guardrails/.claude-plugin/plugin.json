@@ -2,8 +2,23 @@
   "name": "melvin-guardrails",
   "version": "0.1.0",
   "description": "Deterministic guardrail hooks: protected files, destructive commands, secrets, sensitive logging, financial core and migration protection, post-edit checks, verification before stop, session context.",
-  "author": { "name": "Melvin" },
+  "author": {
+    "name": "Melvin"
+  },
   "license": "MIT",
-  "keywords": ["hooks", "guardrails", "security", "secrets"],
-  "hooks": "./hooks.json"
+  "keywords": [
+    "hooks",
+    "guardrails",
+    "security",
+    "secrets"
+  ],
+  "hooks": "./hooks.json",
+  "userConfig": {
+    "run_project_commands": {
+      "type": "boolean",
+      "title": "Run project check commands",
+      "description": "Allow guardrail hooks to run the format, lint, typecheck and verify commands a project defines in .claude/guardrails.json. Those commands come from the repository, so enable this only if you trust the repositories you open.",
+      "default": false
+    }
+  }
 }
