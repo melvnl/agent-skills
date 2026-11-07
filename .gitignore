@@ -8,3 +8,6 @@ __pycache__/
 # local-only planning notes
 docs/ROADMAP.md
 docs/IMPLEMENTATION_PLAN.md
+
+# eval run output
+plugins/*/evals/results/
