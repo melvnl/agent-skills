@@ -31,6 +31,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `protect-sensitive-files` | PreToolUse | `Read\|Edit\|Write\|MultiEdit\|NotebookEdit\|Grep\|Bash` | Denies reading or writing `.env`, keys and credential files, including via parsed Bash commands; templates allowed. |
 | `block-destructive-commands` | PreToolUse | `Bash` | Parses commands; denies catastrophic ones (force-push, `rm -rf` outside the project, DB drops, `terraform destroy`, S3 deletion); asks before push, `reset --hard`, `clean -f`, rebase, amend. |
 | `detect-secret-exposure` | PreToolUse | `Write\|Edit\|MultiEdit\|Bash` | Denies new content or commands containing known secret formats (AWS, private keys, GitHub, Slack, Stripe, JWT, URL credentials); reports pattern and line, never the value. |
+| `detect-hardcoded-credentials` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back credential-named variables assigned string literals (`password = "..."`), with file:line; skips tests, examples and placeholders. |
 
 ## Development
 

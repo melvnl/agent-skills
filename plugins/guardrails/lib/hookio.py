@@ -97,3 +97,35 @@ def run(main, name):
         sys.stderr.write("%s: internal error (%s); allowing the action\n" % (name, type(exc).__name__))
         sys.exit(1)
     sys.exit(0)
+
+
+def introduced_lines(data):
+    """Lines a Write/Edit/MultiEdit introduced, as (line_number, text). Line numbers are absolute in the
+    edited file when the new text can be located there (PostToolUse), else relative to the snippet."""
+    ti = tool_input(data)
+    chunks = []
+    if isinstance(ti.get("content"), str):
+        chunks.append(ti["content"])
+    if isinstance(ti.get("new_string"), str):
+        chunks.append(ti["new_string"])
+    for edit in ti.get("edits") or []:
+        if isinstance(edit, dict) and isinstance(edit.get("new_string"), str):
+            chunks.append(edit["new_string"])
+    file_text = None
+    path = ti.get("file_path")
+    if path and os.path.isfile(path):
+        try:
+            with open(path, encoding="utf-8", errors="replace") as fh:
+                file_text = fh.read()
+        except OSError:
+            file_text = None
+    result = []
+    for chunk in chunks:
+        offset = 0
+        if file_text is not None and chunk:
+            idx = file_text.find(chunk)
+            if idx >= 0:
+                offset = file_text.count("\n", 0, idx)
+        for i, line in enumerate(chunk.splitlines(), 1):
+            result.append((offset + i, line))
+    return result
