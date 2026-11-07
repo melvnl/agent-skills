@@ -21,6 +21,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[prd-analysis](plugins/engineering/skills/prd-analysis/SKILL.md)**: Analyzes a large or AI-generated PRD: requirements with source refs, contradictions, ambiguities, duplicates, missing NFRs.
 - **[specification-decomposition](plugins/engineering/skills/specification-decomposition/SKILL.md)**: Turns analyzed requirements into stable ids, domain groups, a feature catalog, and atomic feature specs with traceability.
 - **[acceptance-criteria-engineering](plugins/engineering/skills/acceptance-criteria-engineering/SKILL.md)**: Writes and reviews atomic, testable Given/When/Then criteria covering boundaries, permissions, state, failures, idempotency, time, money, observability and audit.
+- **[requirement-traceability](plugins/engineering/skills/requirement-traceability/SKILL.md)**: Keeps the requirement → feature → AC → task → code → test chain intact, with a deterministic checker for untraced or dangling ids.
 
 ### melvin-observability
 

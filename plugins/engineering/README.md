@@ -16,3 +16,4 @@ Spec-driven engineering core: the Software Factory and the skills for turning re
 - **[prd-analysis](skills/prd-analysis/SKILL.md)**: Analyze a large or AI-generated PRD: extract requirements with source references, surface contradictions, ambiguities, duplicates, and missing NFRs.
 - **[specification-decomposition](skills/specification-decomposition/SKILL.md)**: Turns analyzed requirements into stable ids, domain groups, a feature catalog, and atomic feature specs with traceability.
 - **[acceptance-criteria-engineering](skills/acceptance-criteria-engineering/SKILL.md)**: Writes and reviews atomic, testable Given/When/Then criteria covering boundaries, permissions, state, failures, idempotency, time, money, observability and audit.
+- **[requirement-traceability](skills/requirement-traceability/SKILL.md)**: Keeps the requirement → feature → AC → task → code → test chain intact, with a deterministic checker for untraced or dangling ids.
