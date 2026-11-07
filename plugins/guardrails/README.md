@@ -45,6 +45,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `validate-log-schema` | PostToolUse | `Write\|Edit\|MultiEdit` | When `logging.event_name_pattern` is configured: new Python log calls must use a constant event name matching it, not f-strings, formatting or concatenation. |
 | `check-observability-context` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back SQS/SNS publishes without `MessageAttributes` and SQS receives without `MessageAttributeNames` (lost correlation context). |
 | `protect-financial-core` | PreToolUse | `Edit\|Write\|MultiEdit` | Asks before editing paths the project lists as `financial_core` (no defaults), pointing to the fintech overlay gates. |
+| `protect-production-config` | PreToolUse | `Edit\|Write\|MultiEdit` | Asks before editing production settings, prod deploy, Kubernetes, Helm and Terraform paths (defaults plus `production_config`). |
 
 ## Development
 
