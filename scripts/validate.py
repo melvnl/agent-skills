@@ -11,6 +11,10 @@ Checks
   wiring       README.md links every skill; each plugin README links its own skills.
   links        relative Markdown links in SKILL.md and skill references/*.md resolve and stay
                inside the skill's directory (other skills are referenced by name).
+  agents       plugins/<plugin>/agents/<name>.md: frontmatter name equals the filename and is unique,
+               description present, required sections present, read-only agents (disallowedTools
+               containing Write and Edit) don't list Write/Edit in tools, every `melvin-x:skill`
+               named exists, and the agent is linked from README.md and its plugin README.
   sync         bundled copies stay byte-identical to their source.
 
 Usage: python3 scripts/validate.py [-q]     (-q prints only WARN/FAIL lines and the summary)
@@ -183,6 +187,57 @@ def check_skills(plugins):
                 report("OK", rel(skill_md))
 
 
+AGENT_SECTIONS = ["Mission", "Scope of authority", "Responsibilities", "Not responsible for", "Skills to load",
+                  "Inputs", "Output", "Quality criteria", "Escalation", "Human approval required"]
+SKILL_REF = re.compile(r"`(melvin-[a-z]+):([a-z0-9-]+)`")
+
+
+def split_tools(value):
+    if isinstance(value, list):
+        return {v.strip() for v in value if v.strip()}
+    return {v.strip() for v in str(value or "").split(",") if v.strip()}
+
+
+def check_agents(plugins):
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    skills = {(name, d.name) for name, (pdir, _) in plugins.items() for d in (pdir / "skills").glob("*") if (d / "SKILL.md").exists()}
+    seen = {}
+    for name, (pdir, _) in sorted(plugins.items()):
+        preadme_path = pdir / "README.md"
+        preadme = preadme_path.read_text(encoding="utf-8") if preadme_path.exists() else ""
+        for agent in sorted((pdir / "agents").glob("*.md")):
+            fm, err = parse_frontmatter(agent)
+            if err:
+                report("FAIL", f"{rel(agent)}: {err}")
+                continue
+            ok = True
+            aname = fm.get("name", "")
+            if aname != agent.stem or not KEBAB.match(aname):
+                report("FAIL", f"{rel(agent)}: name '{aname}' must be kebab-case and equal '{agent.stem}'"); ok = False
+            elif aname in seen:
+                report("FAIL", f"{rel(agent)}: duplicate agent name (also in {seen[aname]})"); ok = False
+            seen[aname] = name
+            desc = fm.get("description", "")
+            if not desc or len(desc) > DESC_MAX:
+                report("FAIL", f"{rel(agent)}: description missing or longer than {DESC_MAX} chars"); ok = False
+            tools, denied = split_tools(fm.get("tools")), split_tools(fm.get("disallowedTools"))
+            if {"Write", "Edit"} <= denied and tools & {"Write", "Edit", "NotebookEdit"}:
+                report("FAIL", f"{rel(agent)}: read-only agent lists Write/Edit in tools"); ok = False
+            body = agent.read_text(encoding="utf-8")
+            for section in AGENT_SECTIONS:
+                if not re.search(rf"^## {re.escape(section)}\b", body, re.M):
+                    report("FAIL", f"{rel(agent)}: missing section '## {section}'"); ok = False
+            for plugin_name, skill in SKILL_REF.findall(body):
+                if (plugin_name, skill) not in skills:
+                    report("FAIL", f"{rel(agent)}: references unknown skill {plugin_name}:{skill}"); ok = False
+            if f"({rel(agent)})" not in readme:
+                report("FAIL", f"README.md does not link {rel(agent)}"); ok = False
+            if f"(agents/{agent.name})" not in preadme:
+                report("FAIL", f"{rel(preadme_path)} does not link agents/{agent.name}"); ok = False
+            if ok:
+                report("OK", rel(agent))
+
+
 def check_sync():
     for src, copy in SYNCED_COPIES:
         a, b = ROOT / src, ROOT / copy
@@ -195,6 +250,7 @@ def check_sync():
 def main():
     plugins = check_marketplace()
     check_skills(plugins)
+    check_agents(plugins)
     check_sync()
     print(f"summary: {counts['FAIL']} FAIL, {counts['WARN']} WARN, {counts['OK']} OK")
     return 1 if counts["FAIL"] else 0
