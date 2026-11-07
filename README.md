@@ -40,6 +40,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[database-migrations](plugins/backend/skills/database-migrations/SKILL.md)**: Deploy-compatible migrations: expand-migrate-contract, non-blocking DDL on large MySQL tables, resumable backfills, generated-SQL review, rehearsal and rollback plans.
 - **[mysql-engineering](plugins/backend/skills/mysql-engineering/SKILL.md)**: InnoDB and Aurora done right: EXPLAIN-verified indexes, isolation and locking reads, deadlock retries, lost-update prevention, collation traps, replica lag.
 - **[redis-engineering](plugins/backend/skills/redis-engineering/SKILL.md)**: Redis for derivable, expirable data: TTL'd cache-aside, post-commit invalidation, stampede protection, atomic ops, token-checked locks, graceful degradation.
+- **[distributed-systems](plugins/backend/skills/distributed-systems/SKILL.md)**: Partial-failure-safe interactions: timeouts, bounded jittered retries, unknown-outcome handling, idempotent consumers, outbox not dual writes, sagas, breakers, parity migrations.
 
 ### melvin-observability
 
