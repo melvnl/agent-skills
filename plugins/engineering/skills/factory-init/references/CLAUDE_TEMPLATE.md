@@ -21,7 +21,7 @@ Live state: `tasks/STATUS.md` (resume point). Phase scope and acceptance criteri
 | Path | What it is | Authority |
 |---|---|---|
 | `.factory/core/` | Universal standards: `PRINCIPLES`, `ENGINEERING_STANDARDS`, `CODING_STANDARDS`, `TESTING_STANDARDS`, `DEFINITION_OF_DONE`, `AGENT_BEHAVIOR` | How to work (project-agnostic) |
-| `.factory/workflows/` | `NEW_FEATURE`, `BUG_FIX`, `REFACTORING`, `CODE_REVIEW`, `RESUME_WORK`, `NEW_PROJECT` | Process to follow |
+| `.factory/workflows/` | `NEW_FEATURE` (+ `FINTECH_FEATURE` overlay), `PRD_TO_IMPLEMENTATION`, `BUG_FIX`, `PRODUCTION_INCIDENT`, `DATABASE_MIGRATION`, `REFACTORING`, `CODE_REVIEW`, `SECURITY_REVIEW`, `OBSERVABILITY_REVIEW`, `RESUME_WORK`, `NEW_PROJECT` | Process to follow |
 | `.factory/templates/` | `PROJECT_BRIEF`, `PRD`, `FEATURE_SPEC`, `TECHNICAL_DESIGN`, `TASK_BREAKDOWN`, `ARCHITECTURE_DECISION_RECORD`, `IMPLEMENTATION_REPORT` | Shape of new documents |
 | `product/` | `PRD` (FR/NFR/BR/Q ids), `FEATURES` (F-xx catalog + status), `ROADMAP` (phases, acceptance criteria), `PRODUCT_BRIEF`, `PERSONAS` | What to build, and when |
 | `engineering/` | `ARCHITECTURE`, `TECH_STACK`, `DATA_MODEL`, `API_CONTRACTS`, `SECURITY_AND_PRIVACY`, `DEVELOPMENT_GUIDE`, `adr/NNNN-*.md` | How {{PROJECT_NAME}} is built |
@@ -59,10 +59,13 @@ Every request goes through: **classify → size → discover → route → execu
 
 | Type | Signals | Route | Read first |
 |---|---|---|---|
-| **New functionality** | "add", "support…", "new screen/endpoint" | `.factory/workflows/NEW_FEATURE.md` | `product/FEATURES.md` → linked PRD ids → existing `specs/` → ROADMAP phase |
+| **New functionality** | "add", "support…", "new screen/endpoint" | `.factory/workflows/NEW_FEATURE.md` (+ `.factory/workflows/FINTECH_FEATURE.md` overlay for financial decisions or data) | `product/FEATURES.md` → linked PRD ids → existing `specs/` → ROADMAP phase |
+| **Build from a PRD** | "implement this PRD", a large requirements document | `.factory/workflows/PRD_TO_IMPLEMENTATION.md` | The source document → `product/PRD.md`, `product/FEATURES.md` → existing `specs/` |
+| **Production incident** | "prod is down", customer-facing errors, wrong data in production | `.factory/workflows/PRODUCTION_INCIDENT.md` (humans act on production), then `BUG_FIX.md` | Alerts, logs by correlation id, recent deploys and config changes |
+| **Schema or data migration** | "add a column", "backfill", "rename", "drop" | `.factory/workflows/DATABASE_MIGRATION.md` | `engineering/DATA_MODEL.md` → migrations → table sizes |
 | **Bug / incorrect behavior** | "wrong", "broken", "doesn't", error output | Investigate first; `.factory/workflows/BUG_FIX.md` once confirmed | Affected code + tests → feature `SPEC.md` acceptance criteria → PRD business rules |
 | **Internal improvement** | "refactor", "clean up", "make faster" (no behavior change) | `.factory/workflows/REFACTORING.md` | Affected code + tests → `engineering/ARCHITECTURE.md` |
-| **Code review** | "review", "check", "audit" | `.factory/workflows/CODE_REVIEW.md` | Spec/design for the target → code → `engineering/SECURITY_AND_PRIVACY.md` |
+| **Code review** | "review", "check", "audit" | `.factory/workflows/CODE_REVIEW.md`; security focus `.factory/workflows/SECURITY_REVIEW.md`; observability focus `.factory/workflows/OBSERVABILITY_REVIEW.md` | Spec/design for the target → code → `engineering/SECURITY_AND_PRIVACY.md` |
 | **Resume** | "continue", "where were we", "next" | `.factory/workflows/RESUME_WORK.md`, then the task's own workflow | `tasks/STATUS.md` → active task file → its spec/design |
 | **New project** | "start a new project" (not this one) | `.factory/workflows/NEW_PROJECT.md` | `.factory/` only |
 | **Investigation** | "why does…", "how does X work" | Lightweight protocol (`factory-router` skill) | Code, tests, relevant `engineering/` section |

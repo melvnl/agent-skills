@@ -1,6 +1,6 @@
 ---
 name: factory-router
-description: Classifies any engineering request in a repository that uses the .factory Software Factory (feature, bug, refactor, review, resume, new project, investigation, architecture, docs, question), sizes it, and routes it to the right workflow and approval gates. The entry point for spec-driven development. Use at the start of every development request in such a repository, even when no workflow or file is named. Shortcut: /factory-router <request>.
+description: Classifies any engineering request in a repository that uses the .factory Software Factory (feature, bug, refactor, review, resume, PRD, migration, incident, new project, investigation, architecture, docs, question), sizes it, and routes it to the right workflow and approval gates. The entry point for spec-driven development. Use at the start of every development request in such a repository, even when no workflow or file is named. Shortcut: /factory-router <request>.
 ---
 
 # Factory Router
@@ -17,10 +17,13 @@ Choose exactly one primary type per unit of work, based on what the user wants a
 
 | Type | Outcome the user wants | Route |
 |---|---|---|
-| FEATURE | New or extended user-visible capability | `.factory/workflows/NEW_FEATURE.md` |
+| FEATURE | New or extended user-visible capability | `.factory/workflows/NEW_FEATURE.md` (+ `.factory/workflows/FINTECH_FEATURE.md` overlay when it changes financial decisions or data) |
+| PRD | Build from a large requirements document | `.factory/workflows/PRD_TO_IMPLEMENTATION.md` → `NEW_FEATURE` per feature |
 | BUG | Actual behavior ≠ specified/expected behavior | Investigate → `.factory/workflows/BUG_FIX.md` if confirmed |
+| INCIDENT | Production is broken, degraded, wrong, or exposing data **now** | `.factory/workflows/PRODUCTION_INCIDENT.md` (mitigation by humans first), then `BUG_FIX` |
+| MIGRATION | Schema change, data migration, or backfill on shared data | `.factory/workflows/DATABASE_MIGRATION.md` |
 | REFACTOR | Better internals, same observable behavior | `.factory/workflows/REFACTORING.md` |
-| REVIEW | An assessment of existing code or a change | `.factory/workflows/CODE_REVIEW.md` |
+| REVIEW | An assessment of existing code or a change | `.factory/workflows/CODE_REVIEW.md`; security focus → `.factory/workflows/SECURITY_REVIEW.md`; observability focus → `.factory/workflows/OBSERVABILITY_REVIEW.md` |
 | RESUME | Continue previous or unfinished work | `.factory/workflows/RESUME_WORK.md` → the task's own workflow |
 | NEW_PROJECT | Bootstrap a different project | `.factory/workflows/NEW_PROJECT.md` |
 | INVESTIGATE | Understand how or why something behaves | § 4.1 (lightweight) |
@@ -33,6 +36,9 @@ Disambiguation rules:
 - "X is wrong": INVESTIGATE first. If the code violates the spec, it is a BUG. If the code matches the spec but the spec is wrong, it is DOCS, a requirement change that needs approval, then a FEATURE or BUG for the code.
 - "Continue X": RESUME scoped to X, even if X is a feature.
 - "Should we…": ARCHITECTURE. Never implement on the back of a question.
+- "Production is down / customers see errors / data looks wrong in prod": INCIDENT first, even if it is also a bug. Stabilize, then fix.
+- "Implement this PRD / build from this spec document": PRD, when the document spans several features; a single small feature is FEATURE.
+- A FEATURE or BUG that needs a schema change runs `DATABASE_MIGRATION` for that part.
 - Composite requests: split into units, order them (blocking bugs → refactors → features → docs), route each, and report per unit.
 
 If a routed workflow file is missing: look for an equivalent in `.factory/workflows/`. If there is none, tell the user about the gap, use the closest documented process explicitly, and recommend adding the workflow. Never improvise a process silently.

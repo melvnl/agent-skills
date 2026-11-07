@@ -5,7 +5,7 @@ A reusable, **project-agnostic**, spec-driven engineering process for humans and
 | Directory | Contents | Use |
 |---|---|---|
 | `core/` | `PRINCIPLES`, `ENGINEERING_STANDARDS`, `CODING_STANDARDS`, `TESTING_STANDARDS`, `DEFINITION_OF_DONE`, `AGENT_BEHAVIOR` | Always-on rules |
-| `workflows/` | `NEW_PROJECT`, `NEW_FEATURE`, `BUG_FIX`, `REFACTORING`, `CODE_REVIEW`, `RESUME_WORK` | Step-by-step procedures with gates and approvals |
+| `workflows/` | `NEW_PROJECT`, `NEW_FEATURE` (+ `FINTECH_FEATURE` overlay), `PRD_TO_IMPLEMENTATION`, `BUG_FIX`, `PRODUCTION_INCIDENT`, `DATABASE_MIGRATION`, `REFACTORING`, `CODE_REVIEW`, `SECURITY_REVIEW`, `OBSERVABILITY_REVIEW`, `RESUME_WORK` | Step-by-step procedures with entry and exit conditions, gates, and approvals |
 | `templates/` | `PROJECT_BRIEF`, `PRD`, `FEATURE_SPEC`, `TECHNICAL_DESIGN`, `TASK_BREAKDOWN`, `ARCHITECTURE_DECISION_RECORD`, `IMPLEMENTATION_REPORT` | Starting points for project documents |
 
 ## Adopting in a new project
@@ -15,7 +15,7 @@ A reusable, **project-agnostic**, spec-driven engineering process for humans and
 3. Declare the concrete stack, commands, and conventions in project docs — not here.
 4. Optional: copy the companion `factory-router` Claude Code skill (`.claude/skills/factory-router/`), which is also project-agnostic. It classifies plain-language requests and routes them to these workflows. The project's `CLAUDE.md` remains the entry point and supplies project paths.
 
-Shortcut: the `factory-init` Claude Code skill (`.claude/skills/factory-init/`) automates steps 1–4 for an existing or empty repository. It bundles this directory and `factory-router`, inspects the stack, populates project docs from evidence, creates or merges `CLAUDE.md`, never overwrites existing files without approval, and verifies files and cross-references (`.claude/skills/factory-init/scripts/verify_factory.sh`).
+Shortcut: the `factory-init` Claude Code skill automates steps 1–4 for an existing or empty repository. It bundles this directory and `factory-router`, inspects the stack, populates project docs from evidence, creates or merges `CLAUDE.md`, never overwrites existing files without approval, and verifies files and cross-references with its `verify_factory.sh` script. When the skills come from an installed plugin, copying `factory-router` into the project is optional.
 
 ## Coverage gaps
 
