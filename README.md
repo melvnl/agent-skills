@@ -1,9 +1,5 @@
 # melvin-skills
 
-<p align="center">
-  <img src="docs/assets/agent-skills-banner.svg" alt="melvin-skills: the engineering lifecycle from define to ship, powered by spec-driven-engineering, python-backend, observability, application-security, fintech-engineering and technical-writing plugins on top of engineering-guardrails" width="100%">
-</p>
-
 **Portable engineering capabilities for Claude Code: spec-driven workflows, backend and fintech expertise, observability by default, and deterministic guardrails.**
 
 Skills encode *how* senior engineers do the work, agents define *who* does it and with what authority, hooks enforce *what is allowed*, and Software Factory workflows decide *in what order*, with human approval at every gate. Everything is packaged as Claude Code plugins in one marketplace, so each project installs only the profiles it needs.
