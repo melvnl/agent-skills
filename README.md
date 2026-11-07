@@ -68,7 +68,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 
 ### melvin-guardrails
 
-Requires `python3` 3.8+. Configured per project in `.claude/guardrails.json` (see the plugin README).
+18 deterministic hooks (Python 3.8+ stdlib, unit-tested): protected secrets files, destructive commands (parsed, not substring-matched), secret formats, hard-coded credentials, sensitive data in log calls, log schema, correlation on SQS/SNS calls, financial-core and production-config and committed-migration protection, a financial test gate on commits, migration safety feedback, a local redacted audit trail, opt-in format/lint/typecheck/verify, and Software Factory session context. Configured per project in `.claude/guardrails.json`; full table in the [plugin README](plugins/guardrails/README.md).
 
 ### melvin-observability
 
@@ -95,28 +95,56 @@ Requires `python3` 3.8+. Configured per project in `.claude/guardrails.json` (se
 
 ## Install
 
+With the CLI (wraps `claude plugin` commands; dependencies install automatically):
+
 ```bash
-claude plugin marketplace add /path/to/agent-skills     # or the GitHub repo once pushed
-claude plugin install melvin-engineering@melvin-skills
-claude plugin install melvin-writing@melvin-skills
+scripts/agent-skills profiles                                  # core, writing, observability, backend, security, fintech, guardrails, all
+scripts/agent-skills install --profile fintech --profile guardrails
+scripts/agent-skills install --profile writing --scope project # per-project: writes the project's .claude/settings.json
+scripts/agent-skills doctor
 ```
 
-To pick up changes: bump `version` in the plugin's `.claude-plugin/plugin.json`, then run `claude plugin marketplace update melvin-skills` and `claude plugin update <plugin>@melvin-skills`.
+New machine: `scripts/bootstrap.sh --repo <git-url> --profile core --profile guardrails` clones the repo, installs, and runs `doctor`.
+
+Manually: `claude plugin marketplace add <path-or-repo>`, then `claude plugin install melvin-<profile>@melvin-skills`.
+
+**Updating.** From a local checkout, plugins are read from their folders: edits apply at the next session start or `/reload-plugins`, no version bump needed. For a marketplace added from GitHub, bump the plugin's `version` and run `scripts/agent-skills update`. See [docs/release-strategy.md](docs/release-strategy.md).
+
+## Workflows
+
+Gated engineering processes are Software Factory workflows, installed into a project by `factory-init` and routed by `factory-router`: `NEW_FEATURE` (+ `FINTECH_FEATURE` overlay), `PRD_TO_IMPLEMENTATION`, `BUG_FIX`, `PRODUCTION_INCIDENT`, `DATABASE_MIGRATION`, `REFACTORING`, `CODE_REVIEW`, `SECURITY_REVIEW`, `OBSERVABILITY_REVIEW`, `RESUME_WORK`, `NEW_PROJECT`. Sources: `plugins/engineering/skills/factory-init/assets/factory/workflows/`.
 
 ## Layout
 
 ```
-.claude-plugin/marketplace.json   the marketplace: one entry per plugin
+.claude-plugin/marketplace.json      the marketplace: one entry per plugin
 plugins/<profile>/
-  .claude-plugin/plugin.json      plugin manifest (name, version, dependencies)
-  README.md                       what the plugin contains
-  skills/<skill>/SKILL.md         skills (+ references/, scripts/, assets/ as needed)
-scripts/validate.py               lint marketplace, plugins, skills, links
-docs/skill-anatomy.md             how a skill is written here
+  .claude-plugin/plugin.json         manifest (name, version, dependencies, userConfig)
+  README.md                          what the plugin contains
+  skills/<skill>/SKILL.md            skills (+ references/, scripts/, assets/)
+  agents/<agent>.md                  specialist subagents
+  evals/<suite>/<case>/              native `claude plugin eval` cases (results/ git-ignored)
+plugins/guardrails/                  hooks.json, pre-tool-use/, post-tool-use/, stop/, session/, lib/, tests/
+scripts/
+  validate.py                        marketplace, skills, agents, hooks, evals, links
+  agent-skills                       install / update / doctor / validate CLI
+  bootstrap.sh                       new-machine setup
+  profiles.json                      profile -> plugins
+docs/                                architecture and conventions (below)
 ```
 
-## Contributing
+## Documentation
 
-1. Read [docs/skill-anatomy.md](docs/skill-anatomy.md).
-2. Add the skill under `plugins/<profile>/skills/`, then link it from this README and the plugin's README.
-3. Run `python3 scripts/validate.py` until it reports `0 FAIL`, and `claude plugin validate plugins/<profile>`.
+- [docs/architecture.md](docs/architecture.md): capability types, distribution model, workflows, state, evals, installation layers
+- [docs/skill-anatomy.md](docs/skill-anatomy.md), [docs/agent-anatomy.md](docs/agent-anatomy.md), [docs/hook-anatomy.md](docs/hook-anatomy.md): how each component is written
+- [docs/adoption-guide.md](docs/adoption-guide.md): using the profiles in real projects
+- [docs/contribution-guide.md](docs/contribution-guide.md): adding or changing components
+- [docs/release-strategy.md](docs/release-strategy.md): versions, updates, tags
+
+## Checks
+
+```bash
+scripts/agent-skills validate                    # validator + hook tests + trace_check tests
+claude plugin validate . && claude plugin validate plugins/<profile>
+claude plugin eval plugins/<profile> --runs 1    # model-graded evals: costs usage; run deliberately
+```
