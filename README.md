@@ -24,6 +24,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[requirement-traceability](plugins/engineering/skills/requirement-traceability/SKILL.md)**: Keeps the requirement → feature → AC → task → code → test chain intact, with a deterministic checker for untraced or dangling ids.
 - **[planning-and-task-breakdown](plugins/engineering/skills/planning-and-task-breakdown/SKILL.md)**: Breaks an approved spec into small, ordered, verifiable tasks with AC coverage, test and instrumentation requirements, and done-when conditions.
 - **[loop-engineering](plugins/engineering/skills/loop-engineering/SKILL.md)**: Runs each task as a closed loop (implement, instrument, test, diagnose, fix, verify, checkpoint) with explicit stop conditions and persisted state.
+- **[context-engineering](plugins/engineering/skills/context-engineering/SKILL.md)**: Keeps the context window focused: targeted reading, bounded output, state in files, chunked large documents, subagent exploration, compaction-proof handoffs.
 
 ### melvin-observability
 

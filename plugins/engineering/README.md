@@ -22,3 +22,4 @@ Spec-driven engineering core: the Software Factory and the skills for turning re
 ### Engineering execution
 
 - **[loop-engineering](skills/loop-engineering/SKILL.md)**: Runs each task as a closed loop (implement, instrument, test, diagnose, fix, verify, checkpoint) with explicit stop conditions and persisted state.
+- **[context-engineering](skills/context-engineering/SKILL.md)**: Keeps the context window focused: targeted reading, bounded output, state in files, chunked large documents, subagent exploration, compaction-proof handoffs.
