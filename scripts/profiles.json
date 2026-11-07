@@ -1,0 +1,11 @@
+{
+  "core": ["melvin-engineering"],
+  "writing": ["melvin-writing"],
+  "observability": ["melvin-observability"],
+  "backend": ["melvin-backend"],
+  "security": ["melvin-security"],
+  "fintech": ["melvin-fintech"],
+  "guardrails": ["melvin-guardrails"],
+  "all": ["melvin-engineering", "melvin-writing", "melvin-observability", "melvin-backend", "melvin-security",
+          "melvin-fintech", "melvin-guardrails"]
+}
