@@ -8,6 +8,7 @@ Depends on `melvin-backend`, `melvin-observability`, and `melvin-security` (inst
 
 - **[financial-data-integrity](skills/financial-data-integrity/SKILL.md)**: Invariants enforced and checked, immutable history, duplicate prevention, cross-service reconciliation, evidence-validated migrations.
 - **[credit-scoring-and-eligibility](skills/credit-scoring-and-eligibility/SKILL.md)**: Consistent, versioned, explainable decisions: one policy source, deterministic evaluation, immutable decision records, owner-defined fallbacks, golden and parity tests.
+- **[risk-decision-engineering](skills/risk-decision-engineering/SKILL.md)**: Rule engines and decision tables: explicit precedence, exact thresholds and missing values, gap/overlap validation, immutable versions, traced deterministic evaluation.
 
 ## Extension catalog (not implemented)
 
