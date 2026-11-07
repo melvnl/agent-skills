@@ -1,0 +1,9 @@
+{
+  "name": "melvin-guardrails",
+  "version": "0.1.0",
+  "description": "Deterministic guardrail hooks: protected files, destructive commands, secrets, sensitive logging, financial core and migration protection, post-edit checks, verification before stop, session context.",
+  "author": { "name": "Melvin" },
+  "license": "MIT",
+  "keywords": ["hooks", "guardrails", "security", "secrets"],
+  "hooks": "./hooks.json"
+}

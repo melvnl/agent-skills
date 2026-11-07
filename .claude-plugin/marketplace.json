@@ -31,6 +31,12 @@
       "category": "development"
     },
     {
+      "name": "melvin-guardrails",
+      "source": "./plugins/guardrails",
+      "description": "Deterministic guardrail hooks: protected files, destructive commands, secrets, sensitive logging, financial and migration protection.",
+      "category": "security"
+    },
+    {
       "name": "melvin-observability",
       "source": "./plugins/observability",
       "description": "Structured logging, correlation and tracing, PII-safe logging, observability review.",

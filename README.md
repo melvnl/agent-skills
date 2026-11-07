@@ -13,6 +13,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 | [melvin-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
 | [melvin-backend](plugins/backend/README.md) | Python, Django, FastAPI, APIs, databases, MySQL, Redis, messaging, performance |
 | [melvin-fintech](plugins/fintech/README.md) | Credit scoring, eligibility, risk decisioning: integrity, money, auditability, reliability |
+| [melvin-guardrails](plugins/guardrails/README.md) | Deterministic hooks: protected files, destructive commands, secrets, sensitive logging |
 | [melvin-observability](plugins/observability/README.md) | Structured logging, correlation, PII-safe logging, observability review |
 | [melvin-security](plugins/security/README.md) | Backend application security: authz, injection, SSRF, webhooks, secrets |
 | [melvin-writing](plugins/writing/README.md) | Engineering blog pipeline |
@@ -64,6 +65,10 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[money-and-decimal-arithmetic](plugins/fintech/skills/money-and-decimal-arithmetic/SKILL.md)**: Exact money: Decimal from strings, amount plus currency, explicit policy rounding, total-preserving allocation, DECIMAL storage, string serialization.
 - **[fintech-domain-reviewer](plugins/fintech/agents/fintech-domain-reviewer.md)** (agent): Read-only check that decision logic implements the approved credit and risk policy: thresholds, precedence, fallbacks, reasons, versions, authority.
 - **[financial-invariant-reviewer](plugins/fintech/agents/financial-invariant-reviewer.md)** (agent): Read-only check of exact arithmetic, duplicates, concurrency, immutable history, atomic audit records, migration evidence and cross-service consistency.
+
+### melvin-guardrails
+
+Requires `python3` 3.8+. Configured per project in `.claude/guardrails.json` (see the plugin README).
 
 ### melvin-observability
 
