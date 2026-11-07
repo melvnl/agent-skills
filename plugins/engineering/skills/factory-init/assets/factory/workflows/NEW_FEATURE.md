@@ -6,6 +6,12 @@
 
 Turn a feature request into working, tested, documented software through explicit specification, design, and incremental implementation.
 
+## Entry conditions
+
+- The request is classified as a new or extended capability (not a bug, refactor, or question).
+- No existing spec already covers it (otherwise extend that spec).
+- For features built from a large requirements document, `PRD_TO_IMPLEMENTATION.md` runs first and hands off here per feature.
+
 ## Inputs
 
 - The feature request (from a human, roadmap item, or feature catalog entry).
@@ -38,12 +44,12 @@ flowchart TD
 3. **Produce or update the feature specification.** Fill `FEATURE_SPEC.md`: problem, goals, non-goals, user stories, functional/non-functional requirements (with IDs), edge cases, dependencies, open questions.
 4. **Define acceptance criteria.** Given/When/Then, each mapped to requirement IDs and to a planned verification (unit/integration/E2E/manual).
    - 🔒 **Gate: spec approval** — human approves the spec before design is finalized when the feature changes product behavior.
-5. **Produce the technical design.** Fill `TECHNICAL_DESIGN.md`: architecture, components, data model changes, contracts, data flows, error handling, security, testing strategy, trade-offs. Write an ADR for significant decisions.
-6. **Break down into tasks.** Fill `TASK_BREAKDOWN.md`. Each task is small (≈ ≤ half a day), independently verifiable, and keeps the build green. Order: data/domain → services → UI → E2E.
-7. **Implement incrementally.** For each task: write/extend tests → implement → run relevant tests → update task status. Do not start the next task with a red build.
+5. **Produce the technical design.** Fill `TECHNICAL_DESIGN.md`: architecture, components, data model changes, contracts, data flows, failure scenarios, the **observability plan**, security, testing strategy, trade-offs. Write an ADR for significant decisions. Business fallbacks in the failure scenarios need owner approval.
+6. **Break down into tasks.** Fill `TASK_BREAKDOWN.md`. Each task is small (≈ ≤ half a day), independently verifiable, and keeps the build green. Start with a thin end-to-end slice; then add vertical slices. Each task names its tests and its share of the observability plan.
+7. **Implement incrementally, as a loop per task:** select → load only the needed context → write the failing test → implement → add the instrumentation assigned to the task → run targeted tests → on failure, diagnose before fixing → verify against the task's done-when → checkpoint (task status, `tasks/STATUS.md` next action and last verification). Do not start the next task with a red build. **Stop and report** after three failed fixes on the same hypothesis, two iterations without progress, or when a fix would change the spec, contracts, or data model.
 8. **Run automated verification.** Run all quality gates (`TESTING_STANDARDS.md` § 10). Record actual results.
-9. **Perform code review** per `CODE_REVIEW.md` (self-review first for agents, then human).
-10. **Produce the implementation report** and update docs: spec/design to match reality, feature catalog status, data model/contracts/ADRs if changed, project status.
+9. **Perform independent review** per `CODE_REVIEW.md`: a self-review first, then review and verification by someone other than the implementer (another agent role or a human). Add specialist reviews where the change warrants them: `OBSERVABILITY_REVIEW.md` for backend changes, `SECURITY_REVIEW.md` for endpoints, integrations, and auth, and the `FINTECH_FEATURE.md` overlay gates for financial decision logic.
+10. **Produce the implementation report** (including its *Instrumentation* section) and update docs: spec/design to match reality, feature catalog status, data model/contracts/ADRs if changed, project status.
 
 ## Quality gates
 
@@ -52,7 +58,12 @@ flowchart TD
 | Spec ready | Every requirement is testable; every acceptance criterion maps to a verification method; open questions are non-blocking or resolved. |
 | Design ready | Every functional requirement is addressed by a component; data model and contract changes are explicit; security impact assessed. |
 | Increment done | Tests for the increment pass; lint/type-check pass. |
-| Feature done | `DEFINITION_OF_DONE.md` fully satisfied. |
+| Feature done | `DEFINITION_OF_DONE.md` fully satisfied; reviews by someone other than the implementer recorded. |
+
+## Exit conditions
+
+- Feature done gate passed, implementation report written, and status files updated; **or**
+- Work stopped at a gate or stop condition, with the reason, the state, and the next action recorded in `tasks/STATUS.md`.
 
 ## Human approval required
 
