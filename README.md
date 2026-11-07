@@ -37,6 +37,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[fastapi-engineering](plugins/backend/skills/fastapi-engineering/SKILL.md)**: Version-correct FastAPI/Pydantic: sync vs async endpoints, auth and session dependencies, leak-proof response models, safe errors, lifespan, durable work on queues.
 - **[api-design](plugins/backend/skills/api-design/SKILL.md)**: HTTP contracts: status semantics, a stable error model, idempotency keys, pagination, money and time formats, compatible evolution, contract tests.
 - **[database-design](plugins/backend/skills/database-design/SKILL.md)**: Schemas from the domain: ownership, keys, database-enforced invariants, history snapshots, exact money and UTC time, query-derived indexes.
+- **[database-migrations](plugins/backend/skills/database-migrations/SKILL.md)**: Deploy-compatible migrations: expand-migrate-contract, non-blocking DDL on large MySQL tables, resumable backfills, generated-SQL review, rehearsal and rollback plans.
 
 ### melvin-observability
 
