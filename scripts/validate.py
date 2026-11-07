@@ -17,6 +17,9 @@ Checks
                reference resolves to a skill or agent in that plugin, and the agent is linked from README.md and its plugin README.
   hooks        a plugin's hooks file (manifest "hooks") parses; every registered script exists under the
                plugin; every hook script is registered; each has tests/test_<name>.py and a README entry.
+  evals        plugins/<plugin>/evals/**/prompt.md (native `claude plugin eval` format): frontmatter keys
+               are allowed ones, each case has graders/*.md with a known type and that type's options,
+               and `tool_used` Skill graders name a skill that exists in the plugin.
   sync         bundled copies stay byte-identical to their source.
 
 Usage: python3 scripts/validate.py [-q]     (-q prints only WARN/FAIL lines and the summary)
@@ -281,6 +284,53 @@ def check_hooks(plugins):
                     report("OK", rel(script))
 
 
+PROMPT_KEYS = {"schema_version", "name", "description", "tags", "plugins", "runs", "expected_outcome", "model",
+               "max_turns", "timeout_seconds", "allowed_tools", "append_system_prompt", "env"}
+GRADER_KEYS = {"type", "weight", "arm"}
+GRADER_TYPES = {"regex": {"pattern", "flags", "match", "target"}, "tool_used": {"tool", "input_match", "min", "max"},
+                "tool_order": {"before", "after"}, "file_exists": {"path", "exists"}, "llm": {"criteria", "focus"},
+                "baseline": {"baseline_file", "criteria"}}
+
+
+def check_evals(plugins):
+    for name, (pdir, _) in sorted(plugins.items()):
+        skills = {d.name for d in (pdir / "skills").glob("*") if (d / "SKILL.md").exists()}
+        for prompt in sorted((pdir / "evals").glob("**/prompt.md")):
+            if "results" in prompt.relative_to(pdir / "evals").parts:
+                continue
+            ok = True
+            fm, err = parse_frontmatter(prompt)
+            if err:
+                report("FAIL", f"{rel(prompt)}: {err}"); continue
+            unknown = set(fm) - PROMPT_KEYS
+            if unknown:
+                report("FAIL", f"{rel(prompt)}: unknown prompt.md keys {sorted(unknown)}"); ok = False
+            body = prompt.read_text(encoding="utf-8").split("---", 2)[-1].strip()
+            if not body:
+                report("FAIL", f"{rel(prompt)}: empty prompt body"); ok = False
+            graders = sorted((prompt.parent / "graders").glob("*.md"))
+            if not graders:
+                report("FAIL", f"{rel(prompt)}: case has no graders/*.md"); ok = False
+            for g in graders:
+                gfm, gerr = parse_frontmatter(g)
+                if gerr:
+                    report("FAIL", f"{rel(g)}: {gerr}"); ok = False; continue
+                gtype = gfm.get("type")
+                if gtype not in GRADER_TYPES:
+                    report("FAIL", f"{rel(g)}: unknown grader type {gtype!r}"); ok = False; continue
+                bad = set(gfm) - GRADER_KEYS - GRADER_TYPES[gtype]
+                if bad:
+                    report("FAIL", f"{rel(g)}: keys {sorted(bad)} not valid for type {gtype}"); ok = False
+                if gtype == "llm" and not g.read_text(encoding="utf-8").split("---", 2)[-1].strip():
+                    report("FAIL", f"{rel(g)}: llm grader has no rubric body"); ok = False
+                if gtype == "tool_used" and gfm.get("tool") == "Skill":
+                    named = set(re.findall(r"[a-z0-9]+(?:-[a-z0-9]+)+", str(gfm.get("input_match", ""))))
+                    if not named & skills:
+                        report("FAIL", f"{rel(g)}: Skill grader names no skill of {name}"); ok = False
+            if ok:
+                report("OK", rel(prompt))
+
+
 def check_sync():
     for src, copy in SYNCED_COPIES:
         a, b = ROOT / src, ROOT / copy
@@ -295,6 +345,7 @@ def main():
     check_skills(plugins)
     check_agents(plugins)
     check_hooks(plugins)
+    check_evals(plugins)
     check_sync()
     print(f"summary: {counts['FAIL']} FAIL, {counts['WARN']} WARN, {counts['OK']} OK")
     return 1 if counts["FAIL"] else 0
