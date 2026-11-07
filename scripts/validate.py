@@ -13,8 +13,8 @@ Checks
                inside the skill's directory (other skills are referenced by name).
   agents       plugins/<plugin>/agents/<name>.md: frontmatter name equals the filename and is unique,
                description present, required sections present, read-only agents (disallowedTools
-               containing Write and Edit) don't list Write/Edit in tools, every `melvin-x:skill`
-               named exists, and the agent is linked from README.md and its plugin README.
+               containing Write and Edit) don't list Write/Edit in tools, every `melvin-x:name`
+               reference resolves to a skill or agent in that plugin, and the agent is linked from README.md and its plugin README.
   sync         bundled copies stay byte-identical to their source.
 
 Usage: python3 scripts/validate.py [-q]     (-q prints only WARN/FAIL lines and the summary)
@@ -201,6 +201,8 @@ def split_tools(value):
 def check_agents(plugins):
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     skills = {(name, d.name) for name, (pdir, _) in plugins.items() for d in (pdir / "skills").glob("*") if (d / "SKILL.md").exists()}
+    agents = {(name, a.stem) for name, (pdir, _) in plugins.items() for a in (pdir / "agents").glob("*.md")}
+    components = skills | agents
     seen = {}
     for name, (pdir, _) in sorted(plugins.items()):
         preadme_path = pdir / "README.md"
@@ -227,9 +229,9 @@ def check_agents(plugins):
             for section in AGENT_SECTIONS:
                 if not re.search(rf"^## {re.escape(section)}\b", body, re.M):
                     report("FAIL", f"{rel(agent)}: missing section '## {section}'"); ok = False
-            for plugin_name, skill in SKILL_REF.findall(body):
-                if (plugin_name, skill) not in skills:
-                    report("FAIL", f"{rel(agent)}: references unknown skill {plugin_name}:{skill}"); ok = False
+            for plugin_name, ref in SKILL_REF.findall(body):
+                if (plugin_name, ref) not in components:
+                    report("FAIL", f"{rel(agent)}: references unknown skill or agent {plugin_name}:{ref}"); ok = False
             if f"({rel(agent)})" not in readme:
                 report("FAIL", f"README.md does not link {rel(agent)}"); ok = False
             if f"(agents/{agent.name})" not in preadme:
