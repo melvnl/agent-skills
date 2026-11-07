@@ -20,8 +20,8 @@ Checks
   evals        plugins/<plugin>/evals/**/prompt.md (native `claude plugin eval` format): frontmatter keys
                are allowed ones, each case has graders/*.md with a known type and that type's options,
                and `tool_used` Skill graders name a skill that exists in the plugin.
-  counts       the skill, agent and hook counts shown in the README banner and "What's inside" table
-               match the repository.
+  counts       skill, agent and hook counts in the "What's inside" table (and in the README banner,
+               when it shows them) match the repository.
   sync         bundled copies stay byte-identical to their source.
 
 Usage: python3 scripts/validate.py [-q]     (-q prints only WARN/FAIL lines and the summary)
@@ -351,8 +351,8 @@ def check_counts(plugins):
         for kind, n in actual.items():
             m = re.search(r">(\d+)</text>\s*<text[^>]*>%s<" % kind, svg)
             if not m:
-                report("FAIL", f"{BANNER}: no count found for {kind}")
-            elif int(m.group(1)) != n:
+                continue  # the banner doesn't show this count
+            if int(m.group(1)) != n:
                 report("FAIL", f"{BANNER}: shows {m.group(1)} {kind}, repository has {n}")
             else:
                 report("OK", f"banner {kind} = {n}")
