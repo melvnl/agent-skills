@@ -35,6 +35,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[product-requirements-analyst](plugins/engineering/agents/product-requirements-analyst.md)** (agent): Turns PRDs into analyzed, decomposed, traceable draft specs with owner questions; writes requirement documents only.
 - **[solution-architect](plugins/engineering/agents/solution-architect.md)** (agent): Designs approved specs within the existing architecture: contracts, data, integration failure handling, observability plan, trade-offs, ADRs; writes designs only.
 - **[qa-engineer](plugins/engineering/agents/qa-engineer.md)** (agent): Independent, read-only verification: gates and regressions run, every acceptance criterion checked against evidence, risk matrix, blast radius, traceability.
+- **[code-reviewer](plugins/engineering/agents/code-reviewer.md)** (agent): Read-only review of a diff against its spec and the factory checklist: correctness, conformance both ways, architecture, maintainability, tests, compatibility.
 
 ### melvin-backend
 

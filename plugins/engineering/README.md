@@ -33,3 +33,4 @@ Spec-driven engineering core: the Software Factory and the skills for turning re
 - **[product-requirements-analyst](agents/product-requirements-analyst.md)**: Turns PRDs into analyzed, decomposed, traceable draft specs with owner questions; writes requirement documents only.
 - **[solution-architect](agents/solution-architect.md)**: Designs approved specs within the existing architecture: contracts, data, integration failure handling, observability plan, trade-offs, ADRs; writes designs only.
 - **[qa-engineer](agents/qa-engineer.md)**: Independent, read-only verification: gates and regressions run, every acceptance criterion checked against evidence, risk matrix, blast radius, traceability.
+- **[code-reviewer](agents/code-reviewer.md)**: Read-only review of a diff against its spec and the factory checklist: correctness, conformance both ways, architecture, maintainability, tests, compatibility.
