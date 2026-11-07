@@ -1,0 +1,8 @@
+{
+  "name": "melvin-security",
+  "version": "0.1.0",
+  "description": "Backend application security: authentication and object-level authorization, injection, SSRF, webhook verification, secrets, abuse controls.",
+  "author": { "name": "Melvin" },
+  "license": "MIT",
+  "keywords": ["security", "authorization", "webhooks", "ssrf"]
+}

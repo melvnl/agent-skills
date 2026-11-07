@@ -13,6 +13,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 | [melvin-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
 | [melvin-backend](plugins/backend/README.md) | Python, Django, FastAPI, APIs, databases, MySQL, Redis, messaging, performance |
 | [melvin-observability](plugins/observability/README.md) | Structured logging, correlation, PII-safe logging, observability review |
+| [melvin-security](plugins/security/README.md) | Backend application security: authz, injection, SSRF, webhooks, secrets |
 | [melvin-writing](plugins/writing/README.md) | Engineering blog pipeline |
 
 ### melvin-engineering
@@ -51,6 +52,10 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[logging-security-and-redaction](plugins/observability/skills/logging-security-and-redaction/SKILL.md)**: Keeps secrets, PII and customer financial data out of logs through allowlisted fields, masking or keyed pseudonyms.
 - **[observability-engineering](plugins/observability/skills/observability-engineering/SKILL.md)**: Designs logs, metrics and traces for a feature: health and dependency signals, cardinality, SLO-based alerting, the observability plan.
 - **[observability-code-review](plugins/observability/skills/observability-code-review/SKILL.md)**: Reviews a backend diff for observability gaps and over-instrumentation, correlation loss, wrong severity, sensitive data, unbounded labels.
+
+### melvin-security
+
+- **[backend-security](plugins/security/skills/backend-security/SKILL.md)**: Authn and object-level authz (IDOR), mass assignment, injection, SSRF, webhook and callback verification, secrets, deserialization, abuse controls; each with an attack test.
 
 ### melvin-writing
 

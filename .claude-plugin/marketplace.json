@@ -29,6 +29,12 @@
       "source": "./plugins/observability",
       "description": "Structured logging, correlation and tracing, PII-safe logging, observability review.",
       "category": "development"
+    },
+    {
+      "name": "melvin-security",
+      "source": "./plugins/security",
+      "description": "Backend application security: authz and IDOR, injection, SSRF, webhook verification, secrets.",
+      "category": "security"
     }
   ]
 }
