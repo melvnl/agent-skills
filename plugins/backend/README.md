@@ -17,3 +17,7 @@ Depends on `melvin-engineering` and `melvin-observability` (installed automatica
 - **[distributed-systems](skills/distributed-systems/SKILL.md)**: Partial-failure-safe interactions: timeouts, bounded jittered retries, unknown-outcome handling, idempotent consumers, outbox not dual writes, sagas, breakers, parity migrations.
 - **[async-messaging](skills/async-messaging/SKILL.md)**: Reliable SQS/SNS: standard vs FIFO, versioned envelopes, idempotent consumers, visibility timeouts, delete-after-success, DLQs, compatible schema evolution.
 - **[performance-engineering](skills/performance-engineering/SKILL.md)**: Measurement-driven performance: a percentile target, realistic reproduction, profiling to the real bottleneck, highest-leverage fix, same-conditions before/after.
+
+## Agents
+
+- **[backend-engineer](agents/backend-engineer.md)**: Implements one approved task at a time test-first, instrumented, within scope; reports verified results; never approves its own work.
