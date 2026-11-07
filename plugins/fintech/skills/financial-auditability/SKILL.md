@@ -1,6 +1,6 @@
 ---
 name: financial-auditability
-description: Makes financially relevant actions and decisions reconstructable: durable, append-only audit records (separate from diagnostic logs) written atomically with the change, capturing actor, service, action, object, reason, versions and before/after state, with integrity protection, retention, restricted access, and as-of reconstruction of decisions and active policies. Use when implementing decisions, overrides, limit or policy changes, privileged access, or any change that auditors, regulators or customers may question later.
+description: Makes financially relevant actions and decisions reconstructable with append-only audit records, separate from diagnostic logs, written atomically with the change and capturing actor, action, object, reason, versions and before/after state, with integrity protection, retention, restricted access and as-of reconstruction. Use for decisions, overrides, limit or policy changes, and privileged access.
 ---
 
 # Financial Auditability
