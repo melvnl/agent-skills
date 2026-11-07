@@ -18,6 +18,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 
 - **[factory-init](plugins/engineering/skills/factory-init/SKILL.md)**: Installs the `.factory/` spec-driven software factory into a repo, populates project docs from evidence, and verifies it.
 - **[factory-router](plugins/engineering/skills/factory-router/SKILL.md)**: Classifies and sizes every request in a factory repo and routes it to the right workflow and approval gates.
+- **[prd-analysis](plugins/engineering/skills/prd-analysis/SKILL.md)**: Analyzes a large or AI-generated PRD: requirements with source refs, contradictions, ambiguities, duplicates, missing NFRs.
 
 ### melvin-observability
 
