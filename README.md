@@ -23,6 +23,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[acceptance-criteria-engineering](plugins/engineering/skills/acceptance-criteria-engineering/SKILL.md)**: Writes and reviews atomic, testable Given/When/Then criteria covering boundaries, permissions, state, failures, idempotency, time, money, observability and audit.
 - **[requirement-traceability](plugins/engineering/skills/requirement-traceability/SKILL.md)**: Keeps the requirement → feature → AC → task → code → test chain intact, with a deterministic checker for untraced or dangling ids.
 - **[planning-and-task-breakdown](plugins/engineering/skills/planning-and-task-breakdown/SKILL.md)**: Breaks an approved spec into small, ordered, verifiable tasks with AC coverage, test and instrumentation requirements, and done-when conditions.
+- **[loop-engineering](plugins/engineering/skills/loop-engineering/SKILL.md)**: Runs each task as a closed loop (implement, instrument, test, diagnose, fix, verify, checkpoint) with explicit stop conditions and persisted state.
 
 ### melvin-observability
 
