@@ -33,6 +33,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[git-workflow](plugins/engineering/skills/git-workflow/SKILL.md)**: Small Conventional Commits with explicit staging and reviewed diffs; no unrelated changes, secrets, history rewrites or pushes without approval.
 - **[engineering-orchestrator](plugins/engineering/agents/engineering-orchestrator.md)** (agent): Sequences Software Factory stages and gates, assigns implementation and independent reviews to specialists, keeps STATUS current; edits state docs only.
 - **[product-requirements-analyst](plugins/engineering/agents/product-requirements-analyst.md)** (agent): Turns PRDs into analyzed, decomposed, traceable draft specs with owner questions; writes requirement documents only.
+- **[solution-architect](plugins/engineering/agents/solution-architect.md)** (agent): Designs approved specs within the existing architecture: contracts, data, integration failure handling, observability plan, trade-offs, ADRs; writes designs only.
 
 ### melvin-backend
 
