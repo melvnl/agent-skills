@@ -4,7 +4,7 @@ How to add or change a component. The anatomy docs define the formats; this guid
 
 ## Before adding anything
 
-1. Search for an existing capability: skills (`plugins/*/skills/`), agents, hooks, Software Factory workflows and templates, and the Claude Code built-ins (`/code-review`, `/simplify`, `/security-review`). Prefer extending over adding a near-duplicate; [docs/IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md) (local) records why some requested skills were mapped onto existing ones.
+1. Search for an existing capability: skills (`plugins/*/skills/`), agents, hooks, Software Factory workflows and templates, and the Claude Code built-ins (`/code-review`, `/simplify`, `/security-review`). Prefer extending over adding a near-duplicate. For example, spec-driven development, technical design, ADRs, code review and refactoring are covered by the Software Factory and built-ins rather than separate skills.
 2. Pick the right type: *how* → skill; *who* → agent; *deterministic allow/deny/flag* → hook; *ordered, gated process* → factory workflow ([architecture.md](architecture.md)).
 3. Pick the plugin by profile: put a component where the projects that need it will have it installed.
 

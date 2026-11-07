@@ -12,7 +12,7 @@ How this repository is organized, how its parts fit together, and why. This is t
 | **Workflow** | *In what order*, with which gates and approvals | Software Factory: `factory-init/assets/factory/workflows/` | § Workflows |
 | **Reference** | Reusable knowledge a skill loads on demand | `<skill>/references/*.md` | linked from `SKILL.md` |
 | **Script** | Deterministic operations and checks, independent of model judgment | `<skill>/scripts/`, `scripts/` (repo tooling) | executable, documented usage |
-| **Eval** | Whether a skill or agent behaves as intended | `evals/<suite>/<case>/` | § Evaluations |
+| **Eval** | Whether a skill or agent behaves as intended | `plugins/<profile>/evals/<suite>/<case>/` | § Evaluations |
 
 The separation is strict. Judgment ("does this log earn its place?") is a skill and an agent. Pattern facts ("this logger call contains `authorization`") are hooks. Ordering and approval are workflows.
 
@@ -38,13 +38,13 @@ Arrows are `dependencies` in `plugin.json`. Installing a plugin installs what it
 
 | Plugin | Purpose | Status |
 |---|---|---|
-| melvin-engineering | Software Factory, PRD analysis, planning, loop engineering, TDD, debugging, git | Factory skills present; others planned |
-| melvin-writing | Engineering blog pipeline | Present |
-| melvin-observability | Logging, tracing, redaction, observability review | Planned |
-| melvin-backend | Python, Django, FastAPI, APIs, MySQL, Redis, messaging, performance | Planned |
-| melvin-security | Backend application security | Planned |
-| melvin-fintech | Data integrity, decisioning, auditability, reliability | Planned |
-| melvin-guardrails | Deterministic hooks | Planned |
+| melvin-engineering | Software Factory (11 workflows), PRD analysis, decomposition, acceptance criteria, traceability, planning, loop and context engineering, TDD, debugging, git | 12 skills, 5 agents, PRD eval suite |
+| melvin-writing | Engineering blog pipeline | 4 skills |
+| melvin-observability | Logging, tracing, redaction, observability design and review | 5 skills, 1 agent, observability eval suite |
+| melvin-backend | Python, Django, FastAPI, APIs, databases, migrations, MySQL, Redis, distributed systems, messaging, performance | 11 skills, 2 agents |
+| melvin-security | Backend application security | 1 skill, 1 agent, security eval suite |
+| melvin-fintech | Data integrity, money, credit scoring and eligibility, risk decisions, authorization, auditability, reliability | 7 skills, 2 agents, fintech eval suite |
+| melvin-guardrails | Deterministic hooks | 18 hooks, 92 unit tests |
 
 **Why per-directory plugins.** Install testing in an isolated config showed that several plugins sourced from the repo root each load *every* agent through the default `agents/` scan, and that explicit component path lists were not picked up. Per-directory plugins using only default directories (`skills/`, `agents/`) load exactly their own components. A consequence: installed plugins can't read files outside their own directory, so references live with the skill that uses them, not in a shared top-level folder.
 
@@ -77,10 +77,10 @@ State lives in the project, not in conversation history, using the Software Fact
 
 ## Evaluations
 
-Evals use Claude Code's native `claude plugin eval` format, run against a plugin directory:
+Evals use Claude Code's native `claude plugin eval` format, run against a plugin directory. The runner only finds cases under the plugin itself (`--eval-dir` can't leave it), so suites live in each plugin:
 
 ```
-evals/<suite>/<case>/
+plugins/<profile>/evals/<suite>/<case>/
   prompt.md            frontmatter: runs, max_turns, allowed_tools, tags; body: the user's request
   case.yaml            optional: scaffold_script / add_dirs for fixtures
   graders/<name>.md    one check per file
@@ -95,7 +95,7 @@ Each case encodes four things:
 | Forbidden behavior | `regex` with `match: not_contains`, or `tool_used` with `min: 0, max: 0` |
 | Pass/fail criteria | the grader set and weights |
 
-Suites include **negative cases**: prompts where a skill must *not* trigger, or code that is already correct and must not be flagged. They measure false positives as well as false negatives. `evals/**/results/` is git-ignored. Deterministic components (hooks, scripts) are covered by unit tests instead, which are cheaper and exact.
+Suites include **negative cases**: prompts where a skill must *not* trigger, or code that is already correct and must not be flagged. They measure false positives as well as false negatives. `plugins/*/evals/results/` is git-ignored. Deterministic components (hooks, scripts) are covered by unit tests instead, which are cheaper and exact.
 
 ## Installation layers
 

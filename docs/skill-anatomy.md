@@ -73,4 +73,4 @@ Recommended after those: `## Common rationalizations` (excuse → reality table)
 - [ ] All seven required sections present and specific to this skill
 - [ ] Linked from `README.md` and the plugin `README.md`
 - [ ] No overlap with an existing skill or Software Factory document (link instead)
-- [ ] Critical skills have eval coverage in `evals/` (see [architecture.md](architecture.md#evaluations))
+- [ ] Critical skills have eval coverage in `plugins/<profile>/evals/` (see [architecture.md](architecture.md#evaluations))
