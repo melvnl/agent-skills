@@ -1,6 +1,6 @@
 ---
 name: factory-router
-description: Classifies any engineering request in a repository that uses the .factory Software Factory (new feature, bug, refactor, review, resume/continue, new project, investigation, architecture question, documentation change, general question), sizes it, discovers only the documents it needs, and routes it to the correct .factory workflow with the right approval gates. Use at the start of every development request in such a repository, even when the user names no workflow or file. Optional shortcut: /factory-router <request>.
+description: Classifies any engineering request in a repository that uses the .factory Software Factory (feature, bug, refactor, review, resume, new project, investigation, architecture, docs, question), sizes it, and routes it to the right workflow and approval gates. The entry point for spec-driven development. Use at the start of every development request in such a repository, even when no workflow or file is named. Shortcut: /factory-router <request>.
 ---
 
 # Factory Router
