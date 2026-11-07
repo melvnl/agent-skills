@@ -9,3 +9,7 @@ Meaningful backend observability: logs that are structured, concise, correlated 
 - **[logging-security-and-redaction](skills/logging-security-and-redaction/SKILL.md)**: Classifies data before it reaches logs; keeps secrets, PII and customer financial data out through allowlisted fields, masking or keyed pseudonyms.
 - **[observability-engineering](skills/observability-engineering/SKILL.md)**: Designs logs, metrics and traces for a feature or service: health and dependency signals, cardinality and cost, SLO-based alerting, and the design's observability plan.
 - **[observability-code-review](skills/observability-code-review/SKILL.md)**: Reviews a backend diff for missing or redundant logs, lost correlation, wrong severity, sensitive data, unbounded metric labels; usable on its own.
+
+## Agents
+
+- **[observability-engineer](agents/observability-engineer.md)**: Independent, read-only review of instrumentation value, correlation coverage, sensitive logging, severity, volume and cardinality.
