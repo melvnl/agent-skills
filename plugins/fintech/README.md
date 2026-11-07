@@ -17,6 +17,7 @@ Depends on `melvin-backend`, `melvin-observability`, and `melvin-security` (inst
 ## Agents
 
 - **[fintech-domain-reviewer](agents/fintech-domain-reviewer.md)**: Read-only check that decision logic implements the approved credit and risk policy: thresholds, precedence, fallbacks, reasons, versions, authority.
+- **[financial-invariant-reviewer](agents/financial-invariant-reviewer.md)**: Read-only check of exact arithmetic, duplicates, concurrency, immutable history, atomic audit records, migration evidence and cross-service consistency.
 
 ## Extension catalog (not implemented)
 
