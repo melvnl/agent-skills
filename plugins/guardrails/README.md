@@ -47,6 +47,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `protect-financial-core` | PreToolUse | `Edit\|Write\|MultiEdit` | Asks before editing paths the project lists as `financial_core` (no defaults), pointing to the fintech overlay gates. |
 | `protect-production-config` | PreToolUse | `Edit\|Write\|MultiEdit` | Asks before editing production settings, prod deploy, Kubernetes, Helm and Terraform paths (defaults plus `production_config`). |
 | `protect-database-migrations` | PreToolUse | `Edit\|Write\|MultiEdit` | Asks before editing a migration file that is already committed (it may have run); new migrations and `__init__.py` pass. |
+| `financial-test-gate` | PreToolUse | `Bash` | Denies a `git commit` that changes `financial_core` files without changing any test (staged files, plus tracked changes for `-a`). |
 
 ## Development
 
