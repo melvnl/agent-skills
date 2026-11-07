@@ -1,6 +1,7 @@
 ---
 name: factory-init
-description: Bootstraps the .factory Software Factory (spec-driven standards, workflows, templates) in a repository that does not have one yet. Inspects the repo to identify its tech stack, installs the project-agnostic .factory/ and the factory-router skill, populates project-specific product/engineering docs and tasks/STATUS.md from evidence, creates or merges the root CLAUDE.md so it orchestrates the factory, never overwrites existing files without approval, and verifies that every required file exists and every cross-reference resolves. Use when the user asks to "set up / install / bootstrap / initialize the software factory", "add .factory to this repo", or "make this repo work like SOMA's factory"; also use with --verify to audit an existing factory. Optional shortcut: /factory-init [--verify].
+description: Bootstraps or verifies the .factory Software Factory in a repository: detects the stack, installs the project-agnostic factory, populates product and engineering docs and tasks/STATUS.md from evidence, creates or merges CLAUDE.md without overwriting existing files, and verifies files and cross-references. Run as /factory-init [--verify] to adopt spec-driven development in a repository.
+disable-model-invocation: true
 ---
 
 # Factory Init
