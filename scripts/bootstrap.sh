@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # bootstrap.sh: set up this capability repository on a new machine.
 #
-#   bootstrap.sh --repo <git-url> [--dir DIR] [--profile P]... [--scope user|project|local]
+#   bootstrap.sh [--repo <git-url>] [--dir DIR] [--profile P]... [--scope user|project|local]
+#   (default --repo: https://github.com/melvnl/agent-skills)
 #
 # 1. Checks prerequisites (git, claude, python3 >= 3.8).
 # 2. Clones the repository into DIR (default: ~/dev/agent-skills), or fast-forwards an existing checkout of
@@ -12,18 +13,17 @@
 # No credentials are read or stored: private repositories use your existing git credentials.
 set -euo pipefail
 
-repo="" dir="${HOME}/dev/agent-skills" scope="user"; profiles=()
+repo="https://github.com/melvnl/agent-skills" dir="${HOME}/dev/agent-skills" scope="user"; profiles=()
 while [ $# -gt 0 ]; do
   case "$1" in
     --repo) repo="${2:?}"; shift 2 ;;
     --dir) dir="${2:?}"; shift 2 ;;
     --profile) profiles+=(--profile "${2:?}"); shift 2 ;;
     --scope) scope="${2:?}"; shift 2 ;;
-    -h|--help) sed -n '2,13p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,14p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "bootstrap: unknown option $1" >&2; exit 2 ;;
   esac
 done
-[ -n "$repo" ] || { echo "bootstrap: --repo <git-url> is required" >&2; exit 2; }
 
 for tool in git claude python3; do
   command -v "$tool" >/dev/null 2>&1 || { echo "bootstrap: '$tool' not found on PATH" >&2; exit 1; }

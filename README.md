@@ -45,7 +45,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 **1. Install with the CLI** (wraps `claude plugin` commands; dependencies install automatically):
 
 ```bash
-git clone <repo-url> ~/dev/agent-skills
+git clone https://github.com/melvnl/agent-skills ~/dev/agent-skills
 cd ~/dev/agent-skills
 scripts/agent-skills profiles                                    # list profiles
 scripts/agent-skills install --profile core --profile guardrails # every project (user scope)
@@ -61,9 +61,9 @@ cd ~/work/eligibility-service
 
 **3. Adopt the Software Factory** in a repository by running `/factory-init` inside it. From then on, ask in plain language; `factory-router` classifies the request and runs the right workflow.
 
-**New machine:** `scripts/bootstrap.sh --repo <repo-url> --profile core --profile guardrails` clones, installs, and runs `doctor`.
+**New machine:** `scripts/bootstrap.sh --profile core --profile guardrails` clones this repo (default `--repo https://github.com/melvnl/agent-skills`), installs, and runs `doctor`.
 
-**Manual install:** `claude plugin marketplace add <path-or-repo>`, then `claude plugin install <plugin>@melvin-skills`.
+**Manual install:** `claude plugin marketplace add melvnl/agent-skills` (or a local checkout path), then `claude plugin install <plugin>@melvin-skills`.
 
 **Updating:** a local checkout is read in place: `git pull`, then start a new session or run `/reload-plugins`. For a GitHub-hosted marketplace: bump versions and run `scripts/agent-skills update` ([release strategy](docs/release-strategy.md)).
 

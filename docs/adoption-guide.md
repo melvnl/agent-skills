@@ -5,7 +5,7 @@ How to use these plugins on a machine and in real projects.
 ## 1. Set up a machine
 
 ```bash
-git clone <repo-url> ~/dev/agent-skills          # or: scripts/bootstrap.sh --repo <repo-url> --profile core
+git clone https://github.com/melvnl/agent-skills ~/dev/agent-skills   # or: scripts/bootstrap.sh --profile core
 ~/dev/agent-skills/scripts/agent-skills install --profile core --profile guardrails
 ~/dev/agent-skills/scripts/agent-skills doctor
 ```

@@ -5,6 +5,7 @@
   "author": {
     "name": "Melvin"
   },
+  "repository": "https://github.com/melvnl/agent-skills",
   "license": "MIT",
   "keywords": [
     "hooks",

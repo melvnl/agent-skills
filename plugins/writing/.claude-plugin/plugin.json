@@ -2,7 +2,14 @@
   "name": "technical-writing",
   "version": "0.2.0",
   "description": "Engineering blog pipeline: interview, outline, visuals, and editorial review.",
-  "author": { "name": "Melvin" },
+  "author": {
+    "name": "Melvin"
+  },
+  "repository": "https://github.com/melvnl/agent-skills",
   "license": "MIT",
-  "keywords": ["writing", "blog", "technical-writing"]
+  "keywords": [
+    "writing",
+    "blog",
+    "technical-writing"
+  ]
 }

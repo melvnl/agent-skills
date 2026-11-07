@@ -2,8 +2,21 @@
   "name": "fintech-engineering",
   "version": "0.1.0",
   "description": "Fintech backend engineering for credit scoring, eligibility and risk decisioning: data integrity, decimal money, decision engineering, authorization, auditability, reliability.",
-  "author": { "name": "Melvin" },
+  "author": {
+    "name": "Melvin"
+  },
+  "repository": "https://github.com/melvnl/agent-skills",
   "license": "MIT",
-  "keywords": ["fintech", "credit-scoring", "eligibility", "risk", "auditability"],
-  "dependencies": ["python-backend", "observability", "application-security"]
+  "keywords": [
+    "fintech",
+    "credit-scoring",
+    "eligibility",
+    "risk",
+    "auditability"
+  ],
+  "dependencies": [
+    "python-backend",
+    "observability",
+    "application-security"
+  ]
 }
