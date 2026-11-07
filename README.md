@@ -20,6 +20,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[factory-router](plugins/engineering/skills/factory-router/SKILL.md)**: Classifies and sizes every request in a factory repo and routes it to the right workflow and approval gates.
 - **[prd-analysis](plugins/engineering/skills/prd-analysis/SKILL.md)**: Analyzes a large or AI-generated PRD: requirements with source refs, contradictions, ambiguities, duplicates, missing NFRs.
 - **[specification-decomposition](plugins/engineering/skills/specification-decomposition/SKILL.md)**: Turns analyzed requirements into stable ids, domain groups, a feature catalog, and atomic feature specs with traceability.
+- **[acceptance-criteria-engineering](plugins/engineering/skills/acceptance-criteria-engineering/SKILL.md)**: Writes and reviews atomic, testable Given/When/Then criteria covering boundaries, permissions, state, failures, idempotency, time, money, observability and audit.
 
 ### melvin-observability
 
