@@ -1,9 +1,9 @@
 {
-  "name": "melvin-backend",
+  "name": "python-backend",
   "version": "0.1.0",
   "description": "Python backend engineering: Python, Django, FastAPI, API and database design, migrations, MySQL, Redis, distributed systems, async messaging, performance.",
   "author": { "name": "Melvin" },
   "license": "MIT",
   "keywords": ["python", "django", "fastapi", "mysql", "redis", "sqs"],
-  "dependencies": ["melvin-engineering", "melvin-observability"]
+  "dependencies": ["spec-driven-engineering", "observability"]
 }

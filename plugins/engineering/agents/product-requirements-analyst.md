@@ -30,13 +30,13 @@ Make requirements trustworthy before anyone builds on them: everything traced to
 ## Not responsible for
 
 - Technical design: `solution-architect`.
-- Task planning and implementation: `melvin-backend:backend-engineer` and the orchestrator.
+- Task planning and implementation: `python-backend:backend-engineer` and the orchestrator.
 - Approving specs: the owner.
 
 ## Skills to load
 
-- `melvin-engineering:prd-analysis`, `melvin-engineering:specification-decomposition`, `melvin-engineering:acceptance-criteria-engineering`, `melvin-engineering:requirement-traceability`: load each at the stage that needs it.
-- `melvin-engineering:context-engineering`: for documents too large to hold at once.
+- `spec-driven-engineering:prd-analysis`, `spec-driven-engineering:specification-decomposition`, `spec-driven-engineering:acceptance-criteria-engineering`, `spec-driven-engineering:requirement-traceability`: load each at the stage that needs it.
+- `spec-driven-engineering:context-engineering`: for documents too large to hold at once.
 
 ## Inputs
 

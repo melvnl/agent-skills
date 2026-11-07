@@ -13,7 +13,7 @@ Checks
                inside the skill's directory (other skills are referenced by name).
   agents       plugins/<plugin>/agents/<name>.md: frontmatter name equals the filename and is unique,
                description present, required sections present, read-only agents (disallowedTools
-               containing Write and Edit) don't list Write/Edit in tools, every `melvin-x:name`
+               containing Write and Edit) don't list Write/Edit in tools, every `plugin:name`
                reference resolves to a skill or agent in that plugin, and the agent is linked from README.md and its plugin README.
   hooks        a plugin's hooks file (manifest "hooks") parses; every registered script exists under the
                plugin; every hook script is registered; each has tests/test_<name>.py and a README entry.
@@ -194,7 +194,7 @@ def check_skills(plugins):
 
 AGENT_SECTIONS = ["Mission", "Scope of authority", "Responsibilities", "Not responsible for", "Skills to load",
                   "Inputs", "Output", "Quality criteria", "Escalation", "Human approval required"]
-SKILL_REF = re.compile(r"`(melvin-[a-z]+):([a-z0-9-]+)`")
+SKILL_REF = re.compile(r"`([a-z0-9]+(?:-[a-z0-9]+)*):([a-z0-9]+(?:-[a-z0-9]+)*)`")
 
 
 def split_tools(value):
@@ -235,7 +235,10 @@ def check_agents(plugins):
                 if not re.search(rf"^## {re.escape(section)}\b", body, re.M):
                     report("FAIL", f"{rel(agent)}: missing section '## {section}'"); ok = False
             for plugin_name, ref in SKILL_REF.findall(body):
-                if (plugin_name, ref) not in components:
+                if plugin_name not in plugins:
+                    if "-" in plugin_name and "-" in ref:  # shaped like plugin:component, e.g. a stale name
+                        report("FAIL", f"{rel(agent)}: `{plugin_name}:{ref}` names an unknown plugin"); ok = False
+                elif (plugin_name, ref) not in components:
                     report("FAIL", f"{rel(agent)}: references unknown skill or agent {plugin_name}:{ref}"); ok = False
             if f"({rel(agent)})" not in readme:
                 report("FAIL", f"README.md does not link {rel(agent)}"); ok = False

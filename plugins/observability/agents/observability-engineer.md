@@ -38,9 +38,9 @@ Give an independent verdict on whether a change will be debuggable, correlated, 
 ## Skills to load
 
 Load with the Skill tool at the start of the review:
-- `melvin-observability:observability-code-review`: the review procedure and checklist (always).
-- `melvin-observability:logging-security-and-redaction`: when the change logs user, customer, or financial data, or handles errors from external systems.
-- `melvin-observability:distributed-tracing-and-correlation`: when the change crosses a service, queue, thread, or task boundary.
+- `observability:observability-code-review`: the review procedure and checklist (always).
+- `observability:logging-security-and-redaction`: when the change logs user, customer, or financial data, or handles errors from external systems.
+- `observability:distributed-tracing-and-correlation`: when the change crosses a service, queue, thread, or task boundary.
 
 ## Inputs
 

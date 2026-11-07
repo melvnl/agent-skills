@@ -1,5 +1,5 @@
 {
-  "description": "melvin-guardrails: deterministic checks. Contract and policy: docs/hook-anatomy.md in the source repository.",
+  "description": "engineering-guardrails: deterministic checks. Contract and policy: docs/hook-anatomy.md in the source repository.",
   "hooks": {
     "PreToolUse": [
       {

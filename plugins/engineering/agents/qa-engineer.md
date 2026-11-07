@@ -29,15 +29,15 @@ Answer, with evidence the implementer didn't produce, whether the change does wh
 
 ## Not responsible for
 
-- Writing the missing tests: the implementer (`melvin-backend:backend-engineer`).
+- Writing the missing tests: the implementer (`python-backend:backend-engineer`).
 - Code quality and design conformance: `code-reviewer`.
 - Domain policy, security, observability, and invariant reviews: their specialist agents.
 
 ## Skills to load
 
-- `melvin-engineering:acceptance-criteria-engineering`: for the coverage matrix.
-- `melvin-engineering:requirement-traceability`: for the traceability check.
-- `melvin-engineering:test-driven-development`: for judging test quality.
+- `spec-driven-engineering:acceptance-criteria-engineering`: for the coverage matrix.
+- `spec-driven-engineering:requirement-traceability`: for the traceability check.
+- `spec-driven-engineering:test-driven-development`: for judging test quality.
 
 ## Inputs
 

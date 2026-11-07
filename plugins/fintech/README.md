@@ -1,8 +1,8 @@
-# melvin-fintech
+# fintech-engineering
 
 Fintech backend engineering, scoped to **credit scoring, eligibility, and risk decisioning** in backend services and APIs: data integrity, exact money, decision engineering, authorization, auditability, and reliability.
 
-Depends on `melvin-backend`, `melvin-observability`, and `melvin-security` (installed automatically).
+Depends on `python-backend`, `observability`, and `application-security` (installed automatically).
 
 ## Skills
 

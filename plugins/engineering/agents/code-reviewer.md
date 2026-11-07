@@ -32,13 +32,13 @@ Catch defects and drift before they reach the main branch, judged against what t
 ## Not responsible for
 
 - Running the full verification: `qa-engineer`.
-- Specialist reviews: `melvin-observability:observability-engineer`, `melvin-security:security-auditor`, `melvin-fintech:fintech-domain-reviewer`, `melvin-fintech:financial-invariant-reviewer`.
+- Specialist reviews: `observability:observability-engineer`, `application-security:security-auditor`, `fintech-engineering:fintech-domain-reviewer`, `fintech-engineering:financial-invariant-reviewer`.
 - Fixing findings: the implementer.
 
 ## Skills to load
 
-- `melvin-engineering:factory-router`: to locate the project's `CODE_REVIEW` workflow and standards in `.factory/`.
-- The stack skills relevant to the diff, e.g. `melvin-backend:django-engineering`, `melvin-backend:fastapi-engineering`, `melvin-backend:api-design`, `melvin-backend:mysql-engineering`.
+- `spec-driven-engineering:factory-router`: to locate the project's `CODE_REVIEW` workflow and standards in `.factory/`.
+- The stack skills relevant to the diff, e.g. `python-backend:django-engineering`, `python-backend:fastapi-engineering`, `python-backend:api-design`, `python-backend:mysql-engineering`.
 
 ## Inputs
 

@@ -10,15 +10,15 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 
 | Plugin | Contents |
 |---|---|
-| [melvin-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
-| [melvin-backend](plugins/backend/README.md) | Python, Django, FastAPI, APIs, databases, MySQL, Redis, messaging, performance |
-| [melvin-fintech](plugins/fintech/README.md) | Credit scoring, eligibility, risk decisioning: integrity, money, auditability, reliability |
-| [melvin-guardrails](plugins/guardrails/README.md) | Deterministic hooks: protected files, destructive commands, secrets, sensitive logging |
-| [melvin-observability](plugins/observability/README.md) | Structured logging, correlation, PII-safe logging, observability review |
-| [melvin-security](plugins/security/README.md) | Backend application security: authz, injection, SSRF, webhooks, secrets |
-| [melvin-writing](plugins/writing/README.md) | Engineering blog pipeline |
+| [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
+| [python-backend](plugins/backend/README.md) | Python, Django, FastAPI, APIs, databases, MySQL, Redis, messaging, performance |
+| [fintech-engineering](plugins/fintech/README.md) | Credit scoring, eligibility, risk decisioning: integrity, money, auditability, reliability |
+| [engineering-guardrails](plugins/guardrails/README.md) | Deterministic hooks: protected files, destructive commands, secrets, sensitive logging |
+| [observability](plugins/observability/README.md) | Structured logging, correlation, PII-safe logging, observability review |
+| [application-security](plugins/security/README.md) | Backend application security: authz, injection, SSRF, webhooks, secrets |
+| [technical-writing](plugins/writing/README.md) | Engineering blog pipeline |
 
-### melvin-engineering
+### spec-driven-engineering
 
 - **[factory-init](plugins/engineering/skills/factory-init/SKILL.md)**: Installs the `.factory/` spec-driven software factory into a repo, populates project docs from evidence, and verifies it.
 - **[factory-router](plugins/engineering/skills/factory-router/SKILL.md)**: Classifies and sizes every request in a factory repo and routes it to the right workflow and approval gates.
@@ -38,7 +38,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[qa-engineer](plugins/engineering/agents/qa-engineer.md)** (agent): Independent, read-only verification: gates and regressions run, every acceptance criterion checked against evidence, risk matrix, blast radius, traceability.
 - **[code-reviewer](plugins/engineering/agents/code-reviewer.md)** (agent): Read-only review of a diff against its spec and the factory checklist: correctness, conformance both ways, architecture, maintainability, tests, compatibility.
 
-### melvin-backend
+### python-backend
 
 - **[python-backend-engineering](plugins/backend/skills/python-backend-engineering/SKILL.md)**: Version-safe Python backend code: typed boundaries, explicit timeouts, aware datetimes, Decimal money, exception chaining, pure domain logic.
 - **[django-engineering](plugins/backend/skills/django-engineering/SKILL.md)**: Version-correct Django/DRF: service-layer rules, constraints, efficient querysets, transactions with on_commit side effects, safe bulk ops, explicit permissions.
@@ -54,7 +54,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[backend-engineer](plugins/backend/agents/backend-engineer.md)** (agent): Implements one approved task at a time test-first, instrumented, within scope; reports verified results; never approves its own work.
 - **[database-engineer](plugins/backend/agents/database-engineer.md)** (agent): Schema changes, deploy-compatible migrations, resumable backfills and EXPLAIN-verified queries with rehearsal evidence; never touches production.
 
-### melvin-fintech
+### fintech-engineering
 
 - **[financial-data-integrity](plugins/fintech/skills/financial-data-integrity/SKILL.md)**: Invariants enforced and checked, immutable history, duplicate prevention, cross-service reconciliation, evidence-validated migrations.
 - **[credit-scoring-and-eligibility](plugins/fintech/skills/credit-scoring-and-eligibility/SKILL.md)**: Consistent, versioned, explainable decisions: one policy source, deterministic evaluation, immutable decision records, owner-defined fallbacks, golden and parity tests.
@@ -66,11 +66,11 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[fintech-domain-reviewer](plugins/fintech/agents/fintech-domain-reviewer.md)** (agent): Read-only check that decision logic implements the approved credit and risk policy: thresholds, precedence, fallbacks, reasons, versions, authority.
 - **[financial-invariant-reviewer](plugins/fintech/agents/financial-invariant-reviewer.md)** (agent): Read-only check of exact arithmetic, duplicates, concurrency, immutable history, atomic audit records, migration evidence and cross-service consistency.
 
-### melvin-guardrails
+### engineering-guardrails
 
 18 deterministic hooks (Python 3.8+ stdlib, unit-tested): protected secrets files, destructive commands (parsed, not substring-matched), secret formats, hard-coded credentials, sensitive data in log calls, log schema, correlation on SQS/SNS calls, financial-core and production-config and committed-migration protection, a financial test gate on commits, migration safety feedback, a local redacted audit trail, opt-in format/lint/typecheck/verify, and Software Factory session context. Configured per project in `.claude/guardrails.json`; full table in the [plugin README](plugins/guardrails/README.md).
 
-### melvin-observability
+### observability
 
 - **[structured-logging-and-instrumentation](plugins/observability/skills/structured-logging-and-instrumentation/SKILL.md)**: Decides what deserves a log entry and adds structured, correlated, PII-safe logs using the project's existing logger.
 - **[distributed-tracing-and-correlation](plugins/observability/skills/distributed-tracing-and-correlation/SKILL.md)**: Preserves request, correlation and trace context across HTTP, SQS/SNS, workers and async code.
@@ -79,12 +79,12 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[observability-code-review](plugins/observability/skills/observability-code-review/SKILL.md)**: Reviews a backend diff for observability gaps and over-instrumentation, correlation loss, wrong severity, sensitive data, unbounded labels.
 - **[observability-engineer](plugins/observability/agents/observability-engineer.md)** (agent): Independent, read-only review of instrumentation value, correlation coverage, sensitive logging, severity, volume and cardinality.
 
-### melvin-security
+### application-security
 
 - **[backend-security](plugins/security/skills/backend-security/SKILL.md)**: Authn and object-level authz (IDOR), mass assignment, injection, SSRF, webhook and callback verification, secrets, deserialization, abuse controls; each with an attack test.
 - **[security-auditor](plugins/security/agents/security-auditor.md)** (agent): Independent, read-only audit for authz and IDOR, injection, SSRF, webhook verification, secrets and data exposure, with exploit scenarios.
 
-### melvin-writing
+### technical-writing
 
 `blog-interviewer` → `blog-architect` → *(draft)* → `blog-visual-storyteller` → `blog-editor`
 

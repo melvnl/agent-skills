@@ -1,8 +1,8 @@
-# melvin-backend
+# python-backend
 
 Python backend engineering for services that run on Django or FastAPI, MySQL/Aurora, Redis, and AWS SQS/SNS. Every skill starts by detecting the project's actual versions and conventions; none assumes modern features in a legacy codebase.
 
-Depends on `melvin-engineering` and `melvin-observability` (installed automatically).
+Depends on `spec-driven-engineering` and `observability` (installed automatically).
 
 ## Skills
 

@@ -37,9 +37,9 @@ Confirm that a change implements the credit and risk policy the owner actually a
 
 ## Skills to load
 
-- `melvin-fintech:credit-scoring-and-eligibility`: always for decision pipelines.
-- `melvin-fintech:risk-decision-engineering`: when rules, tables, or precedence change.
-- `melvin-fintech:financial-authorization`: when overrides, limits, back-office functions, or policy activation change.
+- `fintech-engineering:credit-scoring-and-eligibility`: always for decision pipelines.
+- `fintech-engineering:risk-decision-engineering`: when rules, tables, or precedence change.
+- `fintech-engineering:financial-authorization`: when overrides, limits, back-office functions, or policy activation change.
 
 ## Inputs
 

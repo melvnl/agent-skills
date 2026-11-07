@@ -21,7 +21,7 @@ Run a substantial engineering effort end to end through the Software Factory, so
 
 1. Run the factory session protocol (entry point, STATUS, `git status`), then classify and size the request with the factory router.
 2. Select the workflow (`NEW_FEATURE`, `PRD_TO_IMPLEMENTATION`, `FINTECH_FEATURE`, `DATABASE_MIGRATION`, …) and lay out its stages and gates in STATUS.
-3. Assign each stage to its owner role: requirements to `product-requirements-analyst`; design to `solution-architect`; implementation to `melvin-backend:backend-engineer` / `melvin-backend:database-engineer`; verification to `qa-engineer`; reviews to `code-reviewer` and, where applicable, `melvin-observability:observability-engineer`, `melvin-security:security-auditor`, `melvin-fintech:fintech-domain-reviewer`, `melvin-fintech:financial-invariant-reviewer`.
+3. Assign each stage to its owner role: requirements to `product-requirements-analyst`; design to `solution-architect`; implementation to `python-backend:backend-engineer` / `python-backend:database-engineer`; verification to `qa-engineer`; reviews to `code-reviewer` and, where applicable, `observability:observability-engineer`, `application-security:security-auditor`, `fintech-engineering:fintech-domain-reviewer`, `fintech-engineering:financial-invariant-reviewer`.
 4. **Enforce separation**: the agent (or session) that implemented a change never reviews or verifies it.
 5. **Stop at every approval gate** with a concise summary (scope, decisions needed, risks, open questions) and wait.
 6. Keep the task file and STATUS current after every stage: done, in progress, blocked, next action, last verification.
@@ -35,9 +35,9 @@ Run a substantial engineering effort end to end through the Software Factory, so
 
 ## Skills to load
 
-- `melvin-engineering:factory-router`: always, to classify, size, and route.
-- `melvin-engineering:loop-engineering` and `melvin-engineering:context-engineering`: for long runs, checkpoints, and handoffs.
-- `melvin-engineering:requirement-traceability`: before closing a feature.
+- `spec-driven-engineering:factory-router`: always, to classify, size, and route.
+- `spec-driven-engineering:loop-engineering` and `spec-driven-engineering:context-engineering`: for long runs, checkpoints, and handoffs.
+- `spec-driven-engineering:requirement-traceability`: before closing a feature.
 
 ## Delegation rules
 

@@ -1,4 +1,4 @@
-# melvin-observability
+# observability
 
 Meaningful backend observability: logs that are structured, concise, correlated across services, and safe from PII and secrets. Useful observability, not maximum log volume.
 

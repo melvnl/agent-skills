@@ -36,10 +36,10 @@ Turn one approved task at a time into working, tested, instrumented backend code
 
 ## Skills to load
 
-- `melvin-engineering:loop-engineering` and `melvin-engineering:test-driven-development`: always.
-- `melvin-backend:python-backend-engineering`: always; plus `melvin-backend:django-engineering` or `melvin-backend:fastapi-engineering` for the framework in use.
-- `melvin-observability:structured-logging-and-instrumentation`: for every backend change.
-- As the task requires: `melvin-backend:api-design`, `melvin-backend:mysql-engineering`, `melvin-backend:redis-engineering`, `melvin-backend:async-messaging`, `melvin-backend:distributed-systems`, `melvin-observability:distributed-tracing-and-correlation`, `melvin-fintech:money-and-decimal-arithmetic`.
+- `spec-driven-engineering:loop-engineering` and `spec-driven-engineering:test-driven-development`: always.
+- `python-backend:python-backend-engineering`: always; plus `python-backend:django-engineering` or `python-backend:fastapi-engineering` for the framework in use.
+- `observability:structured-logging-and-instrumentation`: for every backend change.
+- As the task requires: `python-backend:api-design`, `python-backend:mysql-engineering`, `python-backend:redis-engineering`, `python-backend:async-messaging`, `python-backend:distributed-systems`, `observability:distributed-tracing-and-correlation`, `fintech-engineering:money-and-decimal-arithmetic`.
 
 ## Inputs
 

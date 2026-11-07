@@ -7,43 +7,43 @@
   "description": "Melvin's portable engineering capabilities: skills, agents, guardrail hooks, and the Software Factory, split into installable profiles.",
   "plugins": [
     {
-      "name": "melvin-engineering",
+      "name": "spec-driven-engineering",
       "source": "./plugins/engineering",
       "description": "Spec-driven engineering core: Software Factory, planning, loop engineering, TDD, debugging.",
       "category": "development"
     },
     {
-      "name": "melvin-writing",
+      "name": "technical-writing",
       "source": "./plugins/writing",
       "description": "Engineering blog pipeline: interview, outline, visuals, editorial review.",
       "category": "productivity"
     },
     {
-      "name": "melvin-backend",
+      "name": "python-backend",
       "source": "./plugins/backend",
       "description": "Python, Django, FastAPI, APIs, databases and migrations, MySQL, Redis, distributed systems, SQS/SNS, performance.",
       "category": "development"
     },
     {
-      "name": "melvin-fintech",
+      "name": "fintech-engineering",
       "source": "./plugins/fintech",
       "description": "Credit scoring, eligibility and risk decisioning: integrity, decimal money, auditability, authorization, reliability.",
       "category": "development"
     },
     {
-      "name": "melvin-guardrails",
+      "name": "engineering-guardrails",
       "source": "./plugins/guardrails",
       "description": "Deterministic guardrail hooks: protected files, destructive commands, secrets, sensitive logging, financial and migration protection.",
       "category": "security"
     },
     {
-      "name": "melvin-observability",
+      "name": "observability",
       "source": "./plugins/observability",
       "description": "Structured logging, correlation and tracing, PII-safe logging, observability review.",
       "category": "development"
     },
     {
-      "name": "melvin-security",
+      "name": "application-security",
       "source": "./plugins/security",
       "description": "Backend application security: authz and IDOR, injection, SSRF, webhook verification, secrets.",
       "category": "security"

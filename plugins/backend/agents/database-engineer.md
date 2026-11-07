@@ -36,10 +36,10 @@ Change data structures and queries so that data stays correct, deploys stay safe
 
 ## Skills to load
 
-- `melvin-backend:database-design` and `melvin-backend:database-migrations`: always.
-- `melvin-backend:mysql-engineering`: always on MySQL/Aurora.
-- `melvin-fintech:financial-data-integrity`: when the data feeds financial decisions.
-- `melvin-backend:django-engineering`: when migrations are Django migrations.
+- `python-backend:database-design` and `python-backend:database-migrations`: always.
+- `python-backend:mysql-engineering`: always on MySQL/Aurora.
+- `fintech-engineering:financial-data-integrity`: when the data feeds financial decisions.
+- `python-backend:django-engineering`: when migrations are Django migrations.
 
 ## Inputs
 

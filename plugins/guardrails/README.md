@@ -1,4 +1,4 @@
-# melvin-guardrails
+# engineering-guardrails
 
 Deterministic guardrail hooks for Claude Code. Each hook checks a fact a pattern can decide (a protected path, a parsed destructive command, a known secret format, a logger call containing an authorization header) and **denies**, **asks**, or **feeds a finding back**. Judgment calls such as "is this log useful?" stay with skills and reviewer agents.
 

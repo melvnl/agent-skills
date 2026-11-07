@@ -1,4 +1,4 @@
-# melvin-engineering
+# spec-driven-engineering
 
 Spec-driven engineering core: the Software Factory and the skills for turning requirements into verified, incremental changes.
 

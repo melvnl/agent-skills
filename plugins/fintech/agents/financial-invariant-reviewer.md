@@ -37,10 +37,10 @@ Prove, or fail to prove, that a change keeps financially relevant data exact, un
 
 ## Skills to load
 
-- `melvin-fintech:financial-data-integrity`: always.
-- `melvin-fintech:money-and-decimal-arithmetic`: when amounts, rates, or ratios are computed or stored.
-- `melvin-fintech:financial-auditability`: when audited actions change.
-- `melvin-backend:mysql-engineering`: when concurrency or locking is involved.
+- `fintech-engineering:financial-data-integrity`: always.
+- `fintech-engineering:money-and-decimal-arithmetic`: when amounts, rates, or ratios are computed or stored.
+- `fintech-engineering:financial-auditability`: when audited actions change.
+- `python-backend:mysql-engineering`: when concurrency or locking is involved.
 
 ## Inputs
 

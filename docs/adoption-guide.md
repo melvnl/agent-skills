@@ -48,7 +48,7 @@ cd ~/work/eligibility-service
    }
    ```
 
-   The `commands` run only after you enable the plugin option `run_project_commands` (`claude plugin configure melvin-guardrails@melvin-skills`), because they come from the repository.
+   The `commands` run only after you enable the plugin option `run_project_commands` (`claude plugin configure engineering-guardrails@melvin-skills`), because they come from the repository.
 3. **Logging conventions**: record the project's logger, standard fields, and correlation mechanism in `engineering/DEVELOPMENT_GUIDE.md` (the observability skills read them before writing log calls).
 4. **Data classification**: record approved identifiers and sensitive fields in `engineering/SECURITY_AND_PRIVACY.md` (the redaction skill and reviewers use it).
 

@@ -36,8 +36,8 @@ Find the ways a change can be abused before an attacker or an auditor does, and 
 
 ## Skills to load
 
-- `melvin-security:backend-security`: always.
-- `melvin-observability:logging-security-and-redaction`: when the change logs or returns personal or financial data.
+- `application-security:backend-security`: always.
+- `observability:logging-security-and-redaction`: when the change logs or returns personal or financial data.
 
 ## Inputs
 

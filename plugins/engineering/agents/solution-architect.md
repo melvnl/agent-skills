@@ -37,10 +37,10 @@ Design the simplest change that satisfies the approved spec inside the system as
 
 ## Skills to load
 
-- `melvin-observability:observability-engineering`: for the observability plan (always for backend designs).
-- `melvin-backend:api-design`, `melvin-backend:database-design`, `melvin-backend:distributed-systems`, `melvin-backend:async-messaging`: as the design requires.
-- `melvin-fintech:credit-scoring-and-eligibility` and `melvin-fintech:financial-system-reliability`: for decision systems.
-- `melvin-security:backend-security`: for trust boundaries.
+- `observability:observability-engineering`: for the observability plan (always for backend designs).
+- `python-backend:api-design`, `python-backend:database-design`, `python-backend:distributed-systems`, `python-backend:async-messaging`: as the design requires.
+- `fintech-engineering:credit-scoring-and-eligibility` and `fintech-engineering:financial-system-reliability`: for decision systems.
+- `application-security:backend-security`: for trust boundaries.
 
 ## Inputs
 

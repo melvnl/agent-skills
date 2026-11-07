@@ -11,7 +11,7 @@ plugins/<profile>/agents/<agent-name>.md
 ```
 
 - Put the agent in the plugin whose skills it mainly uses, so installing a profile brings its personas.
-- Installed plugin agents are namespaced: `melvin-backend:backend-engineer`. User-level agents (`~/.claude/agents/`) with the same bare name take precedence.
+- Installed plugin agents are namespaced: `python-backend:backend-engineer`. User-level agents (`~/.claude/agents/`) with the same bare name take precedence.
 - Agents must be in the plugin's default `agents/` directory. Explicit manifest lists were not picked up in install testing.
 
 ## Frontmatter
@@ -28,7 +28,7 @@ model: inherit
 
 - `description` tells the main session **when to delegate**. Name the trigger and the authority ("Read-only").
 - Plugin agents **ignore** `hooks`, `mcpServers`, and `permissionMode`, so authority comes from `tools` and `disallowedTools` only.
-- **Skills are loaded explicitly, not preloaded.** The body names the skills to invoke with the Skill tool at the start of work (`melvin-observability:structured-logging-and-instrumentation`). Preloading injects whole skills into context, and resolving namespaced plugin names in `skills:` is unverified.
+- **Skills are loaded explicitly, not preloaded.** The body names the skills to invoke with the Skill tool at the start of work (`observability:structured-logging-and-instrumentation`). Preloading injects whole skills into context, and resolving namespaced plugin names in `skills:` is unverified.
 
 ## Authority classes
 
