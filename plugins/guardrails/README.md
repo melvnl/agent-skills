@@ -41,6 +41,7 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `typecheck-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.typecheck` on the edited file and feeds back type errors. |
 | `verify-before-stop` | Stop | `*` | Opt-in: when the working tree changed, runs the project's `commands.verify` before Claude finishes and blocks the stop once on failure; `stop_hook_active` prevents loops. |
 | `session-context-init` | SessionStart | `startup\|resume\|clear\|compact` | In Software Factory repos, adds the session protocol reminder, a bounded STATUS snapshot, git state and configured protections; after compaction, a re-verify reminder. |
+| `detect-sensitive-logging` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back Python log calls whose fields, keys or f-string expressions name sensitive data, or that log whole requests, headers or objects; message words are not flagged. |
 
 ## Development
 
