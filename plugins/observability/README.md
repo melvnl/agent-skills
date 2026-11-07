@@ -6,3 +6,4 @@ Meaningful backend observability: logs that are structured, concise, correlated 
 
 - **[structured-logging-and-instrumentation](skills/structured-logging-and-instrumentation/SKILL.md)**: Decides what deserves a log entry and adds structured, correlated, PII-safe logs using the project's existing logger. Applied to every backend change.
 - **[distributed-tracing-and-correlation](skills/distributed-tracing-and-correlation/SKILL.md)**: Preserves request, correlation and trace context across HTTP, SQS/SNS, workers and async code with the fewest identifiers possible.
+- **[logging-security-and-redaction](skills/logging-security-and-redaction/SKILL.md)**: Classifies data before it reaches logs; keeps secrets, PII and customer financial data out through allowlisted fields, masking or keyed pseudonyms.
