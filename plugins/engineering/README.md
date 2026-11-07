@@ -32,3 +32,4 @@ Spec-driven engineering core: the Software Factory and the skills for turning re
 - **[engineering-orchestrator](agents/engineering-orchestrator.md)**: Sequences Software Factory stages and gates, assigns implementation and independent reviews to specialists, keeps STATUS current; edits state docs only.
 - **[product-requirements-analyst](agents/product-requirements-analyst.md)**: Turns PRDs into analyzed, decomposed, traceable draft specs with owner questions; writes requirement documents only.
 - **[solution-architect](agents/solution-architect.md)**: Designs approved specs within the existing architecture: contracts, data, integration failure handling, observability plan, trade-offs, ADRs; writes designs only.
+- **[qa-engineer](agents/qa-engineer.md)**: Independent, read-only verification: gates and regressions run, every acceptance criterion checked against evidence, risk matrix, blast radius, traceability.

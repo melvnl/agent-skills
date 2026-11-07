@@ -34,6 +34,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[engineering-orchestrator](plugins/engineering/agents/engineering-orchestrator.md)** (agent): Sequences Software Factory stages and gates, assigns implementation and independent reviews to specialists, keeps STATUS current; edits state docs only.
 - **[product-requirements-analyst](plugins/engineering/agents/product-requirements-analyst.md)** (agent): Turns PRDs into analyzed, decomposed, traceable draft specs with owner questions; writes requirement documents only.
 - **[solution-architect](plugins/engineering/agents/solution-architect.md)** (agent): Designs approved specs within the existing architecture: contracts, data, integration failure handling, observability plan, trade-offs, ADRs; writes designs only.
+- **[qa-engineer](plugins/engineering/agents/qa-engineer.md)** (agent): Independent, read-only verification: gates and regressions run, every acceptance criterion checked against evidence, risk matrix, blast radius, traceability.
 
 ### melvin-backend
 
