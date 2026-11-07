@@ -32,6 +32,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[debugging-and-error-recovery](plugins/engineering/skills/debugging-and-error-recovery/SKILL.md)**: Diagnoses from evidence: reproduce, minimize, one hypothesis at a time, bisect, root cause, same pattern elsewhere, and safe recovery to green.
 - **[git-workflow](plugins/engineering/skills/git-workflow/SKILL.md)**: Small Conventional Commits with explicit staging and reviewed diffs; no unrelated changes, secrets, history rewrites or pushes without approval.
 - **[engineering-orchestrator](plugins/engineering/agents/engineering-orchestrator.md)** (agent): Sequences Software Factory stages and gates, assigns implementation and independent reviews to specialists, keeps STATUS current; edits state docs only.
+- **[product-requirements-analyst](plugins/engineering/agents/product-requirements-analyst.md)** (agent): Turns PRDs into analyzed, decomposed, traceable draft specs with owner questions; writes requirement documents only.
 
 ### melvin-backend
 

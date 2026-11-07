@@ -30,3 +30,4 @@ Spec-driven engineering core: the Software Factory and the skills for turning re
 ## Agents
 
 - **[engineering-orchestrator](agents/engineering-orchestrator.md)**: Sequences Software Factory stages and gates, assigns implementation and independent reviews to specialists, keeps STATUS current; edits state docs only.
+- **[product-requirements-analyst](agents/product-requirements-analyst.md)**: Turns PRDs into analyzed, decomposed, traceable draft specs with owner questions; writes requirement documents only.
