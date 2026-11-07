@@ -1,0 +1,8 @@
+{
+  "name": "melvin-engineering",
+  "version": "0.2.0",
+  "description": "Spec-driven engineering: the .factory Software Factory, PRD analysis, planning, loop engineering, TDD, debugging, git discipline.",
+  "author": { "name": "Melvin" },
+  "license": "MIT",
+  "keywords": ["software-factory", "spec-driven-development", "planning", "tdd"]
+}

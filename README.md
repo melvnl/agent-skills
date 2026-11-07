@@ -1,59 +1,56 @@
 # melvin-skills
 
-Personal agent skills for Claude Code (and any [Agent Skills](https://agentskills.io)-compatible harness).
-Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (lifecycle-ordered, process-heavy skills) and [mattpocock/skills](https://github.com/mattpocock/skills) (bucketed, small, composable skills).
+A portable, version-controlled set of Claude Code capabilities, split into installable profiles: engineering skills, specialist agents, deterministic guardrail hooks, and the spec-driven **Software Factory**.
 
-## Skills
+Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills) (lifecycle-ordered, process-heavy skills) and [mattpocock/skills](https://github.com/mattpocock/skills) (small, composable skills).
 
-### Writing: engineering blog pipeline
+## Plugins (profiles)
+
+The repository is a Claude Code **marketplace**. Each directory under `plugins/` is one self-contained plugin; install only the profiles a project needs.
+
+| Plugin | Contents |
+|---|---|
+| [melvin-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
+| [melvin-writing](plugins/writing/README.md) | Engineering blog pipeline |
+
+### melvin-engineering
+
+- **[factory-init](plugins/engineering/skills/factory-init/SKILL.md)**: Installs the `.factory/` spec-driven software factory into a repo, populates project docs from evidence, and verifies it.
+- **[factory-router](plugins/engineering/skills/factory-router/SKILL.md)**: Classifies and sizes every request in a factory repo and routes it to the right workflow and approval gates.
+
+### melvin-writing
 
 `blog-interviewer` → `blog-architect` → *(draft)* → `blog-visual-storyteller` → `blog-editor`
 
-- **[blog-interviewer](skills/writing/blog-interviewer/SKILL.md)**: Interviews you, one question at a time, to find the story worth publishing and the evidence behind it.
-- **[blog-architect](skills/writing/blog-architect/SKILL.md)**: Turns an interview summary into a thesis, narrative structure, and approved outline.
-- **[blog-visual-storyteller](skills/writing/blog-visual-storyteller/SKILL.md)**: Designs SVG diagrams and memes for the article and embeds them with `ImageCaption`.
-- **[blog-editor](skills/writing/blog-editor/SKILL.md)**: Reviews a draft for technical accuracy, narrative, style, and publication readiness.
-
-### Engineering: software factory
-
-- **[factory-init](skills/engineering/factory-init/SKILL.md)**: Installs the `.factory/` spec-driven software factory into a repo, populates project docs from evidence, and verifies it.
-- **[factory-router](skills/engineering/factory-router/SKILL.md)**: Classifies and sizes every request in a factory repo and routes it to the right workflow and approval gates.
+- **[blog-interviewer](plugins/writing/skills/blog-interviewer/SKILL.md)**: Interviews you, one question at a time, to find the story worth publishing and the evidence behind it.
+- **[blog-architect](plugins/writing/skills/blog-architect/SKILL.md)**: Turns an interview summary into a thesis, narrative structure, and approved outline.
+- **[blog-visual-storyteller](plugins/writing/skills/blog-visual-storyteller/SKILL.md)**: Designs SVG diagrams and memes for the article and embeds them with `ImageCaption`.
+- **[blog-editor](plugins/writing/skills/blog-editor/SKILL.md)**: Reviews a draft for technical accuracy, narrative, style, and publication readiness.
 
 ## Install
 
-Install as a Claude Code plugin from this repo's own marketplace:
-
 ```bash
-claude plugin marketplace add /Users/melvin.fa/Documents/private/personal/agent-skills   # or the GitHub repo once pushed
-claude plugin install melvin-skills@melvin-skills
+claude plugin marketplace add /path/to/agent-skills     # or the GitHub repo once pushed
+claude plugin install melvin-engineering@melvin-skills
+claude plugin install melvin-writing@melvin-skills
 ```
 
-After editing a skill, bump `version` in `.claude-plugin/plugin.json`, then pull the change in:
-
-```bash
-claude plugin marketplace update melvin-skills
-claude plugin update melvin-skills@melvin-skills
-```
-
-Only skills listed in `.claude-plugin/plugin.json` are installed.
+To pick up changes: bump `version` in the plugin's `.claude-plugin/plugin.json`, then run `claude plugin marketplace update melvin-skills` and `claude plugin update <plugin>@melvin-skills`.
 
 ## Layout
 
 ```
-skills/
-  writing/        content and article workflows
-  engineering/    code and repo workflows
-scripts/
-  validate-skills.sh   lint frontmatter, naming, manifest and README wiring
-docs/
-  skill-anatomy.md     how a skill is written here
-.claude-plugin/        plugin.json + marketplace.json
+.claude-plugin/marketplace.json   the marketplace: one entry per plugin
+plugins/<profile>/
+  .claude-plugin/plugin.json      plugin manifest (name, version, dependencies)
+  README.md                       what the plugin contains
+  skills/<skill>/SKILL.md         skills (+ references/, scripts/, assets/ as needed)
+scripts/validate.py               lint marketplace, plugins, skills, links
+docs/skill-anatomy.md             how a skill is written here
 ```
 
-Agent personas (`agents/`) and hooks (`hooks/`) are planned.
-
-## Contributing (to myself)
+## Contributing
 
 1. Read [docs/skill-anatomy.md](docs/skill-anatomy.md).
-2. Add the skill under a bucket, then list it in `.claude-plugin/plugin.json` and this README.
-3. Run `scripts/validate-skills.sh` until it reports `0 FAIL`.
+2. Add the skill under `plugins/<profile>/skills/`, then link it from this README and the plugin's README.
+3. Run `python3 scripts/validate.py` until it reports `0 FAIL`, and `claude plugin validate plugins/<profile>`.

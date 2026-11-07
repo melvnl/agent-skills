@@ -1,17 +1,20 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "melvin-skills",
-  "owner": {
-    "name": "Melvin"
-  },
-  "description": "Melvin's personal agent skills marketplace.",
+  "owner": { "name": "Melvin" },
+  "description": "Melvin's portable engineering capabilities: skills, agents, guardrail hooks, and the Software Factory, split into installable profiles.",
   "plugins": [
     {
-      "name": "melvin-skills",
-      "source": "./",
-      "description": "Engineering blog writing pipeline and the .factory software factory.",
-      "category": "productivity",
-      "keywords": ["skills", "writing", "blog", "software-factory"]
+      "name": "melvin-engineering",
+      "source": "./plugins/engineering",
+      "description": "Spec-driven engineering core: Software Factory, planning, loop engineering, TDD, debugging.",
+      "category": "development"
+    },
+    {
+      "name": "melvin-writing",
+      "source": "./plugins/writing",
+      "description": "Engineering blog pipeline: interview, outline, visuals, editorial review.",
+      "category": "productivity"
     }
   ]
 }

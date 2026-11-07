@@ -5,7 +5,7 @@ How a skill in this repo is written. Adapted from addyosmani/agent-skills `docs/
 ## Location
 
 ```
-skills/<bucket>/<skill-name>/
+plugins/<profile>/skills/<skill-name>/
   SKILL.md        required
   references/     optional: material loaded on demand (guidelines, templates, checklists)
   scripts/        optional: executables the skill runs by absolute path
