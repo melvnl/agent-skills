@@ -60,6 +60,7 @@ Every request goes through: **classify → size → discover → route → execu
 | Type | Signals | Route | Read first |
 |---|---|---|---|
 | **New functionality** | "add", "support…", "new screen/endpoint" | `.factory/workflows/NEW_FEATURE.md` (+ `.factory/workflows/FINTECH_FEATURE.md` overlay for financial decisions or data) | `product/FEATURES.md` → linked PRD ids → existing `specs/` → ROADMAP phase |
+| **Idea or request without a PRD** | "I have an idea", "we need X but nothing is written" | Recorded discovery interview (`product-discovery` skill), then `.factory/workflows/NEW_PROJECT.md` stage B or `.factory/workflows/NEW_FEATURE.md` | Existing notes, `product/` docs, affected code |
 | **Build from a PRD** | "implement this PRD", a large requirements document | `.factory/workflows/PRD_TO_IMPLEMENTATION.md` | The source document → `product/PRD.md`, `product/FEATURES.md` → existing `specs/` |
 | **Production incident** | "prod is down", customer-facing errors, wrong data in production | `.factory/workflows/PRODUCTION_INCIDENT.md` (humans act on production), then `BUG_FIX.md` | Alerts, logs by correlation id, recent deploys and config changes |
 | **Schema or data migration** | "add a column", "backfill", "rename", "drop" | `.factory/workflows/DATABASE_MIGRATION.md` | `engineering/DATA_MODEL.md` → migrations → table sizes |

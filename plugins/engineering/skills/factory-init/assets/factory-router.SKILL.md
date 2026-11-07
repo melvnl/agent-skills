@@ -39,6 +39,8 @@ Disambiguation rules:
 - "Production is down / customers see errors / data looks wrong in prod": INCIDENT first, even if it is also a bug. Stabilize, then fix.
 - "Implement this PRD / build from this spec document": PRD, when the document spans several features; a single small feature is FEATURE.
 - A FEATURE or BUG that needs a schema change runs `DATABASE_MIGRATION` for that part.
+- "I have an idea / let's build X from scratch": NEW_PROJECT (in an empty repository, via `factory-init`), starting with recorded discovery (`product-discovery` skill, mode A).
+- "We need X, but there's no PRD / it's not written down": FEATURE, with discovery in step 1 (`product-discovery`, mode B). If discovery shows several features, write the PRD rows first and continue with `PRD_TO_IMPLEMENTATION` from phase 2.
 - Composite requests: split into units, order them (blocking bugs → refactors → features → docs), route each, and report per unit.
 
 If a routed workflow file is missing: look for an equivalent in `.factory/workflows/`. If there is none, tell the user about the gap, use the closest documented process explicitly, and recommend adding the workflow. Never improvise a process silently.
