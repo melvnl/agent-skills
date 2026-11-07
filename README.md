@@ -24,6 +24,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[structured-logging-and-instrumentation](plugins/observability/skills/structured-logging-and-instrumentation/SKILL.md)**: Decides what deserves a log entry and adds structured, correlated, PII-safe logs using the project's existing logger.
 - **[distributed-tracing-and-correlation](plugins/observability/skills/distributed-tracing-and-correlation/SKILL.md)**: Preserves request, correlation and trace context across HTTP, SQS/SNS, workers and async code.
 - **[logging-security-and-redaction](plugins/observability/skills/logging-security-and-redaction/SKILL.md)**: Keeps secrets, PII and customer financial data out of logs through allowlisted fields, masking or keyed pseudonyms.
+- **[observability-engineering](plugins/observability/skills/observability-engineering/SKILL.md)**: Designs logs, metrics and traces for a feature: health and dependency signals, cardinality, SLO-based alerting, the observability plan.
 
 ### melvin-writing
 
