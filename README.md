@@ -49,6 +49,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 ### melvin-fintech
 
 - **[financial-data-integrity](plugins/fintech/skills/financial-data-integrity/SKILL.md)**: Invariants enforced and checked, immutable history, duplicate prevention, cross-service reconciliation, evidence-validated migrations.
+- **[credit-scoring-and-eligibility](plugins/fintech/skills/credit-scoring-and-eligibility/SKILL.md)**: Consistent, versioned, explainable decisions: one policy source, deterministic evaluation, immutable decision records, owner-defined fallbacks, golden and parity tests.
 
 ### melvin-observability
 
