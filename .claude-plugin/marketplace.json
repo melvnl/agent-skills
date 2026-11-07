@@ -1,7 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "melvin-skills",
-  "owner": { "name": "Melvin" },
+  "owner": {
+    "name": "Melvin"
+  },
   "description": "Melvin's portable engineering capabilities: skills, agents, guardrail hooks, and the Software Factory, split into installable profiles.",
   "plugins": [
     {
@@ -15,6 +17,12 @@
       "source": "./plugins/writing",
       "description": "Engineering blog pipeline: interview, outline, visuals, editorial review.",
       "category": "productivity"
+    },
+    {
+      "name": "melvin-observability",
+      "source": "./plugins/observability",
+      "description": "Structured logging, correlation and tracing, PII-safe logging, observability review.",
+      "category": "development"
     }
   ]
 }

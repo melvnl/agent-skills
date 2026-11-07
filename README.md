@@ -11,12 +11,17 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 | Plugin | Contents |
 |---|---|
 | [melvin-engineering](plugins/engineering/README.md) | Software Factory, spec-driven planning and execution |
+| [melvin-observability](plugins/observability/README.md) | Structured logging, correlation, PII-safe logging, observability review |
 | [melvin-writing](plugins/writing/README.md) | Engineering blog pipeline |
 
 ### melvin-engineering
 
 - **[factory-init](plugins/engineering/skills/factory-init/SKILL.md)**: Installs the `.factory/` spec-driven software factory into a repo, populates project docs from evidence, and verifies it.
 - **[factory-router](plugins/engineering/skills/factory-router/SKILL.md)**: Classifies and sizes every request in a factory repo and routes it to the right workflow and approval gates.
+
+### melvin-observability
+
+- **[structured-logging-and-instrumentation](plugins/observability/skills/structured-logging-and-instrumentation/SKILL.md)**: Decides what deserves a log entry and adds structured, correlated, PII-safe logs using the project's existing logger.
 
 ### melvin-writing
 

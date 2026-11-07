@@ -1,0 +1,8 @@
+{
+  "name": "melvin-observability",
+  "version": "0.1.0",
+  "description": "Backend observability: structured logging, correlation and tracing, PII-safe logging, observability design and review.",
+  "author": { "name": "Melvin" },
+  "license": "MIT",
+  "keywords": ["observability", "logging", "tracing", "redaction"]
+}
