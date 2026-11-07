@@ -118,8 +118,13 @@ def check_marketplace():
     return plugins
 
 
+CODE_FENCE = re.compile(r"^```.*?^```", re.DOTALL | re.MULTILINE)
+CODE_SPAN = re.compile(r"`[^`\n]*`")
+
+
 def check_links(md_file):
-    text = md_file.read_text(encoding="utf-8")
+    """Relative Markdown links must resolve. Code fences and inline code are not links."""
+    text = CODE_SPAN.sub("", CODE_FENCE.sub("", md_file.read_text(encoding="utf-8")))
     for target in MD_LINK.findall(text):
         if re.match(r"^[a-z]+:", target) or target.startswith("#") or "{" in target or "<" in target:
             continue
