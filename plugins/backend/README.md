@@ -12,3 +12,4 @@ Depends on `melvin-engineering` and `melvin-observability` (installed automatica
 - **[api-design](skills/api-design/SKILL.md)**: HTTP contracts: status semantics, a stable error model, idempotency keys, pagination, money and time formats, compatible evolution, contract tests.
 - **[database-design](skills/database-design/SKILL.md)**: Schemas from the domain: ownership, keys, database-enforced invariants, history snapshots, exact money and UTC time, query-derived indexes.
 - **[database-migrations](skills/database-migrations/SKILL.md)**: Deploy-compatible migrations: expand-migrate-contract, non-blocking DDL on large MySQL tables, resumable backfills, generated-SQL review, rehearsal and rollback plans.
+- **[mysql-engineering](skills/mysql-engineering/SKILL.md)**: InnoDB and Aurora done right: EXPLAIN-verified indexes, isolation and locking reads, deadlock retries, lost-update prevention, collation traps, replica lag.
