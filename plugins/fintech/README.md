@@ -11,6 +11,7 @@ Depends on `melvin-backend`, `melvin-observability`, and `melvin-security` (inst
 - **[risk-decision-engineering](skills/risk-decision-engineering/SKILL.md)**: Rule engines and decision tables: explicit precedence, exact thresholds and missing values, gap/overlap validation, immutable versions, traced deterministic evaluation.
 - **[financial-authorization](skills/financial-authorization/SKILL.md)**: Who may view, decide, override and configure: least privilege, object scoping, maker-checker, amount-based authority, scoped service credentials, tested matrix.
 - **[financial-auditability](skills/financial-auditability/SKILL.md)**: Reconstructable actions and decisions: append-only audit records separate from logs, written atomically, integrity-protected, retained, as-of reconstruction.
+- **[financial-system-reliability](skills/financial-system-reliability/SKILL.md)**: Correctness-first reliability: owner-defined fail-closed or degraded modes, single effects, safe replay, rerunnable jobs, decision-distribution canaries, peak capacity.
 
 ## Extension catalog (not implemented)
 
