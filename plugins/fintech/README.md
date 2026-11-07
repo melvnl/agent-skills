@@ -10,6 +10,7 @@ Depends on `melvin-backend`, `melvin-observability`, and `melvin-security` (inst
 - **[credit-scoring-and-eligibility](skills/credit-scoring-and-eligibility/SKILL.md)**: Consistent, versioned, explainable decisions: one policy source, deterministic evaluation, immutable decision records, owner-defined fallbacks, golden and parity tests.
 - **[risk-decision-engineering](skills/risk-decision-engineering/SKILL.md)**: Rule engines and decision tables: explicit precedence, exact thresholds and missing values, gap/overlap validation, immutable versions, traced deterministic evaluation.
 - **[financial-authorization](skills/financial-authorization/SKILL.md)**: Who may view, decide, override and configure: least privilege, object scoping, maker-checker, amount-based authority, scoped service credentials, tested matrix.
+- **[financial-auditability](skills/financial-auditability/SKILL.md)**: Reconstructable actions and decisions: append-only audit records separate from logs, written atomically, integrity-protected, retained, as-of reconstruction.
 
 ## Extension catalog (not implemented)
 

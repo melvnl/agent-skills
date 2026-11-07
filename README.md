@@ -52,6 +52,7 @@ The repository is a Claude Code **marketplace**. Each directory under `plugins/`
 - **[credit-scoring-and-eligibility](plugins/fintech/skills/credit-scoring-and-eligibility/SKILL.md)**: Consistent, versioned, explainable decisions: one policy source, deterministic evaluation, immutable decision records, owner-defined fallbacks, golden and parity tests.
 - **[risk-decision-engineering](plugins/fintech/skills/risk-decision-engineering/SKILL.md)**: Rule engines and decision tables: explicit precedence, exact thresholds and missing values, gap/overlap validation, immutable versions, traced deterministic evaluation.
 - **[financial-authorization](plugins/fintech/skills/financial-authorization/SKILL.md)**: Who may view, decide, override and configure: least privilege, object scoping, maker-checker, amount-based authority, scoped service credentials, tested matrix.
+- **[financial-auditability](plugins/fintech/skills/financial-auditability/SKILL.md)**: Reconstructable actions and decisions: append-only audit records separate from logs, written atomically, integrity-protected, retained, as-of reconstruction.
 
 ### melvin-observability
 
