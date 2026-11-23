@@ -37,7 +37,6 @@ Answer, with evidence the implementer didn't produce, whether the change does wh
 
 - `spec-driven-engineering:acceptance-criteria-engineering`: for the coverage matrix.
 - `spec-driven-engineering:requirement-traceability`: for the traceability check.
-- `spec-driven-engineering:test-driven-development`: for judging test quality.
 
 ## Inputs
 

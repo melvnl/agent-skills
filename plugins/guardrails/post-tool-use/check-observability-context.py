@@ -4,8 +4,8 @@
 PostToolUse on Write, Edit and MultiEdit of Python files. Deterministic checks on calls the edit
 introduces: an SQS `send_message`/`send_message_batch` (has QueueUrl) or SNS `publish` (has TopicArn or
 TargetArn) without `MessageAttributes`, and an SQS `receive_message` without `MessageAttributeNames`
-(attributes are then not returned). Whether context is propagated another way is a judgment for the
-distributed-tracing-and-correlation skill, so this is feedback, not a block.
+(attributes are then not returned). Whether context is propagated another way is a judgment for
+reviewers, so this is feedback, not a block.
 Config: `disabled: ["check-observability-context"]`.
 """
 import os

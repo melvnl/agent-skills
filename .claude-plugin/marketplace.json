@@ -9,7 +9,7 @@
     {
       "name": "spec-driven-engineering",
       "source": "./plugins/engineering",
-      "description": "Spec-driven engineering core: Software Factory, planning, loop engineering, TDD, debugging.",
+      "description": "Spec-driven engineering core: Software Factory, discovery, PRD analysis, specs, planning, loop engineering.",
       "category": "development"
     },
     {
@@ -27,7 +27,7 @@
     {
       "name": "fintech-engineering",
       "source": "./plugins/fintech",
-      "description": "Credit scoring, eligibility and risk decisioning: integrity, decimal money, auditability, authorization, reliability.",
+      "description": "Fintech reviewer agents for credit scoring, eligibility and risk decisioning.",
       "category": "development"
     },
     {
@@ -39,13 +39,13 @@
     {
       "name": "observability",
       "source": "./plugins/observability",
-      "description": "Structured logging, correlation and tracing, PII-safe logging, observability review.",
+      "description": "Observability reviewer agent: instrumentation, correlation, sensitive logging.",
       "category": "development"
     },
     {
       "name": "application-security",
       "source": "./plugins/security",
-      "description": "Backend application security: authz and IDOR, injection, SSRF, webhook verification, secrets.",
+      "description": "Security auditor agent: authz and IDOR, injection, SSRF, webhook verification, secrets.",
       "category": "security"
     }
   ]

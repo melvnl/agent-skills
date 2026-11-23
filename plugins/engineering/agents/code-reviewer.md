@@ -38,7 +38,6 @@ Catch defects and drift before they reach the main branch, judged against what t
 ## Skills to load
 
 - `spec-driven-engineering:factory-router`: to locate the project's `CODE_REVIEW` workflow and standards in `.factory/`.
-- The domain skills relevant to the diff, e.g. `application-security:backend-security`, `observability:observability-code-review`, `fintech-engineering:financial-data-integrity`.
 
 ## Inputs
 

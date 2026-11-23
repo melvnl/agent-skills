@@ -7,8 +7,7 @@ migration and infrastructure commands, and edits to financial core, production c
 migrations. Commands are stored with secrets and sensitive assignments redacted, truncated to 300 chars.
 Silent; never blocks; skipped when CLAUDE_PLUGIN_DATA is unavailable.
 
-This is a developer-side trail of agent activity, not a financial audit record (see the
-financial-auditability skill for those).
+This is a developer-side trail of agent activity, not a financial audit record.
 """
 import datetime
 import json

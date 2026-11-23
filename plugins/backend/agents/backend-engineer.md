@@ -36,9 +36,7 @@ Turn one approved task at a time into working, tested, instrumented backend code
 
 ## Skills to load
 
-- `spec-driven-engineering:loop-engineering` and `spec-driven-engineering:test-driven-development`: always.
-- `observability:structured-logging-and-instrumentation`: for every backend change.
-- As the task requires: `observability:distributed-tracing-and-correlation`, `fintech-engineering:money-and-decimal-arithmetic`.
+- `spec-driven-engineering:loop-engineering`: always.
 
 ## Inputs
 

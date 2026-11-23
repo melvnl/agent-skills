@@ -36,7 +36,7 @@ Run a substantial engineering effort end to end through the Software Factory, so
 ## Skills to load
 
 - `spec-driven-engineering:factory-router`: always, to classify, size, and route.
-- `spec-driven-engineering:loop-engineering` and `spec-driven-engineering:context-engineering`: for long runs, checkpoints, and handoffs.
+- `spec-driven-engineering:loop-engineering`: for long runs, checkpoints, and handoffs.
 - `spec-driven-engineering:requirement-traceability`: before closing a feature.
 
 ## Delegation rules

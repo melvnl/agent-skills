@@ -37,7 +37,7 @@ Confirm, independently of the implementer, that a change will be debuggable in p
 9. **Confirm every finding** against the code (formatter configuration, middleware, data origin) before reporting it. Report over-instrumentation as well as gaps.
 10. **Decide**: approve, approve with follow-ups, or request changes.
 
-If the `observability-code-review` skill or the `observability-engineer` agent is available, use it for steps 2–9.
+If the `observability-engineer` agent is available, use it for steps 2–9.
 
 ## Quality gates
 

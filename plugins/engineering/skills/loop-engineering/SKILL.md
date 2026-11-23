@@ -15,7 +15,7 @@ Autonomous implementation fails in predictable ways: drifting scope, retrying th
 - Any multi-step change where the agent works for a long stretch without a human in the loop.
 - A fix-and-retry cycle isn't converging.
 
-**When not to use:** there is no plan yet → `planning-and-task-breakdown`. Diagnosing one hard bug in depth → `debugging-and-error-recovery` (the loop calls it from step 7).
+**When not to use:** there is no plan yet → `planning-and-task-breakdown`.
 
 ## Inputs and context
 
@@ -37,8 +37,8 @@ SELECT TASK -> LOAD CONTEXT -> IMPLEMENT -> INSTRUMENT -> RUN TARGETED TESTS -> 
 
 1. **Select.** Choose the next task whose dependencies are done. Prefer finishing in-progress work and fixing a red build. Mark it 🟨 in the task file.
 2. **Load context.** Read only what the task needs: its spec rows and ACs, the design section, the code and tests it touches and their callers. Confirm the build is green before changing anything; if it isn't, that becomes the task.
-3. **Implement** the smallest change that satisfies the task, test first where practical (`test-driven-development`). Stay inside the task's scope; note unrelated findings as follow-ups.
-4. **Instrument** what the observability plan assigns to this task (`structured-logging-and-instrumentation`), or note that none applies.
+3. **Implement** the smallest change that satisfies the task, test first where practical. Stay inside the task's scope; note unrelated findings as follow-ups.
+4. **Instrument** what the observability plan assigns to this task, or note that none applies.
 5. **Run targeted tests**: the tests for this task, then the module's suite. Read the actual output.
 6. **Evaluate** against the task's done-when, not against "tests pass".
 7. **On failure, diagnose before fixing.** State the observed failure, a hypothesis, and the check that would confirm it. Fix the cause, not the symptom. Never change a test's expectation to make it pass unless the test is demonstrably wrong (and then say so in the report).
@@ -52,7 +52,7 @@ Stop the loop and report (or escalate) when any of these is true:
 
 | Condition | Action |
 |---|---|
-| The same test fails after **3** fix attempts with the same hypothesis | Stop fixing; switch to `debugging-and-error-recovery` with a new hypothesis, or escalate |
+| The same test fails after **3** fix attempts with the same hypothesis | Stop fixing; switch to evidence-based diagnosis with a new hypothesis, or escalate |
 | Two consecutive iterations produced no measurable progress | Stop; summarize what was tried and ask |
 | The fix requires changing the spec, acceptance criteria, contracts, or data model | Stop; that needs approval |
 | The task grows beyond its scope or size estimate by ~2× | Stop; re-plan the task |
@@ -67,7 +67,7 @@ After each task, and before any pause or expected context compaction, persist:
 - `tasks/STATUS.md`: active feature and task, **next action**, blockers, and last verification (date, command, result).
 - Git: in projects where the owner authorized commits, one commit per completed task with only that task's files staged; otherwise leave the change uncommitted and say so.
 
-A checkpoint must let a fresh session continue without this conversation (`context-engineering`).
+A checkpoint must let a fresh session continue without this conversation.
 
 ## Output
 

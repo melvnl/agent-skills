@@ -36,7 +36,7 @@ Change data structures and queries so that data stays correct, deploys stay safe
 
 ## Skills to load
 
-- `fintech-engineering:financial-data-integrity`: when the data feeds financial decisions.
+None. The role works from its own engineering knowledge and the project's `.factory/` standards.
 
 ## Inputs
 

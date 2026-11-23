@@ -5,7 +5,7 @@ PostToolUse on Write, Edit and MultiEdit of Python files. For each log call the 
 field names, dict keys, keyword arguments and f-string expressions (not the words of a log message) for
 sensitive names (password, token, authorization, national id, email, phone, card or account numbers, ...),
 and flags whole-object logging (request.headers/body/data, vars(), __dict__). Feedback only: deciding
-what is safe is a judgment for the logging-security-and-redaction skill and reviewers.
+what is safe is a judgment for reviewers.
 Config: `disabled: ["detect-sensitive-logging"]`.
 """
 import os

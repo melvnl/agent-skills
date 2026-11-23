@@ -37,9 +37,7 @@ Design the simplest change that satisfies the approved spec inside the system as
 
 ## Skills to load
 
-- `observability:observability-engineering`: for the observability plan (always for backend designs).
-- `fintech-engineering:credit-scoring-and-eligibility` and `fintech-engineering:financial-system-reliability`: for decision systems.
-- `application-security:backend-security`: for trust boundaries.
+None. The role works from its own engineering knowledge and the project's `.factory/` standards.
 
 ## Inputs
 

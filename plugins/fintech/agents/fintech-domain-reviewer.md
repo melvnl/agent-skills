@@ -37,9 +37,7 @@ Confirm that a change implements the credit and risk policy the owner actually a
 
 ## Skills to load
 
-- `fintech-engineering:credit-scoring-and-eligibility`: always for decision pipelines.
-- `fintech-engineering:risk-decision-engineering`: when rules, tables, or precedence change.
-- `fintech-engineering:financial-authorization`: when overrides, limits, back-office functions, or policy activation change.
+None. The role works from its own engineering knowledge and the project's `.factory/` standards.
 
 ## Inputs
 

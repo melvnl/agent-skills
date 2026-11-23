@@ -2,7 +2,7 @@
 
 How a guardrail hook in this repo is written. Contract: Claude Code hooks (https://code.claude.com/docs/en/hooks).
 
-A hook decides **which operations are allowed, blocked, or flagged, and when**, deterministically. Hooks never make judgment calls such as "is this log useful?". That belongs to skills (`structured-logging-and-instrumentation`) and reviewer agents (`observability-engineer`). A hook checks facts that a pattern can decide: a path matches a protected glob, a command parses to `git push --force`, a logger call contains `authorization`.
+A hook decides **which operations are allowed, blocked, or flagged, and when**, deterministically. Hooks never make judgment calls such as "is this log useful?". That belongs to reviewer agents (`observability-engineer`). A hook checks facts that a pattern can decide: a path matches a protected glob, a command parses to `git push --force`, a logger call contains `authorization`.
 
 ## Location
 

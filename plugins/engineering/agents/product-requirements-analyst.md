@@ -37,7 +37,6 @@ Make requirements trustworthy before anyone builds on them, whether they arrive 
 
 - `spec-driven-engineering:product-discovery`: when starting from an idea or an undocumented request.
 - `spec-driven-engineering:prd-analysis`, `spec-driven-engineering:specification-decomposition`, `spec-driven-engineering:acceptance-criteria-engineering`, `spec-driven-engineering:requirement-traceability`: load each at the stage that needs it.
-- `spec-driven-engineering:context-engineering`: for documents too large to hold at once.
 
 ## Inputs
 

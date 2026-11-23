@@ -5,9 +5,9 @@
   <img src="docs/assets/agent-skills-banner-light.svg" alt="agent-skills: engineering skills, agents and guardrails for Claude Code" width="100%">
 </picture>
 
-**Portable engineering capabilities for Claude Code: spec-driven workflows, backend and fintech expertise, observability by default, and deterministic guardrails.**
+**Portable engineering capabilities for Claude Code: spec-driven workflows, specialist reviewer agents, and deterministic guardrails.**
 
-Skills encode *how* senior engineers do the work, agents define *who* does it and with what authority, hooks enforce *what is allowed*, and Software Factory workflows decide *in what order*, with human approval at every gate. Everything is packaged as Claude Code plugins in one marketplace, so each project installs only the profiles it needs.
+Skills encode the workflows (*how* a request moves from idea to verified change), agents define *who* does it and with what authority, hooks enforce *what is allowed*, and Software Factory workflows decide *in what order*, with human approval at every gate. Everything is packaged as Claude Code plugins in one marketplace, so each project installs only the profiles it needs.
 
 ```
   DEFINE            PLAN             BUILD             VERIFY            REVIEW             SHIP
@@ -17,9 +17,9 @@ Skills encode *how* senior engineers do the work, agents define *who* does it an
  │  Specs │      │  ADRs  │       │        │       │ Trace  │       │ Fintech │       │Approval│
  └────────┘      └────────┘       └────────┘       └────────┘       └─────────┘       └────────┘
  prd-analysis    planning-and-    loop-engineering  qa-engineer      code-reviewer     human
- specification-  task-breakdown   test-driven-dev.  requirement-     observability-    approval
- decomposition   solution-        structured-       traceability     engineer          gate
-                 architect        logging-...                        security-auditor
+ specification-  task-breakdown                     requirement-     observability-    approval
+ decomposition   solution-                          traceability     engineer          gate
+                 architect                                           security-auditor
         └──────────────── routed by factory-router, guarded by engineering-guardrails ────────────────┘
 ```
 
@@ -32,11 +32,11 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 | | Count | Where |
 |---|---|---|
 | Plugins (installable profiles) | 7 | `plugins/<profile>/` |
-| Skills | 30 | `plugins/<profile>/skills/` |
+| Skills | 13 | `plugins/<profile>/skills/` |
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
 | Guardrail hooks | 18 (92 unit tests) | `plugins/guardrails/` |
 | Software Factory workflows | 11 (+ fintech overlay) | `plugins/engineering/skills/factory-init/assets/factory/workflows/` |
-| Eval cases (native `claude plugin eval`) | 39 | `plugins/<profile>/evals/` |
+| Eval cases (native `claude plugin eval`) | 11 | `plugins/<profile>/evals/` |
 
 ---
 
@@ -73,11 +73,11 @@ cd ~/work/eligibility-service
 
 | Profile | Plugin | What it gives you | Depends on |
 |---|---|---|---|
-| `core` | [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, product discovery, PRD analysis, specs, planning, loop and context engineering, TDD, debugging, git discipline | none |
-| `observability` | [observability](plugins/observability/README.md) | Structured logging, correlation and tracing, PII-safe logging, observability design and review | none |
-| `security` | [application-security](plugins/security/README.md) | Authorization and IDOR, injection, SSRF, webhook verification, secrets | none |
+| `core` | [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, product discovery, PRD analysis, specs, acceptance criteria, traceability, planning, loop engineering | none |
+| `observability` | [observability](plugins/observability/README.md) | Observability reviewer agent: instrumentation, correlation, sensitive logging, cardinality | none |
+| `security` | [application-security](plugins/security/README.md) | Security auditor agent: authorization and IDOR, injection, SSRF, webhook verification, secrets | none |
 | `backend` | [backend-engineering](plugins/backend/README.md) | Backend and database engineer agents: test-first implementation, deploy-compatible migrations | spec-driven-engineering, observability |
-| `fintech` | [fintech-engineering](plugins/fintech/README.md) | Credit scoring and eligibility, risk decisions, data integrity, decimal money, authorization, auditability, reliability | backend-engineering, observability, application-security |
+| `fintech` | [fintech-engineering](plugins/fintech/README.md) | Fintech domain and financial-invariant reviewer agents for credit, eligibility and risk decisioning | backend-engineering, observability, application-security |
 | `guardrails` | [engineering-guardrails](plugins/guardrails/README.md) | 18 deterministic hooks | none |
 | `writing` | [technical-writing](plugins/writing/README.md) | Engineering blog pipeline | none |
 | `all` | every plugin above | | |
@@ -90,7 +90,7 @@ Suggested combinations: blog repo → `writing`; fintech backend → `fintech` +
 
 | Type | Answers | Example |
 |---|---|---|
-| **Skill** | *How* to do a task | `structured-logging-and-instrumentation` decides which events deserve a log entry |
+| **Skill** | *How* to do a task | `prd-analysis` lists a PRD's contradictions and gaps before anything is built |
 | **Agent** | *Who* does it, with what authority | `observability-engineer` reviews instrumentation, read-only |
 | **Hook** | *What* is allowed, deterministically | `detect-sensitive-logging` flags a log call containing `authorization` |
 | **Workflow** | *In what order*, with which approvals | `PRD_TO_IMPLEMENTATION` stops for your decisions on contradictions |
@@ -101,7 +101,7 @@ A typical PRD-driven feature:
 2. `prd-analysis` preserves the source and lists contradictions, ambiguities, and missing NFRs. **You resolve them.**
 3. `specification-decomposition` and `acceptance-criteria-engineering` produce stable ids and atomic specs. **You approve them.**
 4. `solution-architect` writes the design, including failure scenarios and the observability plan.
-5. `planning-and-task-breakdown` produces ordered tasks; `backend-engineer` implements each with `loop-engineering`, `test-driven-development`, and instrumentation.
+5. `planning-and-task-breakdown` produces ordered tasks; `backend-engineer` implements each with `loop-engineering`, test first and instrumented.
 6. `qa-engineer` verifies independently; `code-reviewer`, `observability-engineer`, `security-auditor`, and the fintech reviewers review. The implementer never approves its own work.
 7. Release notes and rollback considerations; **you approve deployment.**
 
@@ -129,20 +129,7 @@ Installed into a project as `.factory/` by `/factory-init`; selected per request
 
 ---
 
-## Observability by default
-
-Every backend change is evaluated for instrumentation, and the goal is useful observability, not maximum log volume:
-
-- **Decide before logging.** A 15-event, 7-question framework: is it diagnostic, not already observable, needed to correlate a failure, worth its volume, free of sensitive data?
-- **Reuse what exists.** The project's logger, wrapper and correlation mechanism are inspected first. Internal logger APIs are never invented.
-- **Correlate across boundaries.** Request, correlation and trace ids survive HTTP, queues, workers and thread pools, with the fewest identifiers possible.
-- **Keep data safe.** Secrets never; personal and financial identifiers only as approved references or keyed pseudonyms; allowlisted fields instead of payloads.
-- **Prove it.** The formatter actually emits the fields, correlation appears in captured records, and a sentinel test shows sensitive values are absent.
-- **Logs are not audit records.** Decisions and financial changes get durable, append-only records (`financial-auditability`).
-
----
-
-## All 30 skills
+## All 13 skills
 
 ### spec-driven-engineering: define, plan, build, verify
 
@@ -157,40 +144,6 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 | [requirement-traceability](plugins/engineering/skills/requirement-traceability/SKILL.md) | Keeps PRD → feature → AC → task → code → test traced, with a deterministic `trace_check.py` | Before closing a feature, or when specs change |
 | [planning-and-task-breakdown](plugins/engineering/skills/planning-and-task-breakdown/SKILL.md) | Walking skeleton first, vertical slices, tasks with tests, instrumentation and done-when | An approved spec needs implementation tasks |
 | [loop-engineering](plugins/engineering/skills/loop-engineering/SKILL.md) | Implement → instrument → test → diagnose → fix → verify → checkpoint, with stop conditions | Implementing a task list, autonomous multi-step work |
-| [context-engineering](plugins/engineering/skills/context-engineering/SKILL.md) | Targeted reading, bounded output, state in files, compaction-proof handoffs | Long tasks, large codebases or documents |
-| [test-driven-development](plugins/engineering/skills/test-driven-development/SKILL.md) | Red-green-refactor from the acceptance criteria, with the project's own runner | Implementing behavior or fixing bugs |
-| [debugging-and-error-recovery](plugins/engineering/skills/debugging-and-error-recovery/SKILL.md) | Reproduce, minimize, one hypothesis at a time, bisect, root cause, safe recovery | Bugs, failing tests, non-converging fixes |
-| [git-workflow](plugins/engineering/skills/git-workflow/SKILL.md) | Small Conventional Commits, explicit staging, reviewed diffs, no history rewriting without approval | Committing, branching, PRs |
-
-### observability
-
-| Skill | What it does | Use when |
-|---|---|---|
-| [structured-logging-and-instrumentation](plugins/observability/skills/structured-logging-and-instrumentation/SKILL.md) | Decides what deserves a log; structured, correlated, PII-safe logs with the project's own logger | Any backend implementation or change |
-| [distributed-tracing-and-correlation](plugins/observability/skills/distributed-tracing-and-correlation/SKILL.md) | Request, correlation and trace context across HTTP, queues, workers and async code | A change crosses a service, queue, thread or task boundary |
-| [logging-security-and-redaction](plugins/observability/skills/logging-security-and-redaction/SKILL.md) | Four-tier data classification; allowlists, keyed pseudonyms, masking, sentinel tests | Adding or reviewing log statements and error handling |
-| [observability-engineering](plugins/observability/skills/observability-engineering/SKILL.md) | Question-driven logs/metrics/traces design, cardinality, SLO-based alerting, the observability plan | Designing a feature or service, defining alerts |
-| [observability-code-review](plugins/observability/skills/observability-code-review/SKILL.md) | Reviews a diff for gaps *and* over-instrumentation, correlation loss, sensitive data, unbounded labels | Reviewing backend changes |
-
-### fintech-engineering
-
-Scoped to credit scoring, eligibility and risk decisioning. Payments, ledgers and lending lifecycles are in an [extension catalog](plugins/fintech/README.md#extension-catalog-not-implemented), deliberately not built.
-
-| Skill | What it does | Use when |
-|---|---|---|
-| [financial-data-integrity](plugins/fintech/skills/financial-data-integrity/SKILL.md) | Invariant catalog, immutable history, duplicate and lost-update prevention, reconciliation, migration evidence | Code that reads and updates financial records |
-| [money-and-decimal-arithmetic](plugins/fintech/skills/money-and-decimal-arithmetic/SKILL.md) | Decimal from strings, explicit policy rounding, total-preserving allocation, string serialization | Computing, storing or serializing money and ratios |
-| [credit-scoring-and-eligibility](plugins/fintech/skills/credit-scoring-and-eligibility/SKILL.md) | One policy source, versioned deterministic decisions, decision records, fallbacks, golden and parity tests | Scoring, eligibility, limits, decision services |
-| [risk-decision-engineering](plugins/fintech/skills/risk-decision-engineering/SKILL.md) | Decision tables, precedence, missing values, gap/overlap validation, traced evaluation | Rule engines and policy configuration |
-| [financial-authorization](plugins/fintech/skills/financial-authorization/SKILL.md) | Least privilege, maker-checker, amount-based authority, scoped service credentials | Back-office, overrides, limit or policy changes |
-| [financial-auditability](plugins/fintech/skills/financial-auditability/SKILL.md) | Append-only audit records written atomically, separate from logs, reconstructable | Decisions, overrides, privileged access |
-| [financial-system-reliability](plugins/fintech/skills/financial-system-reliability/SKILL.md) | Fail-closed choices, single effects, replay, decision-distribution canaries | Critical decision services, jobs, deployments |
-
-### application-security
-
-| Skill | What it does | Use when |
-|---|---|---|
-| [backend-security](plugins/security/skills/backend-security/SKILL.md) | Object-level authorization, mass assignment, injection, SSRF, webhook verification, secrets, abuse controls, each with an attack test | Endpoints, integrations, callbacks, auth |
 
 ### technical-writing
 
@@ -255,10 +208,10 @@ Project `commands` come from the repository, so they run only after you enable t
 
 ## Evals
 
-Native `claude plugin eval` suites per plugin: observability (the 12 required scenarios plus false-positive and must-not-trigger cases), product discovery, PRD analysis, fintech, and security. Each case pairs an `llm` rubric with concrete PASS/FAIL conditions, a `tool_used` grader that the expected skill fired, and, for sensitive data, a free `regex` grader that fails if the reply echoes the sentinel value.
+Native `claude plugin eval` suites for product discovery and PRD analysis. Knowledge skills (backend, observability, fintech, security, TDD, debugging, git, context) were removed after with-and-without evals showed no lift over baseline: a skill stays only if it beats baseline. Each case pairs an `llm` rubric with concrete PASS/FAIL conditions, a `tool_used` grader that the expected skill fired, and, for sensitive data, a free `regex` grader that fails if the reply echoes the sentinel value.
 
 ```bash
-claude plugin eval plugins/observability --case missing-error-context --runs 1 --ablation none
+claude plugin eval plugins/engineering --case missing-nfrs --runs 1 --ablation none
 ```
 
 Model-graded runs cost usage: run the cases you touched, and read traces (`--keep-temp`) before changing a skill. Hooks and scripts use unit tests instead.

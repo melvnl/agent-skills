@@ -1,7 +1,7 @@
 {
   "name": "fintech-engineering",
   "version": "0.1.0",
-  "description": "Fintech backend engineering for credit scoring, eligibility and risk decisioning: data integrity, decimal money, decision engineering, authorization, auditability, reliability.",
+  "description": "Fintech reviewer agents for credit scoring, eligibility and risk decisioning: policy conformance and financial invariants.",
   "author": {
     "name": "Melvin"
   },

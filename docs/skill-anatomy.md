@@ -62,7 +62,7 @@ Recommended after those: `## Common rationalizations` (excuse → reality table)
 - **Version-aware.** State which behavior is version-specific ("Python ≥ 3.10", "Django ≥ 4.1"). Never assume a modern feature exists in a legacy project; detect the version first.
 - **Decision criteria over rules of thumb.** When a choice exists, give the criteria that decide it and the failure scenario of choosing wrong.
 - **Evidence over assertion.** Verification reports actual command output; unknowns are labeled, not guessed.
-- **Composable.** Hand off by name ("for correlation propagation, apply `distributed-tracing-and-correlation`"). Don't copy another skill's content.
+- **Composable.** Hand off by name ("for acceptance criteria, apply `acceptance-criteria-engineering`"). Don't copy another skill's content.
 - **Factory-aware, factory-optional.** When `.factory/` exists, write outputs where the factory expects them (`specs/`, `tasks/`, `product/`) and follow its gates. The skill must still work in a repo without a factory.
 - **Project specifics stay out.** Defaults go in `references/`; the target project's own `CLAUDE.md` overrides them.
 - **No placeholders.** A skill is committed only when every section is real.

@@ -38,12 +38,12 @@ Arrows are `dependencies` in `plugin.json`. Installing a plugin installs what it
 
 | Plugin | Purpose | Status |
 |---|---|---|
-| spec-driven-engineering | Software Factory (11 workflows), product discovery, PRD analysis, decomposition, acceptance criteria, traceability, planning, loop and context engineering, TDD, debugging, git | 13 skills, 5 agents, discovery and PRD eval suites |
+| spec-driven-engineering | Software Factory (11 workflows), product discovery, PRD analysis, decomposition, acceptance criteria, traceability, planning, loop engineering | 9 skills, 5 agents, discovery and PRD eval suites |
 | technical-writing | Engineering blog pipeline | 4 skills |
-| observability | Logging, tracing, redaction, observability design and review | 5 skills, 1 agent, observability eval suite |
+| observability | Observability reviewer agent | 1 agent |
 | backend-engineering | Backend and database engineer agents | 2 agents |
-| application-security | Backend application security | 1 skill, 1 agent, security eval suite |
-| fintech-engineering | Data integrity, money, credit scoring and eligibility, risk decisions, authorization, auditability, reliability | 7 skills, 2 agents, fintech eval suite |
+| application-security | Security auditor agent | 1 agent |
+| fintech-engineering | Fintech domain and financial-invariant reviewer agents | 2 agents |
 | engineering-guardrails | Deterministic hooks | 18 hooks, 92 unit tests |
 
 **Why per-directory plugins.** Install testing in an isolated config showed that several plugins sourced from the repo root each load *every* agent through the default `agents/` scan, and that explicit component path lists were not picked up. Per-directory plugins using only default directories (`skills/`, `agents/`) load exactly their own components. A consequence: installed plugins can't read files outside their own directory, so references live with the skill that uses them, not in a shared top-level folder.
@@ -55,7 +55,7 @@ Multi-stage engineering processes (feature development, PRD-to-implementation, m
 They are deliberately not Claude Code's native `workflows/` component. Native workflows are JavaScript orchestration scripts that can't pause for human input mid-run, so they can't host approval gates. A native workflow may still be used *inside* a factory step for a large fan-out task (a codebase-wide audit), never as the gated process itself.
 
 Rules:
-- Workflow files stay project-agnostic. They name skills and agents as optional accelerators ("if the `observability-engineering` skill is available, apply it"), so the factory works without any plugin installed.
+- Workflow files stay project-agnostic. They name skills and agents as optional accelerators ("if the `observability-engineer` agent is available, use it"), so the factory works without any plugin installed.
 - Every workflow states: purpose, entry conditions, inputs, outputs, steps, quality gates, exit conditions, human approval required.
 - A new workflow is wired into `factory-router` (routing table), `CLAUDE_TEMPLATE.md` (§ 6.1 and repository map), the factory `README.md`, and `verify_factory.sh` (required files) in the same change.
 

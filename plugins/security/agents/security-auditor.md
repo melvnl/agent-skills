@@ -36,8 +36,7 @@ Find the ways a change can be abused before an attacker or an auditor does, and 
 
 ## Skills to load
 
-- `application-security:backend-security`: always.
-- `observability:logging-security-and-redaction`: when the change logs or returns personal or financial data.
+None. The role works from its own engineering knowledge and the project's `.factory/` standards.
 
 ## Inputs
 

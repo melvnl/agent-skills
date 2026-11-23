@@ -37,7 +37,7 @@ Find exploitable weaknesses before merge, with an independent reviewer, concrete
 10. **Dependencies**: no new high or critical known vulnerabilities (run the project's scanner if configured).
 11. **Decide** and record the verdict.
 
-If the `backend-security` skill or the `security-auditor` agent is available, use it for steps 1–10.
+If the `security-auditor` agent is available, use it for steps 1–10.
 
 ## Quality gates
 

@@ -35,7 +35,7 @@ Ship financial decision features that are correct per the approved policy, recon
 | Verification (steps 8–9) | Golden dataset run and every outcome change explained as an approved policy change; reviews by someone other than the implementer for: domain policy, financial invariants, security, and observability (`SECURITY_REVIEW.md`, `OBSERVABILITY_REVIEW.md`). Schema changes follow `DATABASE_MIGRATION.md`. |
 | Release | Behind a flag or versioned activation; canary compares decision distributions (approval rate, limits, fallback rate, reason codes) with the baseline; rollback rehearsed; activation approved by someone other than the proposer. |
 
-If the fintech skills (`credit-scoring-and-eligibility`, `risk-decision-engineering`, `financial-data-integrity`, `financial-auditability`, `financial-authorization`, `financial-system-reliability`, `money-and-decimal-arithmetic`) and the `fintech-domain-reviewer` and `financial-invariant-reviewer` agents are available, use them for these gates.
+If the `fintech-domain-reviewer` and `financial-invariant-reviewer` agents are available, use them for these gates.
 
 ## Quality gates
 

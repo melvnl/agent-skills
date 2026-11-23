@@ -32,8 +32,6 @@ Help humans restore service and correctness quickly and safely, then find the ro
 7. **Fix** through `BUG_FIX.md` (regression test first); data corrections through `DATABASE_MIGRATION.md` with approval, as new records rather than silent overwrites where history matters.
 8. **Close**: timeline, root cause, contributing factors, what detected it and how fast, follow-ups (tests, alerts, runbooks) with owners.
 
-If the `debugging-and-error-recovery`, `distributed-tracing-and-correlation`, and `financial-system-reliability` skills are available, use them.
-
 ## Quality gates
 
 | Gate | Passes when |

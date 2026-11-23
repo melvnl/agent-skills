@@ -28,7 +28,7 @@ model: inherit
 
 - `description` tells the main session **when to delegate**. Name the trigger and the authority ("Read-only").
 - Plugin agents **ignore** `hooks`, `mcpServers`, and `permissionMode`, so authority comes from `tools` and `disallowedTools` only.
-- **Skills are loaded explicitly, not preloaded.** The body names the skills to invoke with the Skill tool at the start of work (`observability:structured-logging-and-instrumentation`). Preloading injects whole skills into context, and resolving namespaced plugin names in `skills:` is unverified.
+- **Skills are loaded explicitly, not preloaded.** The body names the skills to invoke with the Skill tool at the start of work (`spec-driven-engineering:loop-engineering`). Preloading injects whole skills into context, and resolving namespaced plugin names in `skills:` is unverified.
 
 ## Authority classes
 

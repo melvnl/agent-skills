@@ -15,7 +15,7 @@ Acceptance criteria are the contract a feature is verified against. Vague ones (
 - Reviewing a spec before approval, or a PR against its spec.
 - Anyone asks "how do we know this is done?".
 
-**When not to use:** deciding *what* the requirements are → `prd-analysis` / `specification-decomposition`. Writing the tests themselves → `test-driven-development`.
+**When not to use:** deciding *what* the requirements are → `prd-analysis` / `specification-decomposition`.
 
 ## Inputs and context
 

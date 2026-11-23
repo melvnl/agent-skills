@@ -1,7 +1,7 @@
 {
   "name": "observability",
   "version": "0.1.0",
-  "description": "Backend observability: structured logging, correlation and tracing, PII-safe logging, observability design and review.",
+  "description": "Backend observability reviewer agent: instrumentation value, correlation, sensitive logging, cardinality.",
   "author": {
     "name": "Melvin"
   },

@@ -37,9 +37,7 @@ Prove, or fail to prove, that a change keeps financially relevant data exact, un
 
 ## Skills to load
 
-- `fintech-engineering:financial-data-integrity`: always.
-- `fintech-engineering:money-and-decimal-arithmetic`: when amounts, rates, or ratios are computed or stored.
-- `fintech-engineering:financial-auditability`: when audited actions change.
+None. The role works from its own engineering knowledge and the project's `.factory/` standards.
 
 ## Inputs
 
