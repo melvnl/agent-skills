@@ -17,15 +17,14 @@ User-scope installs apply to every project. Requirements: Claude Code, `git`, `p
 | Project type | Profiles | Scope |
 |---|---|---|
 | Engineering blog / writing | `writing` | project |
-| Fintech backend (credit, eligibility, risk) | `fintech` (pulls backend, observability, security), `guardrails` | project |
-| Any other backend or web app, any language | `backend` (pulls observability), `guardrails` | project |
+| Backend or web app, any language (including fintech) | `backend` (pulls core), `reviewers`, `guardrails` | project |
 | Small experiments | `core` | user |
 
 `--scope project` writes the plugin enablement to the project's `.claude/settings.json`, which can be committed so collaborators get the same set. `--scope local` keeps it in `.claude/settings.local.json` (not committed).
 
 ```bash
 cd ~/work/eligibility-service
-~/dev/agent-skills/scripts/agent-skills install --profile fintech --profile guardrails --scope project
+~/dev/agent-skills/scripts/agent-skills install --profile backend --profile reviewers --profile guardrails --scope project
 ```
 
 ## 3. Set up a project

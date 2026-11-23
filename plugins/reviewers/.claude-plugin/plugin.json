@@ -1,0 +1,16 @@
+{
+  "name": "reviewers",
+  "version": "0.1.0",
+  "description": "Independent, read-only specialist reviewers: observability, application security, fintech decision policy and financial invariants.",
+  "author": {
+    "name": "Melvin"
+  },
+  "repository": "https://github.com/melvnl/agent-skills",
+  "license": "MIT",
+  "keywords": [
+    "review",
+    "observability",
+    "security",
+    "fintech"
+  ]
+}

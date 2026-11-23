@@ -13,7 +13,6 @@
     "agents"
   ],
   "dependencies": [
-    "spec-driven-engineering",
-    "observability"
+    "spec-driven-engineering"
   ]
 }

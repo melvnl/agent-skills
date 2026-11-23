@@ -23,13 +23,8 @@ The repo root is a Claude Code marketplace (`.claude-plugin/marketplace.json`). 
 ```mermaid
 flowchart LR
   ENG[spec-driven-engineering] 
-  OBS[observability]
-  SEC[application-security]
   BE[backend-engineering] --> ENG
-  BE --> OBS
-  FIN[fintech-engineering] --> BE
-  FIN --> SEC
-  FIN --> OBS
+  REV[reviewers]
   GR[engineering-guardrails]
   WR[technical-writing]
 ```
@@ -40,10 +35,8 @@ Arrows are `dependencies` in `plugin.json`. Installing a plugin installs what it
 |---|---|---|
 | spec-driven-engineering | Software Factory (11 workflows), product discovery, PRD analysis, decomposition, acceptance criteria, traceability, planning, loop engineering | 9 skills, 5 agents, discovery and PRD eval suites |
 | technical-writing | Engineering blog pipeline | 4 skills |
-| observability | Observability reviewer agent | 1 agent |
 | backend-engineering | Backend and database engineer agents | 2 agents |
-| application-security | Security auditor agent | 1 agent |
-| fintech-engineering | Fintech domain and financial-invariant reviewer agents | 2 agents |
+| reviewers | Observability, security, fintech-domain and financial-invariant reviewer agents | 4 agents |
 | engineering-guardrails | Deterministic hooks | 18 hooks, 92 unit tests |
 
 **Why per-directory plugins.** Install testing in an isolated config showed that several plugins sourced from the repo root each load *every* agent through the default `agents/` scan, and that explicit component path lists were not picked up. Per-directory plugins using only default directories (`skills/`, `agents/`) load exactly their own components. A consequence: installed plugins can't read files outside their own directory, so references live with the skill that uses them, not in a shared top-level folder.

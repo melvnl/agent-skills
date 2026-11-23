@@ -5,7 +5,7 @@
 #   agent-skills profiles                         list profiles and their plugins
 #   agent-skills install [--profile P]... [--scope user|project|local] [--source DIR_OR_REPO]
 #                                                 register the marketplace (if needed) and install plugins;
-#                                                 dependencies (e.g. fintech -> backend, observability, security)
+#                                                 dependencies (e.g. backend -> spec-driven-engineering)
 #                                                 are installed by Claude Code automatically. Default profile: core.
 #   agent-skills update                           refresh the marketplace and update installed melvin-* plugins
 #   agent-skills doctor                           check prerequisites, registration, installed plugins, validators

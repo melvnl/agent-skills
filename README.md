@@ -31,7 +31,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 
 | | Count | Where |
 |---|---|---|
-| Plugins (installable profiles) | 7 | `plugins/<profile>/` |
+| Plugins (installable profiles) | 5 | `plugins/<profile>/` |
 | Skills | 13 | `plugins/<profile>/skills/` |
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
 | Guardrail hooks | 18 (92 unit tests) | `plugins/guardrails/` |
@@ -56,7 +56,7 @@ scripts/agent-skills doctor                                      # verify the se
 
 ```bash
 cd ~/work/eligibility-service
-~/dev/agent-skills/scripts/agent-skills install --profile fintech --profile guardrails --scope project
+~/dev/agent-skills/scripts/agent-skills install --profile backend --profile reviewers --profile guardrails --scope project
 ```
 
 **3. Adopt the Software Factory** in a repository by running `/factory-init` inside it. From then on, ask in plain language; `factory-router` classifies the request and runs the right workflow.
@@ -74,15 +74,13 @@ cd ~/work/eligibility-service
 | Profile | Plugin | What it gives you | Depends on |
 |---|---|---|---|
 | `core` | [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, product discovery, PRD analysis, specs, acceptance criteria, traceability, planning, loop engineering | none |
-| `observability` | [observability](plugins/observability/README.md) | Observability reviewer agent: instrumentation, correlation, sensitive logging, cardinality | none |
-| `security` | [application-security](plugins/security/README.md) | Security auditor agent: authorization and IDOR, injection, SSRF, webhook verification, secrets | none |
-| `backend` | [backend-engineering](plugins/backend/README.md) | Backend and database engineer agents: test-first implementation, deploy-compatible migrations | spec-driven-engineering, observability |
-| `fintech` | [fintech-engineering](plugins/fintech/README.md) | Fintech domain and financial-invariant reviewer agents for credit, eligibility and risk decisioning | backend-engineering, observability, application-security |
+| `backend` | [backend-engineering](plugins/backend/README.md) | Backend and database engineer agents: test-first implementation, deploy-compatible migrations | spec-driven-engineering |
+| `reviewers` | [reviewers](plugins/reviewers/README.md) | Read-only reviewer agents: observability, security, fintech decision policy, financial invariants | none |
 | `guardrails` | [engineering-guardrails](plugins/guardrails/README.md) | 18 deterministic hooks | none |
 | `writing` | [technical-writing](plugins/writing/README.md) | Engineering blog pipeline | none |
 | `all` | every plugin above | | |
 
-Suggested combinations: blog repo → `writing`; fintech backend → `fintech` + `guardrails`; any other backend or web app → `backend` + `guardrails`; experiments → `core`.
+Suggested combinations: blog repo → `writing`; backend or web app → `backend` + `reviewers` + `guardrails`; experiments → `core`.
 
 ---
 
@@ -169,10 +167,10 @@ Installed into a project as `.factory/` by `/factory-init`; selected per request
 | [code-reviewer](plugins/engineering/agents/code-reviewer.md) | spec-driven-engineering | Spec conformance and standards review | Read-only |
 | [backend-engineer](plugins/backend/agents/backend-engineer.md) | backend-engineering | Implements approved tasks test-first, instrumented | Code within task scope |
 | [database-engineer](plugins/backend/agents/database-engineer.md) | backend-engineering | Schema, migrations, backfills, query tuning | Migrations on local or test databases only |
-| [observability-engineer](plugins/observability/agents/observability-engineer.md) | observability | Instrumentation, correlation and sensitive-logging review | Read-only |
-| [security-auditor](plugins/security/agents/security-auditor.md) | application-security | Exploit-focused security audit | Read-only |
-| [fintech-domain-reviewer](plugins/fintech/agents/fintech-domain-reviewer.md) | fintech-engineering | Decision logic vs approved credit and risk policy | Read-only |
-| [financial-invariant-reviewer](plugins/fintech/agents/financial-invariant-reviewer.md) | fintech-engineering | Arithmetic, duplicates, concurrency, history, audit atomicity | Read-only |
+| [observability-engineer](plugins/reviewers/agents/observability-engineer.md) | reviewers | Instrumentation, correlation and sensitive-logging review | Read-only |
+| [security-auditor](plugins/reviewers/agents/security-auditor.md) | reviewers | Exploit-focused security audit | Read-only |
+| [fintech-domain-reviewer](plugins/reviewers/agents/fintech-domain-reviewer.md) | reviewers | Decision logic vs approved credit and risk policy | Read-only |
+| [financial-invariant-reviewer](plugins/reviewers/agents/financial-invariant-reviewer.md) | reviewers | Arithmetic, duplicates, concurrency, history, audit atomicity | Read-only |
 
 Implementers never approve their own work. Read-only means `Write`/`Edit` are disallowed; `Bash` is kept for `git diff` and tests, so read-only through Bash is a rule of the role, backed by the guardrail hooks.
 

@@ -25,27 +25,15 @@
       "category": "development"
     },
     {
-      "name": "fintech-engineering",
-      "source": "./plugins/fintech",
-      "description": "Fintech reviewer agents for credit scoring, eligibility and risk decisioning.",
+      "name": "reviewers",
+      "source": "./plugins/reviewers",
+      "description": "Read-only specialist reviewer agents: observability, application security, fintech policy and financial invariants.",
       "category": "development"
     },
     {
       "name": "engineering-guardrails",
       "source": "./plugins/guardrails",
       "description": "Deterministic guardrail hooks: protected files, destructive commands, secrets, sensitive logging, financial and migration protection.",
-      "category": "security"
-    },
-    {
-      "name": "observability",
-      "source": "./plugins/observability",
-      "description": "Observability reviewer agent: instrumentation, correlation, sensitive logging.",
-      "category": "development"
-    },
-    {
-      "name": "application-security",
-      "source": "./plugins/security",
-      "description": "Security auditor agent: authz and IDOR, injection, SSRF, webhook verification, secrets.",
       "category": "security"
     }
   ]

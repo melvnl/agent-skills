@@ -32,7 +32,7 @@ Catch defects and drift before they reach the main branch, judged against what t
 ## Not responsible for
 
 - Running the full verification: `qa-engineer`.
-- Specialist reviews: `observability:observability-engineer`, `application-security:security-auditor`, `fintech-engineering:fintech-domain-reviewer`, `fintech-engineering:financial-invariant-reviewer`.
+- Specialist reviews: `reviewers:observability-engineer`, `reviewers:security-auditor`, `reviewers:fintech-domain-reviewer`, `reviewers:financial-invariant-reviewer`.
 - Fixing findings: the implementer.
 
 ## Skills to load

@@ -1,11 +1,9 @@
 {
   "core": ["spec-driven-engineering"],
   "writing": ["technical-writing"],
-  "observability": ["observability"],
   "backend": ["backend-engineering"],
-  "security": ["application-security"],
-  "fintech": ["fintech-engineering"],
+  "reviewers": ["reviewers"],
   "guardrails": ["engineering-guardrails"],
-  "all": ["spec-driven-engineering", "technical-writing", "observability", "backend-engineering", "application-security",
-          "fintech-engineering", "engineering-guardrails"]
+  "all": ["spec-driven-engineering", "technical-writing", "backend-engineering", "reviewers",
+          "engineering-guardrails"]
 }
