@@ -4,6 +4,8 @@ Do this before adding any log call. The aim is to reuse what exists, not to intr
 
 ## 1. Find the library and entry points
 
+Node/TypeScript: `grep -rnE "from ['\"](pino|winston|bunyan)|require\\(['\"](pino|winston)" --include=*.ts --include=*.js . | grep -v node_modules`, plus the framework's logger (Nest `Logger`, a container-resolved logger in Medusa). Python:
+
 ```bash
 grep -rnE "^\s*(import logging|from logging|import structlog|from structlog|from loguru)" --include=*.py . | head -50
 grep -rnE "getLogger\(|get_logger\(|structlog\.get_logger|logger\s*=\s*" --include=*.py . | head -50

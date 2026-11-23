@@ -20,10 +20,10 @@ Logs exist to answer production questions quickly: what happened to *this* reque
 
 Read before writing a single log line:
 
-1. **The existing logging setup.** Follow [references/logger-discovery.md](references/logger-discovery.md): which library (stdlib `logging`, `structlog`, `loguru`, an internal wrapper), how loggers are obtained, which formatter is configured, and how context (request id) is attached today.
+1. **The existing logging setup.** Follow [references/logger-discovery.md](references/logger-discovery.md): which library (Python `logging`/`structlog`/`loguru`, Node `pino`/`winston`, a framework or container logger, an internal wrapper), how loggers are obtained, which formatter is configured, and how context (request id) is attached today.
 2. **The wrapper's implementation, if there is one.** Read its source and two or three real call sites. Never call a method you have not seen defined. Never invent an internal logger API.
 3. **The project's conventions:** event naming, field names already in use (`request_id` vs `requestId` vs `x_request_id`), level usage, and any logging section in `CLAUDE.md` or `engineering/DEVELOPMENT_GUIDE.md`.
-4. **The runtime:** the Python version (`pyproject.toml`, `setup.cfg`, `.python-version`, `runtime.txt`, Dockerfile) and the logging library version. Don't use `contextvars` (3.7+) or newer `structlog` APIs without confirming they exist.
+4. **The runtime:** the language and logging library versions (lockfile, runtime pin, Dockerfile). Don't use context or binding APIs without confirming the installed versions have them.
 5. **The operation's execution flow:** entry point, branches, external calls, persistence, async hand-offs, and error paths.
 6. **The design's observability plan**, when the Software Factory is used (`specs/<F-ID>-<slug>/DESIGN.md`, section *Observability plan*).
 
@@ -33,7 +33,7 @@ Read before writing a single log line:
 2. **Run the decision framework** for each candidate event (below). Keep only events that pass it.
 3. **Determine correlation context.** Identify the identifiers already available (request id, trace id, message id) and confirm they reach the logs automatically (middleware, contextvars, a bound logger) or must be passed. Cross-boundary propagation belongs to `distributed-tracing-and-correlation`.
 4. **Classify every field** you plan to log with `logging-security-and-redaction`. Prefer an allowlist of explicit fields; never log whole objects, request bodies, headers, or ORM instances.
-5. **Write the events** in the project's existing style: a constant, short message or event name, and context in structured fields. See [references/python-patterns.md](references/python-patterns.md) for stdlib, `structlog` and wrapper patterns.
+5. **Write the events** in the project's existing style: a constant, short message or event name, and context in structured fields. In Python, see [references/python-patterns.md](references/python-patterns.md) for stdlib, `structlog` and wrapper patterns; elsewhere use the logger's structured-field API (for example `logger.info({ orderId }, "order_placed")` in pino), never string interpolation.
 6. **Choose the level** with the severity rules below.
 7. **Log each exception once**, at the layer that handles it (decides to swallow, convert to a response, retry, or dead-letter). Lower layers add context and re-raise; they don't log and re-raise.
 8. **Check volume.** Estimate the rate of each new INFO-or-above event (requests per second × events per request). A success event on a hot path needs a reason; prefer metrics for counts and rates.
@@ -158,4 +158,4 @@ Stop and ask when: the project has no logging convention and the change would es
 ## References
 
 - [references/logger-discovery.md](references/logger-discovery.md): read first, to identify the logging stack and its conventions.
-- [references/python-patterns.md](references/python-patterns.md): read when writing the log calls (stdlib, structlog, wrappers, exceptions, durations, legacy Python).
+- [references/python-patterns.md](references/python-patterns.md): read when writing log calls in Python (stdlib, structlog, wrappers, exceptions, durations, legacy Python).
