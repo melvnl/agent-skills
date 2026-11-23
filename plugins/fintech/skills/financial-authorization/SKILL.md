@@ -14,16 +14,16 @@ In financial systems the dangerous operations are often legitimate ones performe
 - Back-office or admin features: manual review, decision overrides, limit changes, customer data views.
 - Policy and configuration changes: thresholds, rule versions, feature flags affecting decisions.
 - New service-to-service access to credit, decision, or customer financial data.
-- Reviewing Django admin, internal tools, or API permissions for financial operations.
+- Reviewing admin panels (Django admin, Medusa admin, internal back-office tools) or API permissions for financial operations.
 
 **When not to use:** general authentication, IDOR, and injection → `backend-security`. Recording what happened → `financial-auditability`.
 
 ## Inputs and context
 
 1. The organization's roles and responsibilities, and any written policy on approvals, limits, and segregation of duties. Authority rules are business policy: get them from the owner.
-2. The existing permission system: Django groups and permissions, DRF permission classes, FastAPI dependencies, an external policy service, or IAM for services.
+2. The existing permission system: framework roles and permissions (Django groups, DRF permission classes, FastAPI dependencies, route middleware or guards in Node frameworks), an external policy service, or IAM for services.
 3. The operations and data in scope, classified by sensitivity and financial impact.
-4. Existing admin surfaces (Django admin is often granted broadly and bypasses API-level checks).
+4. Existing admin surfaces (admin panels are often granted broadly and bypass API-level checks).
 
 ## Process
 
@@ -35,7 +35,7 @@ In financial systems the dangerous operations are often legitimate ones performe
 6. **Constrain overrides**: an override requires a reason code (and free text if policy asks), keeps the original decision intact, creates a new decision record that supersedes it, and is reported in override-rate metrics.
 7. **Scope service credentials**: each service gets its own identity with the minimum access (read decisions but not raw bureau data; publish to one topic). No shared superuser database accounts or shared API keys across services.
 8. **Plan break-glass access**: emergency elevated access that is time-limited, requires a reason, alerts on use, and is fully audited.
-9. **Lock down admin surfaces**: Django admin `ModelAdmin` permissions (`has_change_permission`, `has_delete_permission`, read-only fields for decision data), no delete on financial records, and the same scoping as the API.
+9. **Lock down admin surfaces**: per-model permissions in the admin framework (for example Django `ModelAdmin.has_change_permission`/`has_delete_permission`, read-only fields for decision data), no delete on financial records, and the same scoping as the API.
 10. **Audit authorization events**: privileged actions and approvals as durable audit records (`financial-auditability`); denials logged at WARNING with actor and operation, without sensitive values (`structured-logging-and-instrumentation`).
 11. **Test the matrix**: for each operation, at least one allowed and one denied role; cross-object access attempts; maker-checker with the same user as proposer and approver (must fail); amounts at, below, and above each cap.
 

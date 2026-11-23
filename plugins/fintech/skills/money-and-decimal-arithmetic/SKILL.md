@@ -1,6 +1,6 @@
 ---
 name: money-and-decimal-arithmetic
-description: Handles monetary and precision-sensitive values exactly: Decimal built from strings, amount-plus-currency values, explicit rounding modes applied only at policy-defined points, currency minor units, allocation that preserves totals, DECIMAL storage, and string serialization in APIs and events. Use whenever code computes, stores, compares, rounds, splits, converts or serializes money, rates, scores or percentages.
+description: Handles monetary and precision-sensitive values exactly in any language: decimal types built from strings, amount-plus-currency values, explicit rounding modes applied only at policy-defined points, currency minor units, allocation that preserves totals, DECIMAL storage, and string serialization in APIs and events. Use whenever code computes, stores, compares, rounds, splits, converts or serializes money, rates, scores or percentages.
 ---
 
 # Money and Decimal Arithmetic
@@ -25,16 +25,16 @@ Binary floating point can't represent most decimal fractions (`0.1 + 0.2 == 0.30
 
 ## Process
 
-1. **Use `decimal.Decimal`** (or the project's money type), never `float`, for money and decision-relevant ratios.
-2. **Construct from strings or integers**, never from floats: `Decimal("0.1")`, not `Decimal(0.1)` (which is `0.1000000000000000055511151231257827...`). Parse inputs as strings; reject float inputs at the boundary.
-3. **Carry currency with the amount.** Represent money as `(amount: Decimal, currency: str)`; arithmetic and comparison across currencies raise an error instead of silently mixing.
-4. **Round only where the policy says**, with an explicit mode: `amount.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)`. Python's default context rounding is `ROUND_HALF_EVEN` (banker's rounding); never rely on a default when the policy names a mode. Keep intermediate results unrounded unless the policy rounds per step.
-5. **Mind the context precision** (28 significant digits by default) for long chains of multiplication and division; set a local context (`decimal.localcontext()`) when a calculation needs more, and document it.
+1. **Use an exact decimal type** (or the project's money type), never binary floating point, for money and decision-relevant ratios: Python `decimal.Decimal`; JavaScript/TypeScript `decimal.js`, `big.js` or the framework's big-number type (never `Number`: `0.1 + 0.2 !== 0.3`); Java/Kotlin `BigDecimal`; Go a decimal library or integer minor units.
+2. **Construct from strings or integers**, never from floats: `Decimal("0.1")`, not `Decimal(0.1)`; `new Decimal("0.1")`, not a value already parsed by `JSON.parse` or `parseFloat` (which is `0.1000000000000000055511151231257827...`). Parse inputs as strings; reject float inputs at the boundary.
+3. **Carry currency with the amount.** Represent money as an amount plus a currency code; arithmetic and comparison across currencies raise an error instead of silently mixing.
+4. **Round only where the policy says**, with an explicit mode: `amount.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)`. Defaults differ and surprise: Python's context rounds `ROUND_HALF_EVEN`; `decimal.js` defaults to `ROUND_HALF_UP`; JavaScript `toFixed` rounds the binary float (`(1.005).toFixed(2) === "1.00"`). Never rely on a default when the policy names a mode. Keep intermediate results unrounded unless the policy rounds per step.
+5. **Mind the precision setting** (Python's context: 28 significant digits; `decimal.js`: 20) for long chains of multiplication and division; raise it locally when a calculation needs more, and document it.
 6. **Allocate without losing cents**: when splitting an amount (installments, shares), compute the rounded parts and assign the remainder deterministically (for example, to the last part or by the largest-remainder method) so the parts sum exactly to the total (example below).
-7. **Compare exactly**: thresholds compared as `Decimal` with defined inclusivity; never compare a float score to a `Decimal` threshold.
-8. **Store exactly**: `DECIMAL(p, s)` columns sized for the maximum value and needed scale (Django `DecimalField(max_digits=..., decimal_places=...)`), with the currency in a column or fixed by the schema. Integer minor units (cents) are a valid alternative when the codebase already uses them consistently. Don't mix both styles.
-9. **Serialize as strings** in APIs and events (`"150000.00"`) with the currency (`api-design`). DRF's `DecimalField` returns strings by default (`COERCE_DECIMAL_TO_STRING`); Pydantic v2 serializes `Decimal` as a string in JSON mode. Check the project's serializers instead of assuming.
-10. **Convert currencies with explicit rates**: the rate as a `Decimal` with its source and timestamp recorded, and rounding applied once to the target currency's minor unit.
+7. **Compare exactly**: thresholds compared as decimals with defined inclusivity; never compare a float score to a `Decimal` threshold.
+8. **Store exactly**: `DECIMAL(p, s)` columns sized for the maximum value and needed scale (PostgreSQL `numeric(p, s)`; the ORM's decimal field type, e.g. Django `DecimalField`), with the currency in a column or fixed by the schema. Integer minor units (cents) are a valid alternative when the codebase already uses them consistently. Don't mix both styles.
+9. **Serialize as strings** in APIs and events (`"150000.00"`) with the currency (`api-design`). Serializers differ (DRF and Pydantic v2 emit strings by default; `JSON.stringify` of a decimal library object depends on its `toJSON`; some ORMs return `numeric` as strings, others as floats). Check the project's serializers and database driver instead of assuming.
+10. **Convert currencies with explicit rates**: the rate as a decimal with its source and timestamp recorded, and rounding applied once to the target currency's minor unit.
 11. **Test the arithmetic**: rounding at `.5` boundaries for the policy's mode, allocation sums equal the total for many inputs, currency mismatch raises, serialization round-trips.
 
 ### Examples
@@ -79,5 +79,5 @@ Ask the owner when: the rounding mode, precision, or rounding point isn't specif
 | Rationalization | Reality |
 |---|---|
 | "Floats are fine; we round at the end." | Errors accumulate before the end, and comparisons at thresholds flip. |
-| "Python rounds the normal way." | Its default is half-even. Name the mode the policy wants. |
+| "The language rounds the normal way." | Python defaults to half-even, `toFixed` rounds the float. Name the mode the policy wants. |
 | "A cent off in a split doesn't matter." | Multiplied by volume, it is a reconciliation break. Preserve totals. |
