@@ -41,7 +41,7 @@ Arrows are `dependencies` in `plugin.json`. Installing a plugin installs what it
 | spec-driven-engineering | Software Factory (11 workflows), product discovery, PRD analysis, decomposition, acceptance criteria, traceability, planning, loop and context engineering, TDD, debugging, git | 13 skills, 5 agents, discovery and PRD eval suites |
 | technical-writing | Engineering blog pipeline | 4 skills |
 | observability | Logging, tracing, redaction, observability design and review | 5 skills, 1 agent, observability eval suite |
-| backend-engineering | Stack-agnostic APIs, database design, migrations, queries and concurrency, caching, distributed systems, messaging, backend and frontend performance | 8 skills, 2 agents |
+| backend-engineering | Backend and database engineer agents | 2 agents |
 | application-security | Backend application security | 1 skill, 1 agent, security eval suite |
 | fintech-engineering | Data integrity, money, credit scoring and eligibility, risk decisions, authorization, auditability, reliability | 7 skills, 2 agents, fintech eval suite |
 | engineering-guardrails | Deterministic hooks | 18 hooks, 92 unit tests |

@@ -38,7 +38,7 @@ Turn one approved task at a time into working, tested, instrumented backend code
 
 - `spec-driven-engineering:loop-engineering` and `spec-driven-engineering:test-driven-development`: always.
 - `observability:structured-logging-and-instrumentation`: for every backend change.
-- As the task requires: `backend-engineering:api-design`, `backend-engineering:database-queries-and-concurrency`, `backend-engineering:caching-and-coordination`, `backend-engineering:async-messaging`, `backend-engineering:performance-engineering`, `backend-engineering:distributed-systems`, `observability:distributed-tracing-and-correlation`, `fintech-engineering:money-and-decimal-arithmetic`.
+- As the task requires: `observability:distributed-tracing-and-correlation`, `fintech-engineering:money-and-decimal-arithmetic`.
 
 ## Inputs
 

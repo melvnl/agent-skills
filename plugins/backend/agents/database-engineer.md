@@ -36,8 +36,6 @@ Change data structures and queries so that data stays correct, deploys stay safe
 
 ## Skills to load
 
-- `backend-engineering:database-design` and `backend-engineering:database-migrations`: always.
-- `backend-engineering:database-queries-and-concurrency`: always (it covers PostgreSQL and MySQL/Aurora).
 - `fintech-engineering:financial-data-integrity`: when the data feeds financial decisions.
 
 ## Inputs

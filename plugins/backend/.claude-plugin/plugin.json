@@ -1,20 +1,16 @@
 {
   "name": "backend-engineering",
   "version": "0.1.0",
-  "description": "Stack-agnostic backend and web engineering: API and database design, migrations, queries and concurrency (PostgreSQL, MySQL), caching, distributed systems, async messaging, backend and frontend performance.",
+  "description": "Backend implementation and database agents: test-first task implementation, deploy-compatible migrations and query work, within approved scope.",
   "author": {
     "name": "Melvin"
   },
   "repository": "https://github.com/melvnl/agent-skills",
   "license": "MIT",
   "keywords": [
-    "api",
+    "backend",
     "database",
-    "postgresql",
-    "mysql",
-    "caching",
-    "messaging",
-    "performance"
+    "agents"
   ],
   "dependencies": [
     "spec-driven-engineering",

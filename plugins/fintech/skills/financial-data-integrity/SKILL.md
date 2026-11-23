@@ -15,7 +15,7 @@ In financial systems, a wrong number that looks plausible is worse than a crash:
 - Migrating or backfilling such data, or moving it between services.
 - Investigating inconsistent, duplicated, or unexplained records.
 
-**When not to use:** schema mechanics in general → `database-design`, `database-migrations`. Decision logic itself → `credit-scoring-and-eligibility`, `risk-decision-engineering`. Arithmetic → `money-and-decimal-arithmetic`.
+**When not to use:** Decision logic itself → `credit-scoring-and-eligibility`, `risk-decision-engineering`. Arithmetic → `money-and-decimal-arithmetic`.
 
 ## Inputs and context
 
@@ -29,8 +29,8 @@ In financial systems, a wrong number that looks plausible is worse than a crash:
 1. **Write the invariant catalog** for the entities touched ([references/invariant-checks.md](references/invariant-checks.md)): what must always hold ("every decided application has exactly one final decision", "a limit is never negative", "a decision's rule version exists"). Each invariant gets an id, an owner, and a check query.
 2. **Enforce what the database can**: `NOT NULL`, foreign keys, unique keys (including "one active" rules), `CHECK` constraints where the engine enforces them. Enforce the rest in one domain function that every write path calls, and check it with the catalog queries.
 3. **Keep history immutable.** Decisions and other financially relevant facts are inserted, never updated in place. Corrections are new records referencing the original, with a reason and an actor. Inputs a decision depended on are snapshotted with it (`financial-auditability`).
-4. **Prevent duplicates at write time** with natural-key unique constraints and idempotency keys (`api-design`, `async-messaging`); then **detect** what slipped through with periodic queries on near-duplicate keys (same customer, product, and window).
-5. **Make concurrent writes safe** for read-modify-write paths (limits, counters, status transitions) with conditional updates or row locks (`database-queries-and-concurrency`). Lost updates in financial data are integrity failures.
+4. **Prevent duplicates at write time** with natural-key unique constraints and idempotency keys; then **detect** what slipped through with periodic queries on near-duplicate keys (same customer, product, and window).
+5. **Make concurrent writes safe** for read-modify-write paths (limits, counters, status transitions) with conditional updates or row locks. Lost updates in financial data are integrity failures.
 6. **Reconcile across services.** Where two services hold views of the same facts, run a reconciliation job: counts and sums per period, per-entity comparison of key fields or hashes, and a report of mismatches by category. Alert on mismatch thresholds. Never "fix" mismatches automatically without a rule the owner approved.
 7. **Validate migrations with evidence**: before and after row counts per category, sums of monetary columns, invariant queries, checksums or sampled per-row comparisons between old and new. Keep the results in the migration's report.
 8. **Represent money exactly** (`DECIMAL` plus currency; `money-and-decimal-arithmetic`); never derive stored financial values from floats.

@@ -38,7 +38,6 @@ Design the simplest change that satisfies the approved spec inside the system as
 ## Skills to load
 
 - `observability:observability-engineering`: for the observability plan (always for backend designs).
-- `backend-engineering:api-design`, `backend-engineering:database-design`, `backend-engineering:distributed-systems`, `backend-engineering:async-messaging`: as the design requires.
 - `fintech-engineering:credit-scoring-and-eligibility` and `fintech-engineering:financial-system-reliability`: for decision systems.
 - `application-security:backend-security`: for trust boundaries.
 

@@ -16,7 +16,7 @@ For a financial decision service, "up but wrong" is worse than "down": a bug or 
 - Deployment, rollout, and rollback planning for such services.
 - Defining recovery procedures, RPO/RTO, or degraded modes.
 
-**When not to use:** general timeout, retry, outbox, and saga mechanics → `distributed-systems` (used from here). Live incident handling → the factory `PRODUCTION_INCIDENT` workflow.
+**When not to use:** Live incident handling → the factory `PRODUCTION_INCIDENT` workflow.
 
 ## Inputs and context
 
@@ -29,14 +29,14 @@ For a financial decision service, "up but wrong" is worse than "down": a bug or 
 ## Process
 
 1. **Classify each failure mode and choose its behavior with the owner**: *fail closed* (reject or defer the operation: usual for approvals, limit increases, anything granting credit), *degraded* (a defined reduced mode such as manual review or deferred evaluation), or *fail open* (only where the owner explicitly accepts the risk). Record the choice per dependency and per operation; implement and test it.
-2. **Guarantee single effects end to end**: idempotency keys at the API, dedup in consumers, unique constraints on decisions and financial facts, conditional state transitions (`distributed-systems`, `financial-data-integrity`). Test duplicate requests, redelivered messages, and retried jobs.
+2. **Guarantee single effects end to end**: idempotency keys at the API, dedup in consumers, unique constraints on decisions and financial facts, conditional state transitions (`financial-data-integrity`). Test duplicate requests, redelivered messages, and retried jobs.
 3. **Design for replay**: keep durable, immutable inputs (requests, events, snapshots) so a period can be reprocessed after a bug fix. Reprocessing must be idempotent and produce **new** superseding records, never silent overwrites, and its scope and results are reviewed before effects such as notifications are re-sent.
 4. **Make batch and scheduled jobs rerunnable**: process in checkpointed chunks; record progress; make each chunk idempotent; define behavior for partial failure (resume from the checkpoint); use explicit business dates and time zones instead of "now"; alert when a job didn't run or didn't finish in its window.
 5. **Deploy safely**:
    - ship decision-logic changes behind flags or versioned activation (`risk-decision-engineering`);
    - canary with **decision-distribution monitoring**: compare approval and rejection rates, limit distribution, fallback rate, and reason codes between canary and baseline, not only error rates and latency;
-   - keep rollback fast and rehearsed; schema changes follow expand-contract so rollback stays possible (`database-migrations`).
-6. **Plan capacity for peaks**: load-test at expected peak plus headroom (`performance-engineering`); protect dependencies with concurrency limits; respect third-party quotas with rate limiting and queueing rather than failing randomly at the limit.
+   - keep rollback fast and rehearsed; schema changes follow expand-contract so rollback stays possible.
+6. **Plan capacity for peaks**: load-test at expected peak plus headroom; protect dependencies with concurrency limits; respect third-party quotas with rate limiting and queueing rather than failing randomly at the limit.
 7. **Define recovery**: backups and point-in-time recovery meeting RPO; a tested restore procedure; runbooks for the top failure modes (dependency down, queue backlog, bad deploy, bad policy version) with owners.
 8. **Test failure paths**, not only happy paths: dependency timeouts and errors (stubbed), duplicate and out-of-order messages, a job crash midway and resume, a rollback of a decision-logic deploy in staging.
 9. **Observe correctness signals** alongside health: decision distribution by version, fallback rate, reconciliation mismatches, job completion and lag, DLQ depth (`observability-engineering`), with alerts that route to the owner of the decision, not only to infrastructure on-call.

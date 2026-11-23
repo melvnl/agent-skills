@@ -31,7 +31,7 @@ A good plan turns a feature into a sequence of steps that each leave the system 
 3. **Slice vertically after that.** Each subsequent task adds one behavior (one AC, or one boundary or failure case) through all the layers it needs. Avoid "all models, then all services, then all endpoints": nothing works until the end.
 4. **Pull risk forward.** Unknowns (a new integration, a performance unknown, an ambiguous library behavior) become early **spike** tasks with a question and a time box, producing a decision, not production code.
 5. **Separate what must be separate**:
-   - Schema changes as their own tasks, using expand → migrate → contract when data or availability matters (`database-migrations`).
+   - Schema changes as their own tasks, using expand → migrate → contract when data or availability matters.
    - Refactors needed to make room, as their own tasks, before the behavior change (factory rule: no mixed refactor + feature diffs).
    - Contract changes (API, events) before their consumers.
 6. **Size each task** to ≤ ~half a day and a reviewable diff (≲ 400 meaningful lines). Split anything larger.

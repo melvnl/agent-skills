@@ -5,7 +5,7 @@ PostToolUse on Write, Edit and MultiEdit, for paths matching `migrations` globs 
 protect-database-migrations). Scans the text the edit introduced for Django operations (RemoveField,
 DeleteModel, RenameField, RenameModel, AlterField, NOT NULL AddField without default, RunPython without a
 reverse, RunSQL with destructive SQL) and raw SQL (DROP, TRUNCATE, RENAME, MODIFY/CHANGE COLUMN, NOT NULL
-ADD COLUMN without DEFAULT, CREATE INDEX). Feedback only: the database-migrations skill and workflow decide.
+ADD COLUMN without DEFAULT, CREATE INDEX). Feedback only: the DATABASE_MIGRATION workflow decides.
 """
 import os
 import re

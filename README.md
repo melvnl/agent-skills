@@ -32,7 +32,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 | | Count | Where |
 |---|---|---|
 | Plugins (installable profiles) | 7 | `plugins/<profile>/` |
-| Skills | 38 | `plugins/<profile>/skills/` |
+| Skills | 30 | `plugins/<profile>/skills/` |
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
 | Guardrail hooks | 18 (92 unit tests) | `plugins/guardrails/` |
 | Software Factory workflows | 11 (+ fintech overlay) | `plugins/engineering/skills/factory-init/assets/factory/workflows/` |
@@ -76,7 +76,7 @@ cd ~/work/eligibility-service
 | `core` | [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, product discovery, PRD analysis, specs, planning, loop and context engineering, TDD, debugging, git discipline | none |
 | `observability` | [observability](plugins/observability/README.md) | Structured logging, correlation and tracing, PII-safe logging, observability design and review | none |
 | `security` | [application-security](plugins/security/README.md) | Authorization and IDOR, injection, SSRF, webhook verification, secrets | none |
-| `backend` | [backend-engineering](plugins/backend/README.md) | Stack-agnostic API and database design, migrations, queries and concurrency, caching, distributed systems, messaging, backend and frontend performance | spec-driven-engineering, observability |
+| `backend` | [backend-engineering](plugins/backend/README.md) | Backend and database engineer agents: test-first implementation, deploy-compatible migrations | spec-driven-engineering, observability |
 | `fintech` | [fintech-engineering](plugins/fintech/README.md) | Credit scoring and eligibility, risk decisions, data integrity, decimal money, authorization, auditability, reliability | backend-engineering, observability, application-security |
 | `guardrails` | [engineering-guardrails](plugins/guardrails/README.md) | 18 deterministic hooks | none |
 | `writing` | [technical-writing](plugins/writing/README.md) | Engineering blog pipeline | none |
@@ -142,7 +142,7 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 
 ---
 
-## All 38 skills
+## All 30 skills
 
 ### spec-driven-engineering: define, plan, build, verify
 
@@ -171,21 +171,6 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 | [logging-security-and-redaction](plugins/observability/skills/logging-security-and-redaction/SKILL.md) | Four-tier data classification; allowlists, keyed pseudonyms, masking, sentinel tests | Adding or reviewing log statements and error handling |
 | [observability-engineering](plugins/observability/skills/observability-engineering/SKILL.md) | Question-driven logs/metrics/traces design, cardinality, SLO-based alerting, the observability plan | Designing a feature or service, defining alerts |
 | [observability-code-review](plugins/observability/skills/observability-code-review/SKILL.md) | Reviews a diff for gaps *and* over-instrumentation, correlation loss, sensitive data, unbounded labels | Reviewing backend changes |
-
-### backend-engineering
-
-Stack-agnostic: the method is in the skill, engine/tool/broker specifics are in its references.
-
-| Skill | What it does | Use when |
-|---|---|---|
-| [api-design](plugins/backend/skills/api-design/SKILL.md) | Status semantics, stable error model, idempotency keys, pagination, compatible evolution | Adding or changing an API contract |
-| [database-design](plugins/backend/skills/database-design/SKILL.md) | Ownership, keys, database-enforced invariants, history snapshots, query-derived indexes | New or changed tables, columns, indexes |
-| [database-migrations](plugins/backend/skills/database-migrations/SKILL.md) | Expand-migrate-contract, non-blocking DDL, resumable backfills, rehearsal; PostgreSQL/MySQL and tool notes | Any schema or data migration |
-| [database-queries-and-concurrency](plugins/backend/skills/database-queries-and-concurrency/SKILL.md) | EXPLAIN-verified indexes, lost-update prevention, locking reads, deadlock retries, replica lag | SQL/ORM queries and concurrent writes |
-| [caching-and-coordination](plugins/backend/skills/caching-and-coordination/SKILL.md) | TTL'd cache-aside, post-commit invalidation, stampede protection, token-checked locks | Caches, rate limits, locks on any store |
-| [distributed-systems](plugins/backend/skills/distributed-systems/SKILL.md) | Timeouts, bounded retries, unknown outcomes, outbox not dual writes, sagas, breakers | Calling or coordinating with other services |
-| [async-messaging](plugins/backend/skills/async-messaging/SKILL.md) | Delivery guarantees, envelopes, idempotent consumers, redelivery timeouts, dead letters | Publishing or consuming messages or jobs |
-| [performance-engineering](plugins/backend/skills/performance-engineering/SKILL.md) | Percentile and Core Web Vitals targets, profiling to the real bottleneck, same-conditions before/after | A service or page is slow, or a target is at risk |
 
 ### fintech-engineering
 

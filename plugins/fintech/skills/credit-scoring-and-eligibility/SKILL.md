@@ -35,7 +35,7 @@ A credit or eligibility decision must be the same for the same inputs, explainab
 5. **Record every decision immutably** ([references/decision-record-and-parity.md](references/decision-record-and-parity.md)): the input snapshot (or a reference to an immutable snapshot), derived feature values, score, versions, rules evaluated with results, outcome, limit, reason codes, timestamps, correlation id, the deciding service, and whether a fallback applied.
 6. **Make decisions explainable**: stable reason codes mapped to rules, ordered by significance, suitable for customer-facing explanation and adverse-action notices where policy requires them, without exposing internal model details beyond policy.
 7. **Define failure behavior with the owner.** For each dependency failure (bureau timeout, missing data, internal service down): retry within budget, then the **owner-approved fallback** (manual review, defer and re-evaluate, reject with a specific reason). Never default to approval silently. Record `fallback=true` and the reason in the decision.
-8. **Budget latency per stage** and set timeouts accordingly (`distributed-systems`). Cache external data only within consent, policy, and freshness rules.
+8. **Budget latency per stage** and set timeouts accordingly. Cache external data only within consent, policy, and freshness rules.
 9. **Test as a regression suite**:
    - boundary tests at every threshold (below, at, above);
    - a **golden dataset** of representative and edge-case inputs with approved expected outcomes and reasons, run on every change;

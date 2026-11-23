@@ -21,7 +21,7 @@
     {
       "name": "backend-engineering",
       "source": "./plugins/backend",
-      "description": "Stack-agnostic backend and web: APIs, database design, migrations, queries and concurrency, caching, distributed systems, messaging, backend and frontend performance.",
+      "description": "Backend implementation and database agents: test-first task implementation, deploy-compatible migrations and query work, within approved scope.",
       "category": "development"
     },
     {
