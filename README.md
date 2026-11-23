@@ -32,7 +32,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 | | Count | Where |
 |---|---|---|
 | Plugins (installable profiles) | 7 | `plugins/<profile>/` |
-| Skills | 41 | `plugins/<profile>/skills/` |
+| Skills | 38 | `plugins/<profile>/skills/` |
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
 | Guardrail hooks | 18 (92 unit tests) | `plugins/guardrails/` |
 | Software Factory workflows | 11 (+ fintech overlay) | `plugins/engineering/skills/factory-init/assets/factory/workflows/` |
@@ -76,13 +76,13 @@ cd ~/work/eligibility-service
 | `core` | [spec-driven-engineering](plugins/engineering/README.md) | Software Factory, product discovery, PRD analysis, specs, planning, loop and context engineering, TDD, debugging, git discipline | none |
 | `observability` | [observability](plugins/observability/README.md) | Structured logging, correlation and tracing, PII-safe logging, observability design and review | none |
 | `security` | [application-security](plugins/security/README.md) | Authorization and IDOR, injection, SSRF, webhook verification, secrets | none |
-| `backend` | [python-backend](plugins/backend/README.md) | Python, Django, FastAPI, API and database design, migrations, MySQL/Aurora, Redis, distributed systems, SQS/SNS, performance | spec-driven-engineering, observability |
-| `fintech` | [fintech-engineering](plugins/fintech/README.md) | Credit scoring and eligibility, risk decisions, data integrity, decimal money, authorization, auditability, reliability | python-backend, observability, application-security |
+| `backend` | [backend-engineering](plugins/backend/README.md) | Stack-agnostic API and database design, migrations, queries and concurrency, caching, distributed systems, messaging, backend and frontend performance | spec-driven-engineering, observability |
+| `fintech` | [fintech-engineering](plugins/fintech/README.md) | Credit scoring and eligibility, risk decisions, data integrity, decimal money, authorization, auditability, reliability | backend-engineering, observability, application-security |
 | `guardrails` | [engineering-guardrails](plugins/guardrails/README.md) | 18 deterministic hooks | none |
 | `writing` | [technical-writing](plugins/writing/README.md) | Engineering blog pipeline | none |
 | `all` | every plugin above | | |
 
-Suggested combinations: blog repo → `writing`; fintech backend → `fintech` + `guardrails`; other Python backends → `backend` + `guardrails`; experiments → `core`.
+Suggested combinations: blog repo → `writing`; fintech backend → `fintech` + `guardrails`; any other backend or web app → `backend` + `guardrails`; experiments → `core`.
 
 ---
 
@@ -142,7 +142,7 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 
 ---
 
-## All 41 skills
+## All 38 skills
 
 ### spec-driven-engineering: define, plan, build, verify
 
@@ -172,21 +172,20 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 | [observability-engineering](plugins/observability/skills/observability-engineering/SKILL.md) | Question-driven logs/metrics/traces design, cardinality, SLO-based alerting, the observability plan | Designing a feature or service, defining alerts |
 | [observability-code-review](plugins/observability/skills/observability-code-review/SKILL.md) | Reviews a diff for gaps *and* over-instrumentation, correlation loss, sensitive data, unbounded labels | Reviewing backend changes |
 
-### python-backend
+### backend-engineering
+
+Stack-agnostic: the method is in the skill, engine/tool/broker specifics are in its references.
 
 | Skill | What it does | Use when |
 |---|---|---|
-| [python-backend-engineering](plugins/backend/skills/python-backend-engineering/SKILL.md) | Version-safe Python, timeouts, aware datetimes, Decimal money, exception chaining | Any Python backend code |
-| [django-engineering](plugins/backend/skills/django-engineering/SKILL.md) | Service-layer rules, constraints, N+1-free querysets, `on_commit` side effects, safe bulk ops, DRF permissions | Django or DRF work |
-| [fastapi-engineering](plugins/backend/skills/fastapi-engineering/SKILL.md) | Sync vs async endpoints, dependencies, leak-proof response models, Pydantic v1/v2, lifespan | FastAPI or Starlette work |
 | [api-design](plugins/backend/skills/api-design/SKILL.md) | Status semantics, stable error model, idempotency keys, pagination, compatible evolution | Adding or changing an API contract |
 | [database-design](plugins/backend/skills/database-design/SKILL.md) | Ownership, keys, database-enforced invariants, history snapshots, query-derived indexes | New or changed tables, columns, indexes |
-| [database-migrations](plugins/backend/skills/database-migrations/SKILL.md) | Expand-migrate-contract, non-blocking DDL, resumable backfills, rehearsal | Any schema or data migration |
-| [mysql-engineering](plugins/backend/skills/mysql-engineering/SKILL.md) | EXPLAIN-verified indexes, isolation and locking, deadlock retries, lost updates, Aurora lag | MySQL/Aurora queries and concurrency |
-| [redis-engineering](plugins/backend/skills/redis-engineering/SKILL.md) | TTL'd cache-aside, post-commit invalidation, stampede protection, token-checked locks | Caches, rate limits, locks in Redis |
+| [database-migrations](plugins/backend/skills/database-migrations/SKILL.md) | Expand-migrate-contract, non-blocking DDL, resumable backfills, rehearsal; PostgreSQL/MySQL and tool notes | Any schema or data migration |
+| [database-queries-and-concurrency](plugins/backend/skills/database-queries-and-concurrency/SKILL.md) | EXPLAIN-verified indexes, lost-update prevention, locking reads, deadlock retries, replica lag | SQL/ORM queries and concurrent writes |
+| [caching-and-coordination](plugins/backend/skills/caching-and-coordination/SKILL.md) | TTL'd cache-aside, post-commit invalidation, stampede protection, token-checked locks | Caches, rate limits, locks on any store |
 | [distributed-systems](plugins/backend/skills/distributed-systems/SKILL.md) | Timeouts, bounded retries, unknown outcomes, outbox not dual writes, sagas, breakers | Calling or coordinating with other services |
-| [async-messaging](plugins/backend/skills/async-messaging/SKILL.md) | SQS/SNS: FIFO vs standard, envelopes, idempotent consumers, visibility timeouts, DLQs | Publishing or consuming messages |
-| [performance-engineering](plugins/backend/skills/performance-engineering/SKILL.md) | Percentile targets, profiling to the real bottleneck, same-conditions before/after | Something is slow, or an NFR is at risk |
+| [async-messaging](plugins/backend/skills/async-messaging/SKILL.md) | Delivery guarantees, envelopes, idempotent consumers, redelivery timeouts, dead letters | Publishing or consuming messages or jobs |
+| [performance-engineering](plugins/backend/skills/performance-engineering/SKILL.md) | Percentile and Core Web Vitals targets, profiling to the real bottleneck, same-conditions before/after | A service or page is slow, or a target is at risk |
 
 ### fintech-engineering
 
@@ -230,8 +229,8 @@ Scoped to credit scoring, eligibility and risk decisioning. Payments, ledgers an
 | [solution-architect](plugins/engineering/agents/solution-architect.md) | spec-driven-engineering | Designs, failure scenarios, observability plan, ADRs | Design documents only |
 | [qa-engineer](plugins/engineering/agents/qa-engineer.md) | spec-driven-engineering | Independent verification against acceptance criteria | Read-only, runs tests |
 | [code-reviewer](plugins/engineering/agents/code-reviewer.md) | spec-driven-engineering | Spec conformance and standards review | Read-only |
-| [backend-engineer](plugins/backend/agents/backend-engineer.md) | python-backend | Implements approved tasks test-first, instrumented | Code within task scope |
-| [database-engineer](plugins/backend/agents/database-engineer.md) | python-backend | Schema, migrations, backfills, query tuning | Migrations on local or test databases only |
+| [backend-engineer](plugins/backend/agents/backend-engineer.md) | backend-engineering | Implements approved tasks test-first, instrumented | Code within task scope |
+| [database-engineer](plugins/backend/agents/database-engineer.md) | backend-engineering | Schema, migrations, backfills, query tuning | Migrations on local or test databases only |
 | [observability-engineer](plugins/observability/agents/observability-engineer.md) | observability | Instrumentation, correlation and sensitive-logging review | Read-only |
 | [security-auditor](plugins/security/agents/security-auditor.md) | application-security | Exploit-focused security audit | Read-only |
 | [fintech-domain-reviewer](plugins/fintech/agents/fintech-domain-reviewer.md) | fintech-engineering | Decision logic vs approved credit and risk policy | Read-only |

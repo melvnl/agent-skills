@@ -1,6 +1,6 @@
 ---
 name: backend-engineer
-description: Implements approved backend tasks (Python, Django, FastAPI, MySQL, Redis, SQS/SNS) test-first within the task's scope, with the instrumentation the observability plan assigns, and reports verified results. Use to implement a planned task or a scoped bug fix. Never approves its own work; reviews come from other agents or the human.
+description: Implements approved backend tasks on any stack test-first within the task's scope, with the instrumentation the observability plan assigns, and reports verified results. Use to implement a planned task or a scoped bug fix. Never approves its own work; reviews come from other agents or the human.
 tools: Read, Grep, Glob, Bash, Edit, Write
 model: inherit
 ---
@@ -37,9 +37,8 @@ Turn one approved task at a time into working, tested, instrumented backend code
 ## Skills to load
 
 - `spec-driven-engineering:loop-engineering` and `spec-driven-engineering:test-driven-development`: always.
-- `python-backend:python-backend-engineering`: always; plus `python-backend:django-engineering` or `python-backend:fastapi-engineering` for the framework in use.
 - `observability:structured-logging-and-instrumentation`: for every backend change.
-- As the task requires: `python-backend:api-design`, `python-backend:mysql-engineering`, `python-backend:redis-engineering`, `python-backend:async-messaging`, `python-backend:distributed-systems`, `observability:distributed-tracing-and-correlation`, `fintech-engineering:money-and-decimal-arithmetic`.
+- As the task requires: `backend-engineering:api-design`, `backend-engineering:database-queries-and-concurrency`, `backend-engineering:caching-and-coordination`, `backend-engineering:async-messaging`, `backend-engineering:performance-engineering`, `backend-engineering:distributed-systems`, `observability:distributed-tracing-and-correlation`, `fintech-engineering:money-and-decimal-arithmetic`.
 
 ## Inputs
 

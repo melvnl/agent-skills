@@ -1,19 +1,20 @@
 {
-  "name": "python-backend",
+  "name": "backend-engineering",
   "version": "0.1.0",
-  "description": "Python backend engineering: Python, Django, FastAPI, API and database design, migrations, MySQL, Redis, distributed systems, async messaging, performance.",
+  "description": "Stack-agnostic backend and web engineering: API and database design, migrations, queries and concurrency (PostgreSQL, MySQL), caching, distributed systems, async messaging, backend and frontend performance.",
   "author": {
     "name": "Melvin"
   },
   "repository": "https://github.com/melvnl/agent-skills",
   "license": "MIT",
   "keywords": [
-    "python",
-    "django",
-    "fastapi",
+    "api",
+    "database",
+    "postgresql",
     "mysql",
-    "redis",
-    "sqs"
+    "caching",
+    "messaging",
+    "performance"
   ],
   "dependencies": [
     "spec-driven-engineering",

@@ -2,10 +2,10 @@
   "core": ["spec-driven-engineering"],
   "writing": ["technical-writing"],
   "observability": ["observability"],
-  "backend": ["python-backend"],
+  "backend": ["backend-engineering"],
   "security": ["application-security"],
   "fintech": ["fintech-engineering"],
   "guardrails": ["engineering-guardrails"],
-  "all": ["spec-driven-engineering", "technical-writing", "observability", "python-backend", "application-security",
+  "all": ["spec-driven-engineering", "technical-writing", "observability", "backend-engineering", "application-security",
           "fintech-engineering", "engineering-guardrails"]
 }

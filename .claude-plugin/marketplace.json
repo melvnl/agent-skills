@@ -19,9 +19,9 @@
       "category": "productivity"
     },
     {
-      "name": "python-backend",
+      "name": "backend-engineering",
       "source": "./plugins/backend",
-      "description": "Python, Django, FastAPI, APIs, databases and migrations, MySQL, Redis, distributed systems, SQS/SNS, performance.",
+      "description": "Stack-agnostic backend and web: APIs, database design, migrations, queries and concurrency, caching, distributed systems, messaging, backend and frontend performance.",
       "category": "development"
     },
     {

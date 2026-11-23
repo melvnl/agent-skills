@@ -16,7 +16,7 @@ In a distributed system, every remote call can succeed, fail, or **time out with
 - A dependency's slowness or failure is causing cascading failures.
 - Logic moves between services (a service migration needing behavioral parity).
 
-**When not to use:** message broker mechanics (SQS/SNS settings, DLQs, consumers) → `async-messaging`. HTTP contract shape → `api-design`.
+**When not to use:** message broker mechanics (queues, acknowledgement, dead letters, consumers) → `async-messaging`. HTTP contract shape → `api-design`.
 
 ## Inputs and context
 
@@ -31,7 +31,7 @@ In a distributed system, every remote call can succeed, fail, or **time out with
 2. **Retry only what is safe and worth it**: idempotent operations (or ones made idempotent with keys), on transient errors (timeouts, 429 with `Retry-After`, 503, connection resets), with exponential backoff, **jitter**, a small attempt cap, and an overall retry budget. Never retry validation errors or 4xx business rejections. Retries at several layers multiply (3 × 3 × 3 = 27 calls): retry at one layer.
 3. **Handle the unknown outcome explicitly.** A timeout on a write means "maybe happened". Either retry with the same idempotency key, or query the dependency's state, or record the operation as *pending verification* and reconcile. Never assume failure and redo a non-idempotent action.
 4. **Make consumers and handlers idempotent.** Delivery is at least once; "exactly once" is achieved as *effectively once* by deduplicating on a business key or message id with a unique constraint ([references/resilience-patterns.md](references/resilience-patterns.md)).
-5. **Never dual-write** (update the database, then publish, as two independent steps): a crash between them loses or invents events. Use the **transactional outbox**: write the event to an outbox table in the same transaction as the state change, and publish it from a relay that retries until acknowledged. In Django, `on_commit` publishing is simpler but can still lose the event if the process dies after commit; use the outbox where losing an event is unacceptable.
+5. **Never dual-write** (update the database, then publish, as two independent steps): a crash between them loses or invents events. Use the **transactional outbox**: write the event to an outbox table in the same transaction as the state change, and publish it from a relay that retries until acknowledged. Publishing from an after-commit hook is simpler but can still lose the event if the process dies after commit; use the outbox where losing an event is unacceptable.
 6. **Coordinate multi-service changes with sagas**, not distributed transactions: a sequence of local transactions, each with a compensating action, and an explicit state machine recording progress. Compensations must be idempotent too.
 7. **Contain failure**: circuit breakers around flaky dependencies (fail fast, serve a fallback, probe for recovery); bulkheads (separate pools or concurrency limits per dependency, so one slow dependency can't consume every worker); load shedding and backpressure (bounded queues, 429/503 when saturated) instead of unbounded buffering.
 8. **Define fallbacks deliberately.** A fallback is a business decision (a default decision, cached data, "try again later"), recorded, logged at WARNING, and visible in metrics. For credit or eligibility decisions, the fallback policy must be specified by the owner (`credit-scoring-and-eligibility`).

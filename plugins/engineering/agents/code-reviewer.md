@@ -38,7 +38,7 @@ Catch defects and drift before they reach the main branch, judged against what t
 ## Skills to load
 
 - `spec-driven-engineering:factory-router`: to locate the project's `CODE_REVIEW` workflow and standards in `.factory/`.
-- The stack skills relevant to the diff, e.g. `python-backend:django-engineering`, `python-backend:fastapi-engineering`, `python-backend:api-design`, `python-backend:mysql-engineering`.
+- The stack skills relevant to the diff, e.g. `backend-engineering:api-design`, `backend-engineering:database-migrations`, `backend-engineering:database-queries-and-concurrency`.
 
 ## Inputs
 

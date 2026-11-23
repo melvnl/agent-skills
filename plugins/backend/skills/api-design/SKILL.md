@@ -15,7 +15,7 @@ An API contract outlives its implementation: clients, partners, and other servic
 - Internal service-to-service interfaces with the same compatibility concerns.
 - Reviewing an API change for compatibility.
 
-**When not to use:** framework mechanics → `django-engineering`, `fastapi-engineering`. Message and event contracts → `async-messaging`. Webhook signature verification and authz → `backend-security`.
+**When not to use:** Message and event contracts → `async-messaging`. Webhook signature verification and authz → `backend-security`.
 
 ## Inputs and context
 

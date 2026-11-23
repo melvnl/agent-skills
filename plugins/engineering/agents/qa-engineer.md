@@ -29,7 +29,7 @@ Answer, with evidence the implementer didn't produce, whether the change does wh
 
 ## Not responsible for
 
-- Writing the missing tests: the implementer (`python-backend:backend-engineer`).
+- Writing the missing tests: the implementer (`backend-engineering:backend-engineer`).
 - Code quality and design conformance: `code-reviewer`.
 - Domain policy, security, observability, and invariant reviews: their specialist agents.
 

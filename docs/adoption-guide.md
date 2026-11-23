@@ -18,7 +18,7 @@ User-scope installs apply to every project. Requirements: Claude Code, `git`, `p
 |---|---|---|
 | Engineering blog / writing | `writing` | project |
 | Fintech backend (credit, eligibility, risk) | `fintech` (pulls backend, observability, security), `guardrails` | project |
-| Other Python backends, e-commerce, automation | `backend` (pulls observability), `guardrails` | project |
+| Any other backend or web app, any language | `backend` (pulls observability), `guardrails` | project |
 | Small experiments | `core` | user |
 
 `--scope project` writes the plugin enablement to the project's `.claude/settings.json`, which can be committed so collaborators get the same set. `--scope local` keeps it in `.claude/settings.local.json` (not committed).

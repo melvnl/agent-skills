@@ -30,7 +30,7 @@ Make requirements trustworthy before anyone builds on them, whether they arrive 
 ## Not responsible for
 
 - Technical design: `solution-architect`.
-- Task planning and implementation: `python-backend:backend-engineer` and the orchestrator.
+- Task planning and implementation: `backend-engineering:backend-engineer` and the orchestrator.
 - Approving specs: the owner.
 
 ## Skills to load

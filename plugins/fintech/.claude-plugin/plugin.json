@@ -15,7 +15,7 @@
     "auditability"
   ],
   "dependencies": [
-    "python-backend",
+    "backend-engineering",
     "observability",
     "application-security"
   ]

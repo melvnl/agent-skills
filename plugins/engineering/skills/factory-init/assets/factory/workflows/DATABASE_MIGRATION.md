@@ -36,7 +36,7 @@ Change schemas and data without outages, data loss, or code that breaks against 
 9. **Run** in the shared environment only after approval, by whoever the project designates, with monitoring and a stop criterion.
 10. **Verify** with the validation queries and record the results in the implementation report.
 
-If the `database-migrations` and `mysql-engineering` skills or the `database-engineer` agent are available, use them.
+If the `database-migrations` and `database-queries-and-concurrency` skills or the `database-engineer` agent are available, use them.
 
 ## Quality gates
 

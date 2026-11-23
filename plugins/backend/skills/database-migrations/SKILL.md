@@ -1,6 +1,6 @@
 ---
 name: database-migrations
-description: Plans, writes and verifies schema and data migrations that stay compatible across deploys: expand-migrate-contract, safe column, index and constraint changes on large MySQL tables, batched idempotent backfills, Django migration review, and a rollback or forward-fix plan. Use when creating or reviewing a migration, backfill, rename, column drop, or index change.
+description: Plans, writes and verifies schema and data migrations that stay compatible across deploys on any engine and migration tool: expand-migrate-contract, non-blocking column, index and constraint changes on large tables, batched idempotent backfills, review of generated SQL, and a rollback or forward-fix plan. Use when creating or reviewing a migration, backfill, rename, column drop, or index change.
 ---
 
 # Database Migrations
@@ -11,18 +11,18 @@ A migration runs against live data, while old and new application versions coexi
 
 ## When to use
 
-- Creating, reviewing, or running a schema or data migration.
+- Creating, reviewing, or running a schema or data migration, with any tool (Django, Alembic, MikroORM/Medusa, Prisma, TypeORM, Knex, Flyway, raw SQL).
 - Renaming or dropping columns or tables, changing types or nullability, adding constraints or indexes, backfilling data.
 - The Software Factory `DATABASE_MIGRATION` workflow.
 
-**When not to use:** deciding the target schema → `database-design`. Engine internals (online DDL algorithms, locks) are summarized here and detailed in `mysql-engineering`.
+**When not to use:** deciding the target schema → `database-design`. Query plans and locking semantics outside migrations → `database-queries-and-concurrency`.
 
 ## Inputs and context
 
 1. The target schema and why (spec/design, `DATA_MODEL.md`).
 2. **Table facts**: row counts, size, write rate, and which code paths read and write it. Ask for production numbers if you can't measure them; "small" must be a number.
-3. Engine and version (MySQL 5.7 vs 8.0 point release, Aurora version), and the tools the team uses for large changes (native online DDL, `gh-ost`, `pt-online-schema-change`).
-4. The migration framework (Django migrations, Alembic, Flyway, raw SQL) and how migrations run in deploys (before or after code rollout, automatically or manually).
+3. **Engine and version**, then read its section in [references/engine-notes.md](references/engine-notes.md): which DDL is instant, online, or blocking, and whether DDL is transactional.
+4. **The migration tool** and how migrations run in deploys (before or after code rollout, automatically or manually); read its section in [references/tool-notes.md](references/tool-notes.md).
 5. Existing migration history: applied migrations are immutable.
 
 ## Process
@@ -33,13 +33,13 @@ A migration runs against live data, while old and new application versions coexi
    - *Migrate*: dual-write or backfill; switch reads; verify. Deploy.
    - *Contract*: stop using the old structure in code, deploy, then remove it in a later migration.
    Each step is its own migration and deploy; each intermediate state works with both adjacent code versions.
-3. **Make schema changes non-blocking** on large tables: check the DDL algorithm (MySQL `ALGORITHM=INSTANT/INPLACE`, `LOCK=NONE`) and metadata-lock behavior, or use the team's online schema change tool. Note that even online DDL waits for a metadata lock, which a long-running transaction can block, stalling all queries behind it. Set a lock wait timeout for the DDL session.
-4. **Write backfills as resumable batch jobs**: chunked by primary key ranges, idempotent (safe to re-run), throttled, with progress logged, and outside the schema migration transaction. Never one giant `UPDATE` on a large table.
-5. **Mind transactions.** MySQL DDL causes an implicit commit, so a Django migration mixing several operations on MySQL **is not atomic**: a failure can leave it half-applied. Keep one risky operation per migration; data migrations (`RunPython`) separate from schema changes.
-6. **Review generated migrations** instead of trusting them: Django `makemigrations` can turn a rename into drop + add (data loss) and emit table rebuilds. Read `sqlmigrate <app> <migration>` output; use `migrate --plan`; use `SeparateDatabaseAndState` when the model and database must move separately.
-7. **Provide reversibility honestly.** Give `RunPython` a reverse function, or `RunPython.noop` with a comment when reversal is impossible. For destructive steps, the rollback plan is usually a **forward fix plus a backup or snapshot**, stated explicitly.
-8. **Rehearse** on a production-like copy (same engine version, realistic size): measure duration, lock behavior, and replication lag; verify data afterwards with checks (counts, null counts, checksums on samples).
-9. **Never edit an applied migration**; add a new one. Resolve ordering conflicts with a merge migration, not by rewriting history.
+3. **Make schema changes non-blocking** on large tables, using the engine's online path (concurrent index builds, `NOT VALID` constraints validated later, instant column adds) or the team's online schema change tool. Even online DDL needs a brief exclusive lock; a long-running transaction can block it and queue all traffic behind it. Set a short lock timeout for the migration session.
+4. **Write backfills as resumable batch jobs**: chunked by primary-key ranges, idempotent, throttled, with progress logged, and outside the schema migration transaction. Never one giant `UPDATE` on a large table.
+5. **Know whether DDL is transactional.** PostgreSQL DDL is (except operations like `CREATE INDEX CONCURRENTLY`, which can't run inside a transaction); MySQL DDL commits implicitly, so a multi-operation migration can be left half-applied. Keep one risky operation per migration; data changes separate from schema changes.
+6. **Read the generated SQL** instead of trusting the generator. Generators turn renames into drop + add (data loss), emit table rebuilds, and drop things they don't know about. Use the tool's SQL preview or dry run.
+7. **Provide reversibility honestly.** Give data migrations a reverse step, or mark them irreversible with a comment. For destructive steps, the rollback plan is usually a **forward fix plus a backup or snapshot**, stated explicitly.
+8. **Rehearse** on a production-like copy (same engine version, realistic size): measure duration, lock behavior and replication lag; verify data afterwards (counts, null counts, sample checksums).
+9. **Never edit an applied migration**; add a new one. Resolve ordering conflicts with the tool's merge mechanism, not by rewriting history.
 10. ⏸ **Approval**: destructive or long-running migrations, and anything touching financial or personal data, need explicit owner approval with the rehearsal results.
 
 ## Output
@@ -47,22 +47,22 @@ A migration runs against live data, while old and new application versions coexi
 A migration plan, plus the migration files:
 
 ```markdown
-### Migration plan: applications.decision_reason
+### Migration plan: order.fulfillment_status
 | Step | Change | Deploy | Compatible with | Risk / duration (rehearsal) |
 |---|---|---|---|---|
-| 1 expand | ADD COLUMN decision_reason VARCHAR(64) NULL (INSTANT) | release N | code N-1, N | <1 s, metadata lock only |
+| 1 expand | ADD COLUMN fulfillment_status text NULL | release N | code N-1, N | <1 s, brief lock |
 | 2 migrate | code writes the column; backfill job in 5k-row chunks | release N+1 | N, N+1 | ~40 min at 2M rows, throttled |
-| 3 contract | none (no old column) | none | none | none |
-Verification: null count 0 after backfill for decided rows; sample checksum matches.
+| 3 contract | SET NOT NULL via validated CHECK, then drop old column | release N+2 | N+1, N+2 | validation scan, no write lock |
+Verification: null count 0 after backfill; sample checksum matches.
 Rollback: step 1 reversible (drop column); step 2 forward-fix only.
 ```
 
 ## Verification
 
 - [ ] Every intermediate state works with the code versions deployed around it.
-- [ ] The DDL algorithm or tool for large tables is stated, and lock behavior checked.
+- [ ] The DDL path or tool for large tables is stated, and lock behavior checked for this engine version.
 - [ ] Backfills are chunked, idempotent, resumable, and throttled.
-- [ ] Generated SQL was read (`sqlmigrate` or equivalent); no accidental drop + add.
+- [ ] Generated SQL was read; no accidental drop + add or unexpected rebuild.
 - [ ] Rehearsed on a production-like copy, with measured duration and post-checks; or the gap is stated.
 - [ ] Reverse or forward-fix plan written; applied migrations untouched.
 - [ ] Approval obtained for destructive or long-running steps.
@@ -75,11 +75,13 @@ Always ask before: dropping or narrowing columns or tables; adding `NOT NULL` or
 
 | Rationalization | Reality |
 |---|---|
-| "It's just adding an index." | On a large hot table, without an online algorithm, it blocks writes. Check. |
-| "Django migrations are transactional." | Not on MySQL: DDL commits implicitly. |
+| "It's just adding an index." | On a large hot table, without the online path, it blocks writes. Check. |
+| "Migrations are transactional." | Not on MySQL, and not for concurrent index builds on PostgreSQL. |
 | "Rename the column in one migration." | Old code still running during the deploy queries the old name and fails. Expand, migrate, contract. |
-| "The backfill is a one-liner." | A single UPDATE on millions of rows holds locks, bloats undo logs, and lags replicas. Batch it. |
+| "The generator wrote it, so it's right." | Generators turn renames into drops. Read the SQL. |
 
 ## References
 
-- [references/migration-patterns.md](references/migration-patterns.md): safe patterns per change type, MySQL DDL notes, backfill template.
+- [references/migration-patterns.md](references/migration-patterns.md): safe pattern per change type and a backfill template.
+- [references/engine-notes.md](references/engine-notes.md): read for the target engine: PostgreSQL and MySQL/Aurora DDL locking and online paths.
+- [references/tool-notes.md](references/tool-notes.md): read for the migration tool in use: Django, Alembic, MikroORM (Medusa), Prisma, TypeORM.

@@ -1,6 +1,6 @@
 ---
 name: database-engineer
-description: Designs schema changes and writes migrations, backfills and query optimizations for MySQL/Aurora: data model updates, deploy-compatible migration plans, EXPLAIN-verified indexes, rehearsal evidence, and rollback plans. Use when a task changes the schema, needs a backfill, or has a query performance problem. Never runs anything against production and never approves its own migration.
+description: Designs schema changes and writes migrations, backfills and query optimizations on any relational engine (PostgreSQL, MySQL/Aurora): data model updates, deploy-compatible migration plans, EXPLAIN-verified indexes, rehearsal evidence, and rollback plans. Use when a task changes the schema, needs a backfill, or has a query performance problem. Never runs anything against production and never approves its own migration.
 tools: Read, Grep, Glob, Bash, Edit, Write
 model: inherit
 ---
@@ -36,10 +36,9 @@ Change data structures and queries so that data stays correct, deploys stay safe
 
 ## Skills to load
 
-- `python-backend:database-design` and `python-backend:database-migrations`: always.
-- `python-backend:mysql-engineering`: always on MySQL/Aurora.
+- `backend-engineering:database-design` and `backend-engineering:database-migrations`: always.
+- `backend-engineering:database-queries-and-concurrency`: always (it covers PostgreSQL and MySQL/Aurora).
 - `fintech-engineering:financial-data-integrity`: when the data feeds financial decisions.
-- `python-backend:django-engineering`: when migrations are Django migrations.
 
 ## Inputs
 

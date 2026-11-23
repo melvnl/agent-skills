@@ -26,7 +26,7 @@ with transaction.atomic():
                                created_at=now_utc())
 ```
 
-Relay (separate worker): claim unpublished rows (`FOR UPDATE SKIP LOCKED` on MySQL 8.0.1+), publish, mark `published_at`, increment `attempts` on failure with backoff, alert on age of the oldest unpublished row. Publishing is at least once, so consumers dedupe on `event_id`. Purge published rows after a retention period.
+Relay (separate worker): claim unpublished rows (`FOR UPDATE SKIP LOCKED`; PostgreSQL ≥ 9.5, MySQL ≥ 8.0.1), publish, mark `published_at`, increment `attempts` on failure with backoff, alert on age of the oldest unpublished row. Publishing is at least once, so consumers dedupe on `event_id`. Purge published rows after a retention period.
 
 ## Consumer deduplication
 
