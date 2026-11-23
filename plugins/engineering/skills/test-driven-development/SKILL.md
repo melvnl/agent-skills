@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Drives implementation through red-green-refactor: a test list from the acceptance criteria, one failing test at a time observed failing for the right reason, the minimal change to pass, then refactoring under green tests. Python/pytest aware. Use when implementing a feature or bug fix, adding behavior to existing code, or pinning legacy behavior before changing it.
+description: Drives implementation through red-green-refactor: a test list from the acceptance criteria, one failing test at a time observed failing for the right reason, the minimal change to pass, then refactoring under green tests. Works with any test runner. Use when implementing a feature or bug fix, adding behavior to existing code, or pinning legacy behavior before changing it.
 ---
 
 # Test-Driven Development
@@ -20,9 +20,9 @@ Writing the test first forces the behavior to be specified before it is built, p
 ## Inputs and context
 
 1. The acceptance criteria and business rules the task covers.
-2. The project's test stack and conventions: runner (`pytest`, `unittest`, Django's test runner), layout, fixtures/factories, how the database is handled, the plugins in use. Read two existing tests in the same area and match them.
+2. The project's test stack and conventions: runner (pytest, unittest, Jest, Vitest, Playwright, Go's `testing`, the framework's integration harness), layout, fixtures/factories, how the database is handled, the plugins in use. Read two existing tests in the same area and match them.
 3. The commands to run a single test and a module's suite.
-4. Language and library versions: don't use pytest or Django testing features the project's versions lack.
+4. Language and library versions: don't use test-runner or framework testing features the project's versions lack.
 
 ## Process
 
@@ -35,7 +35,7 @@ Writing the test first forces the behavior to be specified before it is built, p
 7. **Choose the test level deliberately**: pure business rules → unit tests without I/O; persistence, schemas, and API handlers → integration tests against a real or faithful store; critical journeys → a few end-to-end tests. Mock only what the factory mocking policy allows (third-party network, clock, randomness).
 8. **For legacy code**, first pin current behavior with characterization tests (assert what it *does*, even if odd), then change it test-first.
 
-Python patterns (parametrized boundaries, time injection, factories, Django and FastAPI test setup, asserting logs): [references/python-testing.md](references/python-testing.md).
+In a Python project, read [references/python-testing.md](references/python-testing.md) for parametrized boundaries, time injection, factories, Django and FastAPI setup, and log assertions. In other languages apply the same patterns with the project's runner (table-driven or `each` tests for boundaries, fake timers or an injected clock for time, factories or builders for data).
 
 ## Output
 
@@ -65,4 +65,4 @@ Ask when: the expected behavior isn't specified (the test can't be written witho
 
 ## References
 
-- [references/python-testing.md](references/python-testing.md): pytest and unittest patterns for boundaries, time, factories, Django, FastAPI, logs, and characterization tests.
+- [references/python-testing.md](references/python-testing.md): read in Python projects: pytest and unittest patterns for boundaries, time, factories, Django, FastAPI, logs, and characterization tests.

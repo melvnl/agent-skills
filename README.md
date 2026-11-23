@@ -135,7 +135,7 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 
 - **Decide before logging.** A 15-event, 7-question framework: is it diagnostic, not already observable, needed to correlate a failure, worth its volume, free of sensitive data?
 - **Reuse what exists.** The project's logger, wrapper and correlation mechanism are inspected first. Internal logger APIs are never invented.
-- **Correlate across boundaries.** Request, correlation and trace ids survive HTTP, SQS/SNS, workers and thread pools, with the fewest identifiers possible.
+- **Correlate across boundaries.** Request, correlation and trace ids survive HTTP, queues, workers and thread pools, with the fewest identifiers possible.
 - **Keep data safe.** Secrets never; personal and financial identifiers only as approved references or keyed pseudonyms; allowlisted fields instead of payloads.
 - **Prove it.** The formatter actually emits the fields, correlation appears in captured records, and a sentinel test shows sensitive values are absent.
 - **Logs are not audit records.** Decisions and financial changes get durable, append-only records (`financial-auditability`).
@@ -158,7 +158,7 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 | [planning-and-task-breakdown](plugins/engineering/skills/planning-and-task-breakdown/SKILL.md) | Walking skeleton first, vertical slices, tasks with tests, instrumentation and done-when | An approved spec needs implementation tasks |
 | [loop-engineering](plugins/engineering/skills/loop-engineering/SKILL.md) | Implement → instrument → test → diagnose → fix → verify → checkpoint, with stop conditions | Implementing a task list, autonomous multi-step work |
 | [context-engineering](plugins/engineering/skills/context-engineering/SKILL.md) | Targeted reading, bounded output, state in files, compaction-proof handoffs | Long tasks, large codebases or documents |
-| [test-driven-development](plugins/engineering/skills/test-driven-development/SKILL.md) | Red-green-refactor from the acceptance criteria, pytest/Django/FastAPI patterns | Implementing behavior or fixing bugs |
+| [test-driven-development](plugins/engineering/skills/test-driven-development/SKILL.md) | Red-green-refactor from the acceptance criteria, with the project's own runner | Implementing behavior or fixing bugs |
 | [debugging-and-error-recovery](plugins/engineering/skills/debugging-and-error-recovery/SKILL.md) | Reproduce, minimize, one hypothesis at a time, bisect, root cause, safe recovery | Bugs, failing tests, non-converging fixes |
 | [git-workflow](plugins/engineering/skills/git-workflow/SKILL.md) | Small Conventional Commits, explicit staging, reviewed diffs, no history rewriting without approval | Committing, branching, PRs |
 
@@ -167,7 +167,7 @@ Every backend change is evaluated for instrumentation, and the goal is useful ob
 | Skill | What it does | Use when |
 |---|---|---|
 | [structured-logging-and-instrumentation](plugins/observability/skills/structured-logging-and-instrumentation/SKILL.md) | Decides what deserves a log; structured, correlated, PII-safe logs with the project's own logger | Any backend implementation or change |
-| [distributed-tracing-and-correlation](plugins/observability/skills/distributed-tracing-and-correlation/SKILL.md) | Request, correlation and trace context across HTTP, SQS/SNS, workers and async code | A change crosses a service, queue, thread or task boundary |
+| [distributed-tracing-and-correlation](plugins/observability/skills/distributed-tracing-and-correlation/SKILL.md) | Request, correlation and trace context across HTTP, queues, workers and async code | A change crosses a service, queue, thread or task boundary |
 | [logging-security-and-redaction](plugins/observability/skills/logging-security-and-redaction/SKILL.md) | Four-tier data classification; allowlists, keyed pseudonyms, masking, sentinel tests | Adding or reviewing log statements and error handling |
 | [observability-engineering](plugins/observability/skills/observability-engineering/SKILL.md) | Question-driven logs/metrics/traces design, cardinality, SLO-based alerting, the observability plan | Designing a feature or service, defining alerts |
 | [observability-code-review](plugins/observability/skills/observability-code-review/SKILL.md) | Reviews a diff for gaps *and* over-instrumentation, correlation loss, sensitive data, unbounded labels | Reviewing backend changes |
