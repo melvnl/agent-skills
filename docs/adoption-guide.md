@@ -47,7 +47,7 @@ cd ~/work/eligibility-service
    }
    ```
 
-   The `commands` run only after you enable the plugin option `run_project_commands` (`claude plugin configure engineering-guardrails@melvin-skills`), because they come from the repository.
+   The `commands` run only after you enable the plugin option `run_project_commands` (`claude plugin configure engineering-guardrails@melvin-skills`), because they come from the repository. With the option on, `format` and `lint` can be left out when the project configures and installs ruff, biome, prettier, eslint or gofmt: the hooks detect them, and the session start lists what will run.
 3. **Logging conventions**: record the project's logger, standard fields, and correlation mechanism in `engineering/development-guide.md` (the observability skills read them before writing log calls).
 4. **Data classification**: record approved identifiers and sensitive fields in `engineering/security-and-privacy.md` (the redaction skill and reviewers use it).
 

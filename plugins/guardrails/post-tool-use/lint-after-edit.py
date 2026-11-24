@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""lint-after-edit: run the project's lint command on an edited file and feed back problems.
+"""lint-after-edit: run the project's linter on an edited file and feed back problems.
 
 PostToolUse on Write, Edit and MultiEdit. Runs only when the user enabled the plugin option
-`run_project_commands` and the project configures `commands.lint` in .claude/guardrails.json, for
-files matching its optional `files` globs. Never guesses a tool. Timeouts are reported, never passed.
+`run_project_commands`. Uses `commands.lint` from .claude/guardrails.json when it applies to the file;
+otherwise auto-detects the project's own ruff, biome or eslint (lib/detect.py). When no linter can run
+for the file, says so once per session. Timeouts are reported, never passed.
 """
 import os
 import sys
@@ -15,7 +16,7 @@ NAME = "lint-after-edit"
 
 
 def main(data):
-    commands.post_edit_check(data, "lint", NAME, 60, "the linter")
+    commands.post_edit_check(data, "lint", NAME, 60, "the linter", autodetect=True)
 
 
 if __name__ == "__main__":

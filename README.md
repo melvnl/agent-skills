@@ -21,7 +21,7 @@ Each project installs only the plugins it needs. Inspired by [addyosmani/agent-s
 | Plugins | 5 | `plugins/<profile>/` |
 | Skills | 13 | `plugins/<profile>/skills/` |
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
-| Guardrail hooks | 18 (95 unit tests) | `plugins/guardrails/` |
+| Guardrail hooks | 18 (113 unit tests) | `plugins/guardrails/` |
 | Software Factory workflows | 11 (+ fintech overlay) | `plugins/engineering/skills/factory-init/assets/factory/workflows/` |
 | Eval cases | 13 | `plugins/<profile>/evals/` |
 
@@ -40,7 +40,7 @@ Then, optionally:
 
 - **Add profiles to one project:** `~/dev/agent-skills/scripts/agent-skills install --profile backend --profile reviewers --scope project` (writes that project's `.claude/settings.json`).
 - **Adopt the Software Factory in a repo:** run `/factory-init` inside it. After that, ask in plain language and `factory-router` picks the workflow.
-- **Let guardrails run your project's format, lint, typecheck and test commands:** `claude plugin configure engineering-guardrails@melvin-skills` and turn on `run_project_commands`.
+- **Let guardrails format, lint, type-check and test as Claude works:** `claude plugin configure engineering-guardrails@melvin-skills` and turn on `run_project_commands`. The formatter and linter are auto-detected from your project (ruff, biome, prettier, eslint, gofmt); type checks and tests need `commands` in `.claude/guardrails.json`.
 
 To update a local checkout, `git pull` and start a new session (or run `/reload-plugins`). Manual install and versioned updates: [release strategy](docs/release-strategy.md).
 
@@ -72,7 +72,7 @@ All 18 hooks are in `engineering-guardrails`. They check facts a pattern can dec
 
 | Hook | Does |
 |---|---|
-| `session-context-init` | Adds the code clarity rule in every repo. In Software Factory repos, also adds the session protocol, task status and git state. |
+| `session-context-init` | Adds the code clarity rule in every repo, and lists which formatter and linter will run. In Software Factory repos, also adds the session protocol, task status and git state. |
 
 **Before a tool runs (7)**
 
@@ -96,8 +96,8 @@ All 18 hooks are in `engineering-guardrails`. They check facts a pattern can dec
 | `check-observability-context` | Reports SQS/SNS calls that drop tracing context. |
 | `migration-safety-check` | Reports migration steps that drop data or lock tables. |
 | `sensitive-operation-audit` | Quietly records sensitive actions, with secrets removed, to an audit log. |
-| `format-after-edit` | Runs your formatter on the edited file. Opt-in. |
-| `lint-after-edit` | Runs your linter on the edited file. Opt-in. |
+| `format-after-edit` | Runs your formatter on the edited file: configured, or auto-detected. Opt-in. |
+| `lint-after-edit` | Runs your linter on the edited file: configured, or auto-detected. Opt-in. |
 | `typecheck-after-edit` | Runs your type checker on the edited file. Opt-in. |
 
 **Claude finishes its reply (1)**
@@ -106,7 +106,7 @@ All 18 hooks are in `engineering-guardrails`. They check facts a pattern can dec
 |---|---|
 | `verify-before-stop` | Runs your verify command when files changed, and keeps Claude working once if it fails. Opt-in. |
 
-"Opt-in" hooks run commands from the repository's `.claude/guardrails.json`, so they stay off until you enable `run_project_commands`. Per-project paths, commands and turned-off hooks also go in that file:
+"Opt-in" hooks run project tools, so they stay off until you enable `run_project_commands`. The formatter and linter are found automatically when the project configures and installs one (for example `[tool.ruff]` plus `.venv/bin/ruff`). When a check can't run, for an unknown file type or a missing tool, you and Claude are told once per session, and the session start lists what will run. Commands, paths and turned-off hooks go in `.claude/guardrails.json`:
 
 ```json
 {

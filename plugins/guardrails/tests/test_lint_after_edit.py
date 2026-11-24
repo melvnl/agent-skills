@@ -37,10 +37,12 @@ class Test(HookTestCase):
         code, out, _ = self.edit()
         self.assertIn("timed out", reason(out))
 
-    def test_requires_opt_in_and_config(self):
+    def test_requires_opt_in(self):
         write_config(self.project, {"commands": {"lint": FAILING}})
         self.assertIsNone(self.edit(env=OPT_OUT)[1])
-        write_config(self.project, {})
+
+    def test_silent_without_config_when_auto_detect_is_off(self):
+        write_config(self.project, {"auto_detect": False})
         self.assertIsNone(self.edit()[1])
 
     def test_malformed_input_fails_open(self):
