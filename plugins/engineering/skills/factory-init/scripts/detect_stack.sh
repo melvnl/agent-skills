@@ -8,7 +8,7 @@ set -u
 ROOT="${1:-.}"
 cd "$ROOT" || { echo "error: cannot cd to $ROOT" >&2; exit 2; }
 
-has() { [ -e "$1" ]; }
+has() { [ -e "$1" ] && ls -1a "$(dirname "$1")" 2>/dev/null | grep -qxF "$(basename "$1")"; }  # exact spelling: macOS ignores case
 section() { printf '\n## %s\n' "$1"; }
 SKIP_DIRS='-not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/.next/*" -not -path "*/dist/*" -not -path "*/build/*" -not -path "*/.venv/*" -not -path "*/vendor/*" -not -path "*/target/*"'
 findf() { eval find . -maxdepth "${2:-3}" -name "'$1'" $SKIP_DIRS 2>/dev/null | sort | head -20; }
@@ -28,7 +28,7 @@ fi
 
 section "Existing agent / factory files"
 for f in CLAUDE.md AGENTS.md .cursorrules .github/copilot-instructions.md .factory .claude/skills/factory-router/SKILL.md \
-         product engineering specs tasks tasks/STATUS.md docs README.md CONTRIBUTING.md ARCHITECTURE.md; do
+         product engineering specs tasks tasks/status.md tasks/STATUS.md docs README.md CONTRIBUTING.md ARCHITECTURE.md; do
   has "$f" && echo "exists: $f"
 done
 has .factory || echo "missing: .factory (bootstrap needed)"

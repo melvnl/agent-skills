@@ -21,21 +21,21 @@ Establish a project's product and engineering foundation so that feature work ca
 CLAUDE.md                     # Agent entry point: identity, stack, reading order, commands, phase
 README.md                     # Human entry point (short; links to CLAUDE.md and docs)
 product/
-  PRODUCT_BRIEF.md            # from templates/PROJECT_BRIEF.md
-  PRD.md                      # from templates/PRD.md
-  PERSONAS.md
-  ROADMAP.md                  # phases with deliverables and acceptance criteria
-  FEATURES.md                 # feature catalog with IDs, phase, status
+  product-brief.md            # from templates/project-brief.md
+  prd.md                      # from templates/prd.md
+  personas.md
+  roadmap.md                  # phases with deliverables and acceptance criteria
+  features.md                 # feature catalog with IDs, phase, status
 engineering/
-  ARCHITECTURE.md
-  TECH_STACK.md
-  DATA_MODEL.md
-  API_CONTRACTS.md
-  SECURITY_AND_PRIVACY.md
-  DEVELOPMENT_GUIDE.md        # setup, commands, conventions, quality gates
-  adr/0001-*.md               # from templates/ARCHITECTURE_DECISION_RECORD.md
-specs/                        # one folder per feature: SPEC.md, DESIGN.md
-tasks/                        # STATUS.md, task breakdowns, implementation reports
+  architecture.md
+  tech-stack.md
+  data-model.md
+  api-contracts.md
+  security-and-privacy.md
+  development-guide.md        # setup, commands, conventions, quality gates
+  adr/0001-*.md               # from templates/architecture-decision-record.md
+specs/                        # one folder per feature: spec.md, design.md
+tasks/                        # status.md, task breakdowns, implementation reports
 ```
 
 A project may adapt names, but must document the mapping in `CLAUDE.md`.
@@ -50,27 +50,27 @@ A project may adapt names, but must document the mapping in `CLAUDE.md`.
 
 ### Stage B — Define the product
 
-4. Write `product/PRODUCT_BRIEF.md` from `templates/PROJECT_BRIEF.md`.
-5. Write `product/PERSONAS.md` (who, context, goals, pain points, accessibility needs).
-6. Write `product/PRD.md` from `templates/PRD.md`: functional and non-functional requirements with stable IDs.
-7. Write `product/FEATURES.md`: a catalog mapping feature IDs → requirements → phase → status.
-8. Write `product/ROADMAP.md`: phases, each with deliverables, explicit acceptance criteria, and exit criteria. The first phase must be independently useful.
+4. Write `product/product-brief.md` from `templates/project-brief.md`.
+5. Write `product/personas.md` (who, context, goals, pain points, accessibility needs).
+6. Write `product/prd.md` from `templates/prd.md`: functional and non-functional requirements with stable IDs.
+7. Write `product/features.md`: a catalog mapping feature IDs → requirements → phase → status.
+8. Write `product/roadmap.md`: phases, each with deliverables, explicit acceptance criteria, and exit criteria. The first phase must be independently useful.
 9. **Self-check the drafts** before approval: contradictions, vague terms, untestable statements, and missing non-functional categories (the `prd-analysis` skill does this if available). Label every statement Confirmed, Proposed, Open question, or Future consideration; never present a proposal as confirmed.
 
 ### Stage C — Define the engineering foundation
 
-10. Select the stack; write `engineering/TECH_STACK.md` with rationale, alternatives, and phase applicability.
-11. Write `engineering/ARCHITECTURE.md`: system context, module boundaries, data flow, trade-offs (Mermaid diagrams encouraged).
-12. Write `engineering/DATA_MODEL.md`: entities, ownership, invariants, units, history stability, migration strategy.
-13. Write `engineering/API_CONTRACTS.md`: service/API boundaries and schemas.
-14. Write `engineering/SECURITY_AND_PRIVACY.md`: data classification, auth, isolation, secrets, retention/deletion.
+10. Select the stack; write `engineering/tech-stack.md` with rationale, alternatives, and phase applicability.
+11. Write `engineering/architecture.md`: system context, module boundaries, data flow, trade-offs (Mermaid diagrams encouraged).
+12. Write `engineering/data-model.md`: entities, ownership, invariants, units, history stability, migration strategy.
+13. Write `engineering/api-contracts.md`: service/API boundaries and schemas.
+14. Write `engineering/security-and-privacy.md`: data classification, auth, isolation, secrets, retention/deletion.
 15. Record the foundational decisions in `engineering/adr/0001-*.md`.
-16. Write `engineering/DEVELOPMENT_GUIDE.md`: prerequisites, setup, commands (mark planned vs. existing), directory conventions, quality gates mapped to commands.
+16. Write `engineering/development-guide.md`: prerequisites, setup, commands (mark planned vs. existing), directory conventions, quality gates mapped to commands.
 
 ### Stage D — Agent entry point
 
-17. Write `CLAUDE.md`: concise identity, stack, structure, reading order per task type, reference to `.factory/core/AGENT_BEHAVIOR.md` and workflows, commands, current phase, architectural constraints. **Do not copy factory content into it — link.**
-18. Create `tasks/STATUS.md` with the current phase, next actions, and blockers.
+17. Write `CLAUDE.md`: concise identity, stack, structure, reading order per task type, reference to `.factory/core/agent-behavior.md` and workflows, commands, current phase, architectural constraints. **Do not copy factory content into it — link.**
+18. Create `tasks/status.md` with the current phase, next actions, and blockers.
 
 ### Stage E — Initialize the stack *(separate, approved step)*
 
@@ -78,7 +78,7 @@ A project may adapt names, but must document the mapping in `CLAUDE.md`.
 20. Configure: strict typing, formatter, linter, test runner(s), E2E runner, environment validation, `.env.example`, `.gitignore`.
 21. Add one trivial passing test per test level to prove the pipeline.
 22. **Verify the environment:** install, lint, type-check, test, build, run locally. Record the actual outputs.
-23. Update `DEVELOPMENT_GUIDE.md` and `CLAUDE.md` so documented commands match real ones.
+23. Update `development-guide.md` and `CLAUDE.md` so documented commands match real ones.
 
 ## Quality gates
 

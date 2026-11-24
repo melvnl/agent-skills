@@ -4,14 +4,14 @@ A reusable, **project-agnostic**, spec-driven engineering process for humans and
 
 | Directory | Contents | Use |
 |---|---|---|
-| `core/` | `PRINCIPLES`, `ENGINEERING_STANDARDS`, `CODING_STANDARDS`, `TESTING_STANDARDS`, `DEFINITION_OF_DONE`, `AGENT_BEHAVIOR` | Always-on rules |
-| `workflows/` | `NEW_PROJECT`, `NEW_FEATURE` (+ `FINTECH_FEATURE` overlay), `PRD_TO_IMPLEMENTATION`, `BUG_FIX`, `PRODUCTION_INCIDENT`, `DATABASE_MIGRATION`, `REFACTORING`, `CODE_REVIEW`, `SECURITY_REVIEW`, `OBSERVABILITY_REVIEW`, `RESUME_WORK` | Step-by-step procedures with entry and exit conditions, gates, and approvals |
-| `templates/` | `PROJECT_BRIEF`, `PRD`, `FEATURE_SPEC`, `TECHNICAL_DESIGN`, `TASK_BREAKDOWN`, `ARCHITECTURE_DECISION_RECORD`, `IMPLEMENTATION_REPORT` | Starting points for project documents |
+| `core/` | `principles`, `engineering-standards`, `coding-standards`, `testing-standards`, `definition-of-done`, `agent-behavior` | Always-on rules |
+| `workflows/` | `new-project`, `new-feature` (+ `fintech-feature` overlay), `prd-to-implementation`, `bug-fix`, `production-incident`, `database-migration`, `refactoring`, `code-review`, `security-review`, `observability-review`, `resume-work` | Step-by-step procedures with entry and exit conditions, gates, and approvals |
+| `templates/` | `project-brief`, `PRD`, `feature-spec`, `technical-design`, `task-breakdown`, `architecture-decision-record`, `implementation-report` | Starting points for project documents |
 
 ## Adopting in a new project
 
 1. Copy `.factory/` unchanged.
-2. Follow `workflows/NEW_PROJECT.md` to create the project's `product/`, `engineering/`, `specs/`, `tasks/`, and agent entry point (`CLAUDE.md`).
+2. Follow `workflows/new-project.md` to create the project's `product/`, `engineering/`, `specs/`, `tasks/`, and agent entry point (`CLAUDE.md`).
 3. Declare the concrete stack, commands, and conventions in project docs — not here.
 4. Optional: copy the companion `factory-router` Claude Code skill (`.claude/skills/factory-router/`), which is also project-agnostic. It classifies plain-language requests and routes them to these workflows. The project's `CLAUDE.md` remains the entry point and supplies project paths.
 

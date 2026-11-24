@@ -7,7 +7,7 @@
 # 1. Checks prerequisites (git, claude, python3 >= 3.8).
 # 2. Clones the repository into DIR (default: ~/dev/agent-skills), or fast-forwards an existing checkout of
 #    the same remote. A non-git directory or a checkout of another remote is never touched.
-# 3. Runs `agent-skills install` with the given profiles (default: core), then `agent-skills doctor`.
+# 3. Runs `agent-skills install` with the given profiles (default: core and guardrails), then `agent-skills doctor`.
 #
 # It writes nothing but the checkout; Claude Code settings change only through `claude plugin` commands.
 # No credentials are read or stored: private repositories use your existing git credentials.

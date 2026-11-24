@@ -19,7 +19,7 @@ A feature, fix, or refactor is **done** only when every applicable item below is
 
 ## 3. Implementation
 
-- [ ] Code follows `CODING_STANDARDS.md` and `ENGINEERING_STANDARDS.md`.
+- [ ] Code follows `coding-standards.md` and `engineering-standards.md`.
 - [ ] Loading, empty, error, and success states handled for user-facing views.
 - [ ] No unresolved `TODO`s without a task reference.
 - [ ] No debug code, commented-out code, or unused dependencies.
@@ -59,6 +59,6 @@ A feature, fix, or refactor is **done** only when every applicable item below is
 
 ## 8. Review and approval
 
-- [ ] Code review completed per `.factory/workflows/CODE_REVIEW.md`; blocking findings addressed.
-- [ ] Implementation report written (`.factory/templates/IMPLEMENTATION_REPORT.md`).
+- [ ] Code review completed per `.factory/workflows/code-review.md`; blocking findings addressed.
+- [ ] Implementation report written (`.factory/templates/implementation-report.md`).
 - [ ] Human approval obtained where required (merges to main, destructive operations, contract/security changes, acceptance-criteria changes).

@@ -2,9 +2,10 @@
 """format-after-edit: run the project's formatter on an edited file and tell Claude when it changed.
 
 PostToolUse on Write, Edit and MultiEdit. Runs only when the user enabled the plugin option
-`run_project_commands` and the project configures `commands.format` in .claude/guardrails.json
-(e.g. "ruff format {files}"). Never guesses a tool. A reformatted file means Claude's view of it is
-stale, so the hook adds context asking to re-read it before the next edit. Formatter failures are fed back.
+`run_project_commands`. Uses `commands.format` from .claude/guardrails.json when it applies to the file;
+otherwise auto-detects the project's own ruff, biome, prettier or gofmt (lib/detect.py). When no formatter
+can run for the file, says so once per session. A reformatted file means Claude's view of it is stale, so
+the hook adds context asking to re-read it before the next edit. Formatter failures are fed back.
 """
 import hashlib
 import os
@@ -25,16 +26,16 @@ def digest(path):
 
 
 def main(data):
-    if data.get("tool_name") not in ("Write", "Edit", "MultiEdit") or not commands.allowed():
+    step = commands.plan(data, "format", NAME, 30)
+    if step is None:
+        return
+    if step[0] == "skip":
+        commands.mention_skip(data, step[1], "format", NAME)
         return
     project = hookio.project_dir(data)
-    cfg = config.load(project)
-    path = hookio.tool_input(data).get("file_path", "")
-    command_spec = commands.spec(cfg, "format", 30)
-    if not config.enabled(cfg, NAME) or not command_spec or not path or not commands.applies(command_spec, path, project):
-        return
+    path = step[2]
     before = digest(path)
-    code, output = commands.run(command_spec, [path], project)
+    code, output, _ = commands.execute(step, project)
     rel = config.relative(path, project) or path
     if code != 0:
         status = output if code is None else "exit %s" % code

@@ -20,9 +20,9 @@ Don't split when the parts can't be verified independently, or when a split only
 
 | Id | Scope | Rule |
 |---|---|---|
-| `FR-n`, `NFR-n`, `BR-n` | project-wide, in `product/PRD.md` | sequential; never renumbered or reused; deprecated ids stay with status *Deprecated* |
+| `FR-n`, `NFR-n`, `BR-n` | project-wide, in `product/prd.md` | sequential; never renumbered or reused; deprecated ids stay with status *Deprecated* |
 | `Q-n` | project-wide open questions | closed with a recorded decision |
-| `F-nn` | features in `product/FEATURES.md` | two digits minimum; sequential |
+| `F-nn` | features in `product/features.md` | two digits minimum; sequential |
 | `<F-ID>-FR-n` | inside a spec | feature-scoped refinement; must cite the PRD id it refines |
 | `AC-n` | inside a spec | see `acceptance-criteria-engineering` |
 | `T-n` | inside a task breakdown | see `planning-and-task-breakdown` |

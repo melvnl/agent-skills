@@ -71,11 +71,12 @@ Hooks read optional `<project>/.claude/guardrails.json` (via `$CLAUDE_PROJECT_DI
     "typecheck": "mypy {files}",
     "verify": "make test"
   },
+  "auto_detect": true,
   "logging": { "event_name_pattern": "^[a-z][a-z0-9_]*$" }
 }
 ```
 
-`{files}` expands to the edited file paths, shell-quoted. Command hooks run only what the project configures and never guess a tool.
+`{files}` expands to the edited file paths, shell-quoted. Without a configured command, `format-after-edit` and `lint-after-edit` detect the project's own tool (`lib/detect.py`): its config must exist and its executable must be installed locally and untracked, so detection decides a fact, never a guess. A check that can't run is reported once per session (`lib/notices.py`, `hookio.notify`), never silently skipped and never repeated on every edit.
 
 ## Performance
 

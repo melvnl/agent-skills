@@ -61,6 +61,12 @@ def add_context(event, text):
     _emit({"hookSpecificOutput": {"hookEventName": event, "additionalContext": str(text)[:9000]}})
 
 
+def notify(event, text, user_text=None):
+    """Tell Claude (additional context) and the user (system message) the same thing, without blocking."""
+    _emit({"systemMessage": str(user_text or text)[:1000],
+           "hookSpecificOutput": {"hookEventName": event, "additionalContext": str(text)[:9000]}})
+
+
 def project_dir(data):
     return os.environ.get("CLAUDE_PROJECT_DIR") or data.get("cwd") or os.getcwd()
 

@@ -1,9 +1,9 @@
 <!--
 TEMPLATE: Technical Design
-Location convention: specs/<feature-id>-<slug>/DESIGN.md
+Location convention: specs/<feature-id>-<slug>/design.md
 Purpose: Define HOW a specified feature will be built, consistent with the project's architecture.
 Instructions for agents:
-- Read the spec, ARCHITECTURE, DATA_MODEL, API_CONTRACTS, SECURITY docs, and the affected code first.
+- Read the spec, ARCHITECTURE, data-model, api-contracts, SECURITY docs, and the affected code first.
 - Every functional requirement in the spec must map to at least one component (§ 3 table).
 - Significant decisions → also write an ADR and link it.
 - Every dependency in § 7 has a defined timeout, retry, and failure behavior; § 8 is filled for any backend change (write "None" with a reason rather than deleting it).
@@ -15,7 +15,7 @@ Instructions for agents:
 | Field | Value |
 |---|---|
 | Status | {{Draft / Approved / Implemented}} |
-| Spec | {{link to SPEC.md}} |
+| Spec | {{link to spec.md}} |
 | Related ADRs | {{links}} |
 | Last updated | {{YYYY-MM-DD}} |
 

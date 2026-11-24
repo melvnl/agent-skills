@@ -4,14 +4,17 @@ import unittest
 
 from helpers import HookTestCase, reason, write_config
 
+OPT_IN = {"GUARDRAILS_RUN_PROJECT_COMMANDS": "1", "CLAUDE_PLUGIN_OPTION_RUN_PROJECT_COMMANDS": ""}
+OPT_OUT = {"GUARDRAILS_RUN_PROJECT_COMMANDS": "", "CLAUDE_PLUGIN_OPTION_RUN_PROJECT_COMMANDS": ""}
+
 
 class SessionContextInitTest(HookTestCase):
     SCRIPT = "session/session-context-init.py"
 
-    def make_factory(self):
+    def make_factory(self, status_name="status.md"):
         os.makedirs(os.path.join(self.project, ".factory"))
         os.makedirs(os.path.join(self.project, "tasks"))
-        with open(os.path.join(self.project, "tasks", "STATUS.md"), "w") as fh:
+        with open(os.path.join(self.project, "tasks", status_name), "w") as fh:
             fh.write("# Status\n\n| Phase | 1 |\n" + "".join(f"line {i}\n" for i in range(100)))
 
     def test_factory_repo_gets_status_and_git_context(self):
@@ -26,13 +29,75 @@ class SessionContextInitTest(HookTestCase):
         self.assertIn("financial_core", text)
         self.assertNotIn("line 60", text)  # bounded snapshot
 
+    def test_pre_rename_status_file_is_read(self):
+        self.make_factory(status_name="STATUS.md")
+        text = reason(self.hook({"hook_event_name": "SessionStart", "source": "startup"})[1])
+        self.assertIn("tasks/STATUS.md (first", text)
+        self.assertIn("| Phase | 1 |", text)
+
     def test_compact_adds_reverification_reminder(self):
         self.make_factory()
         code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "compact"})
-        self.assertIn("re-read tasks/STATUS.md", reason(out))
+        self.assertIn("re-read tasks/status.md", reason(out))
 
-    def test_non_factory_repo_is_silent(self):
+    def test_factory_repo_also_gets_clarity_rule(self):
+        self.make_factory()
         code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"})
+        self.assertIn("Code clarity:", reason(out))
+
+    def test_non_factory_repo_gets_only_clarity_rule(self):
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"})
+        text = reason(out)
+        self.assertIn("Code clarity:", text)
+        self.assertNotIn("Software Factory", text)
+
+    def test_reports_detected_tools_and_skips_to_claude_and_user(self):
+        os.makedirs(os.path.join(self.project, "api", ".venv", "bin"))
+        with open(os.path.join(self.project, "api", "pyproject.toml"), "w") as fh:
+            fh.write("[tool.ruff]\n")
+        ruff = os.path.join(self.project, "api", ".venv", "bin", "ruff")
+        with open(ruff, "w") as fh:
+            fh.write("#!/bin/sh\n")
+        os.chmod(ruff, 0o755)
+        os.makedirs(os.path.join(self.project, "web"))
+        with open(os.path.join(self.project, "web", "package.json"), "w") as fh:
+            fh.write('{"name": "web"}')
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"}, env=OPT_IN)
+        user = out["systemMessage"]
+        self.assertIn("api (Python): format: ruff format; lint: ruff check", user)
+        self.assertIn("web (JavaScript/TypeScript): format: skipped, no JavaScript/TypeScript formatter", user)
+        self.assertIn(user, reason(out))  # Claude gets the same summary
+        self.assertIn("Code clarity:", reason(out))
+
+    def test_option_off_says_what_would_run(self):
+        with open(os.path.join(self.project, "ruff.toml"), "w") as fh:
+            fh.write("")
+        os.makedirs(os.path.join(self.project, ".venv", "bin"))
+        ruff = os.path.join(self.project, ".venv", "bin", "ruff")
+        with open(ruff, "w") as fh:
+            fh.write("#!/bin/sh\n")
+        os.chmod(ruff, 0o755)
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"}, env=OPT_OUT)
+        self.assertIn("run_project_commands is disabled", out["systemMessage"])
+        self.assertIn("ruff check", out["systemMessage"])
+
+    def test_option_off_and_nothing_detected_adds_no_summary(self):
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"}, env=OPT_OUT)
+        self.assertNotIn("systemMessage", out)
+
+    def test_no_project_found_is_mentioned_when_enabled(self):
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"}, env=OPT_IN)
+        self.assertIn("no Python, JavaScript/TypeScript or Go project found", out["systemMessage"])
+
+    def test_clarity_rule_can_be_disabled(self):
+        write_config(self.project, {"disabled": ["code-clarity"]})
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"}, env=OPT_OUT)
+        self.assertEqual((code, out), (0, None))
+
+    def test_disabled_hook_is_silent_in_factory_repo(self):
+        self.make_factory()
+        write_config(self.project, {"disabled": ["session-context-init"]})
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"}, env=OPT_OUT)
         self.assertEqual((code, out), (0, None))
 
     def test_malformed_input_fails_open(self):

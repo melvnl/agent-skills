@@ -7,23 +7,23 @@ description: Turns analyzed requirements into stable requirement ids, domain gro
 
 ## Overview
 
-An analyzed PRD is still one large document. Implementation needs small, independently deliverable units, each with its own contract. This skill assigns stable ids, groups requirements by domain, cuts them into atomic feature specifications, and records how every spec traces back to the source. It uses the Software Factory formats (`PRD`, `FEATURES`, `FEATURE_SPEC`) so the rest of the factory works on the result unchanged.
+An analyzed PRD is still one large document. Implementation needs small, independently deliverable units, each with its own contract. This skill assigns stable ids, groups requirements by domain, cuts them into atomic feature specifications, and records how every spec traces back to the source. It uses the Software Factory formats (`PRD`, `FEATURES`, `feature-spec`) so the rest of the factory works on the result unchanged.
 
 ## When to use
 
 - After `prd-analysis`, once the owner has resolved or explicitly accepted its Blocking issues.
 - A single spec or epic is too large to design and review in one sitting.
-- Phase 2 of the Software Factory `PRD_TO_IMPLEMENTATION` workflow.
+- Phase 2 of the Software Factory `prd-to-implementation` workflow.
 
 **When not to use:** the source hasn't been analyzed → `prd-analysis` first. Writing the acceptance criteria inside a spec → `acceptance-criteria-engineering`. Breaking one spec into implementation tasks → `planning-and-task-breakdown`.
 
 ## Inputs and context
 
 1. The analysis (`product/analysis/<source>-analysis.md`) and its owner decision log.
-2. Existing `product/PRD.md` and `product/FEATURES.md`: their id sequences, groups and phases. **New ids continue the existing sequence.**
+2. Existing `product/prd.md` and `product/features.md`: their id sequences, groups and phases. **New ids continue the existing sequence.**
 3. Existing `specs/`: extend an existing feature instead of creating a parallel one.
-4. The roadmap and phase plan (`product/ROADMAP.md`), if any.
-5. Templates: `.factory/templates/PRD.md`, `.factory/templates/FEATURE_SPEC.md`.
+4. The roadmap and phase plan (`product/roadmap.md`), if any.
+5. Templates: `.factory/templates/prd.md`, `.factory/templates/feature-spec.md`.
 
 ## Process
 
@@ -33,17 +33,17 @@ An analyzed PRD is still one large document. Implementation needs small, indepen
 4. **Check atomicity** for each candidate feature: one primary actor goal; independently testable; its design fits one review; no circular dependency with another feature. Shared infrastructure that several features need becomes its own enabling feature, ordered first.
 5. **Map dependencies** between features (data, API, sequencing) and assign phases where a roadmap exists. Flag a later-phase dependency of an earlier-phase feature as a conflict.
 6. **Write or extend the documents**:
-   - `product/PRD.md`: new requirements in their groups, with a change-log entry.
-   - `product/FEATURES.md`: each feature with linked requirement ids, phase, dependencies, status ⬜.
-   - `specs/<F-ID>-<slug>/SPEC.md` from `FEATURE_SPEC`: problem, goals, non-goals, user stories, feature-scoped requirements tracing to PRD ids, edge cases, dependencies, open questions. Status **Draft**.
+   - `product/prd.md`: new requirements in their groups, with a change-log entry.
+   - `product/features.md`: each feature with linked requirement ids, phase, dependencies, status ⬜.
+   - `specs/<F-ID>-<slug>/spec.md` from `feature-spec`: problem, goals, non-goals, user stories, feature-scoped requirements tracing to PRD ids, edge cases, dependencies, open questions. Status **Draft**.
 7. **Write the acceptance criteria** for each spec with `acceptance-criteria-engineering`.
 8. **Record traceability**: each spec's requirement rows cite PRD ids; each PRD id appears in exactly one owning feature (a requirement shared by two features is either split, or owned by one and referenced by the other). Run `requirement-traceability` to check coverage.
 9. ⏸ **Gate:** present the feature catalog, dependency map and specs for approval. Specs change from *Draft* to *Approved* only with owner approval.
 
 ## Output
 
-- Updated `product/PRD.md` and `product/FEATURES.md` (with change-log entries).
-- One `specs/<F-ID>-<slug>/SPEC.md` per feature, status *Draft*.
+- Updated `product/prd.md` and `product/features.md` (with change-log entries).
+- One `specs/<F-ID>-<slug>/spec.md` per feature, status *Draft*.
 - A decomposition summary for the approval gate:
 
 ```markdown

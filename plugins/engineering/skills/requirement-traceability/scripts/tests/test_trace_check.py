@@ -41,9 +41,9 @@ TEST = "def test_threshold():  # F-02 AC-1\n    pass\n"
 
 def build(root, prd=PRD, features=FEATURES, spec=SPEC, tasks=TASKS, test=TEST):
     files = {
-        "product/PRD.md": prd,
-        "product/FEATURES.md": features,
-        "specs/F-02-eligibility/SPEC.md": spec,
+        "product/prd.md": prd,
+        "product/features.md": features,
+        "specs/F-02-eligibility/spec.md": spec,
         "tasks/F-02-eligibility.md": tasks,
         "tests/test_eligibility.py": test,
     }
@@ -95,6 +95,19 @@ class TraceCheckTest(unittest.TestCase):
         features = FEATURES + "| F-03 | Range | FR-4..FR-6 | 1 | ⬜ |\n"
         fail, _ = self.run_check(prd=prd, features=features)
         self.assertEqual(fail, [])
+
+    def test_pre_rename_uppercase_names_are_read(self):
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            build(root)
+            for old, new in (("product/prd.md", "PRD.md"), ("product/features.md", "FEATURES.md"),
+                             ("specs/F-02-eligibility/spec.md", "SPEC.md")):
+                (root / old).rename((root / old).with_name(new))
+            res = trace_check.scan(root, trace_check.DEFAULT_TEST_GLOBS)
+            fail, warn = trace_check.evaluate(res)
+            self.assertEqual((fail, warn), ([], []))
+            self.assertEqual(len(res["acs"]), 1)
+            self.assertEqual(trace_check.main(["--root", d]), 0)
 
     def test_not_a_factory_layout_exits_2(self):
         with tempfile.TemporaryDirectory() as d:

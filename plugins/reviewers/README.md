@@ -1,6 +1,6 @@
 # reviewers
 
-Independent, read-only specialist reviewers. Each one gives a verdict on a change it did not write; the implementer never approves its own work. The Software Factory's `CODE_REVIEW`, `OBSERVABILITY_REVIEW`, `SECURITY_REVIEW` and `FINTECH_FEATURE` workflows use them when installed.
+Independent, read-only specialist reviewers. Each one gives a verdict on a change it did not write; the implementer never approves its own work. The Software Factory's `code-review`, `observability-review`, `security-review` and `fintech-feature` workflows use them when installed.
 
 ## Agents
 

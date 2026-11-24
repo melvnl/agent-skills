@@ -29,34 +29,46 @@ ok()   { echo "OK    $*"; }
 fail() { echo "FAIL  $*"; fails=$((fails+1)); }
 warn() { echo "WARN  $*"; warns=$((warns+1)); }
 need() { if [ -e "$1" ]; then ok "$1"; else "$2" "missing: $1"; fi; }
+# exact <path>: exists with exactly this spelling (macOS file systems ignore case, so -e alone can't tell).
+exact() { [ -e "$1" ] && ls -1a "$(dirname "$1")" 2>/dev/null | grep -qxF "$(basename "$1")"; }
+# legacy_of <path>: the pre-rename UPPER_SNAKE spelling (workflows/bug-fix.md -> workflows/BUG_FIX.md).
+legacy_of() { echo "$(dirname "$1")/$(basename "$1" .md | tr 'a-z-' 'A-Z_').md"; }
+# need_doc <path> <fail|warn>: like need, but a file under its pre-rename name is a WARN with the rename to run.
+need_doc() {
+  old="$(legacy_of "$1")"
+  if exact "$1"; then ok "$1"
+  elif [ "$old" != "$1" ] && exact "$old"; then warn "old name: $old (rename: git mv '$old' '$old.tmp' && git mv '$old.tmp' '$1')"
+  else "$2" "missing: $1"; fi
+}
+status_file() { if exact tasks/status.md; then echo tasks/status.md; elif exact tasks/STATUS.md; then echo tasks/STATUS.md; fi; }
 
 echo "== 1. Factory files (.factory/)"
 for rel in $(cd "$SKILL_DIR/assets/factory" && find . -type f -name '*.md' | sed 's|^\./||' | sort); do
-  need ".factory/$rel" fail
+  need_doc ".factory/$rel" fail
 done
 
 echo "== 2. Project entry point and state"
 need CLAUDE.md fail
-need tasks/STATUS.md fail
+need_doc tasks/status.md fail
 need .claude/skills/factory-router/SKILL.md warn
 
-echo "== 3. Standard project layout (workflows/NEW_PROJECT.md)"
+echo "== 3. Standard project layout (workflows/new-project.md)"
 lvl=fail; [ "$RELAXED" -eq 1 ] && lvl=warn
-for f in product/PRODUCT_BRIEF.md product/PRD.md product/PERSONAS.md product/ROADMAP.md product/FEATURES.md \
-         engineering/ARCHITECTURE.md engineering/TECH_STACK.md engineering/DATA_MODEL.md engineering/API_CONTRACTS.md \
-         engineering/SECURITY_AND_PRIVACY.md engineering/DEVELOPMENT_GUIDE.md specs; do
-  need "$f" $lvl
+for f in product/product-brief.md product/prd.md product/personas.md product/roadmap.md product/features.md \
+         engineering/architecture.md engineering/tech-stack.md engineering/data-model.md engineering/api-contracts.md \
+         engineering/security-and-privacy.md engineering/development-guide.md specs; do
+  case "$f" in *.md) need_doc "$f" $lvl ;; *) need "$f" $lvl ;; esac
 done
 if ls engineering/adr/[0-9][0-9][0-9][0-9]-*.md >/dev/null 2>&1; then ok "engineering/adr/ has an ADR"; else $lvl "engineering/adr/ has no NNNN-*.md ADR"; fi
 
 echo "== 4. CLAUDE.md wiring"
 if [ -f CLAUDE.md ]; then
-  for ref in .factory/core/AGENT_BEHAVIOR.md .factory/workflows/NEW_FEATURE.md .factory/workflows/BUG_FIX.md \
-             .factory/workflows/REFACTORING.md .factory/workflows/CODE_REVIEW.md .factory/workflows/RESUME_WORK.md \
-             .factory/core/DEFINITION_OF_DONE.md tasks/STATUS.md; do
+  for ref in .factory/core/agent-behavior.md .factory/workflows/new-feature.md .factory/workflows/bug-fix.md \
+             .factory/workflows/refactoring.md .factory/workflows/code-review.md .factory/workflows/resume-work.md \
+             .factory/core/definition-of-done.md tasks/status.md; do
     # Accept either the full path or the bare name next to a ".factory/workflows/" mention (table style).
-    base=$(basename "$ref" .md)
-    if grep -q "$ref" CLAUDE.md || { grep -q "$(dirname "$ref")/" CLAUDE.md && grep -qw "$base" CLAUDE.md; }; then
+    base=$(basename "$ref" .md); old="$(legacy_of "$ref")"; oldbase=$(basename "$old" .md)
+    if grep -qe "$ref" -e "$old" CLAUDE.md || { grep -q "$(dirname "$ref")/" CLAUDE.md && grep -qwe "$base" -e "$oldbase" CLAUDE.md; }; then
       ok "CLAUDE.md references $ref"
     else fail "CLAUDE.md does not reference $ref"; fi
   done
@@ -77,7 +89,7 @@ resolve() { # resolve <token> <containing file> -> 0 if found or not a repo path
   t="$1"; d=$(dirname "$2")
   case "$t" in
     */*) ;;
-    # Bare file name (table shorthand such as `PRD.md` next to a `product/` column): exists anywhere?
+    # Bare file name (table shorthand such as `prd.md` next to a `product/` column): exists anywhere?
     *.md) echo "$DOC_NAMES" | grep -qxF "$t"; return ;;
     *) [ -e "$t" ] || [ -e "$d/$t" ]; return ;;
   esac
@@ -106,12 +118,12 @@ check_file() { # check_file <file> <fail|warn>
     if [ "$l" = factory ]; then
       case "$t" in .factory/*|core/*|workflows/*|templates/*|../core/*|../workflows/*|../templates/*) l=fail ;; *) l=warn ;; esac
     fi
-    # Bare file names are shorthand (e.g. `SPEC.md` before the first spec exists): never more than WARN.
+    # Bare file names are shorthand (e.g. `spec.md` before the first spec exists): never more than WARN.
     case "$t" in */*) ;; *) l=warn ;; esac
     resolve "$t" "$f" || echo "$l|$f -> $t"
   done
 }
-files=$(ls CLAUDE.md tasks/STATUS.md 2>/dev/null)
+files=$(ls CLAUDE.md 2>/dev/null; status_file)
 fdocs=$(ls .claude/skills/factory-router/SKILL.md 2>/dev/null; find .factory -name '*.md' 2>/dev/null)
 docs=$(find product engineering -name '*.md' 2>/dev/null)
 broken=$( { for f in $files; do check_file "$f" fail; done; for f in $fdocs; do check_file "$f" factory; done; for f in $docs; do check_file "$f" warn; done; } )

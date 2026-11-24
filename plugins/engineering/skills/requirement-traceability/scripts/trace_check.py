@@ -2,10 +2,11 @@
 """trace_check.py: check requirement traceability in a Software Factory repository. Read-only.
 
 Reads the factory's Markdown tables:
-  product/PRD.md        rows whose first cell is FR-n / NFR-n / BR-n / Q-n   (definitions)
-  product/FEATURES.md   rows whose first cell is F-nn; other cells reference requirement ids
-  specs/<F-ID>-*/SPEC.md  AC-n rows (Verifies column) and <F-ID>-FR-n rows (Traces to column)
+  product/prd.md        rows whose first cell is FR-n / NFR-n / BR-n / Q-n   (definitions)
+  product/features.md   rows whose first cell is F-nn; other cells reference requirement ids
+  specs/<F-ID>-*/spec.md  AC-n rows (Verifies column) and <F-ID>-FR-n rows (Traces to column)
   tasks/<F-ID>-*.md     T-n rows (Covers column)
+Repositories set up before the factory used lowercase names are read too (product/PRD.md, specs/*/SPEC.md).
 and searches test files for acceptance-criteria citations: "<F-ID> AC-n", "<F-ID>-AC-n", "<F-ID>/AC-n".
 Ranges like "FR-21..FR-27" or "FR-21–FR-27" expand to every id in between.
 
@@ -16,7 +17,7 @@ Deprecated PRD ids (a row containing "Deprecated") are exempt from ownership.
 
 Usage: trace_check.py [--root DIR] [--tests GLOB ...] [--json]
        default test globs: tests/**/*.py test/**/*.py **/test_*.py **/*_test.py **/*.test.* **/*.spec.*
-Exit:  0 = no FAIL, 1 = FAIL found, 2 = not a factory layout (no product/PRD.md).
+Exit:  0 = no FAIL, 1 = FAIL found, 2 = not a factory layout (no product/prd.md).
 """
 import argparse
 import json
@@ -30,6 +31,20 @@ RANGE_RE = re.compile(r"\b(FR|NFR|BR|Q)-(\d+)\s*(?:\.\.|–|—)\s*(?:\1-)?(\d+)
 FEATURE_DIR_RE = re.compile(r"^(F-\d+)")
 DEFAULT_TEST_GLOBS = ["tests/**/*.py", "test/**/*.py", "**/test_*.py", "**/*_test.py", "**/*.test.*", "**/*.spec.*"]
 SKIP_DIRS = {".git", "node_modules", ".venv", "venv", "__pycache__", ".factory"}
+
+
+def find_doc(directory, name):
+    """directory/name, or its pre-rename UPPER_SNAKE spelling (prd.md -> PRD.md); None if neither exists.
+    Compares exact names because macOS file systems ignore case."""
+    try:
+        entries = {p.name for p in directory.iterdir()}
+    except OSError:
+        return None
+    legacy = name[:-3].upper().replace("-", "_") + ".md"
+    for candidate in (name, legacy):
+        if candidate in entries:
+            return directory / candidate
+    return None
 
 
 def table_rows(text):
@@ -68,22 +83,26 @@ def col(header, name):
 def scan(root, test_globs):
     res = {"defined": set(), "deprecated": set(), "owned": {}, "refs": [], "acs": [], "spec_frs": [],
            "tasks": [], "test_citations": set(), "fail": [], "warn": []}
-    prd = root / "product" / "PRD.md"
+    prd = find_doc(root / "product", "prd.md")
     for _, cells in table_rows(prd.read_text(encoding="utf-8")):
         if cells and re.fullmatch(ID, cells[0]):
             res["defined"].add(cells[0])
             if any("deprecated" in c.lower() for c in cells[1:]):
                 res["deprecated"].add(cells[0])
 
-    features = root / "product" / "FEATURES.md"
-    if features.exists():
+    features = find_doc(root / "product", "features.md")
+    if features:
         for _, cells in table_rows(features.read_text(encoding="utf-8")):
             if cells and re.fullmatch(r"F-\d+", cells[0]):
                 for rid in ids_in(" ".join(cells[1:])):
                     res["owned"].setdefault(rid, set()).add(cells[0])
-                    res["refs"].append(("product/FEATURES.md", cells[0], rid))
+                    res["refs"].append((str(features.relative_to(root)), cells[0], rid))
 
-    for spec in sorted((root / "specs").glob("*/SPEC.md")):
+    specs_dir = root / "specs"
+    specs = [find_doc(d, "spec.md") for d in sorted(specs_dir.iterdir()) if d.is_dir()] if specs_dir.is_dir() else []
+    res["prd_path"] = str(prd.relative_to(root))
+    res["features_path"] = str(features.relative_to(root)) if features else "product/features.md"
+    for spec in (s for s in specs if s):
         m = FEATURE_DIR_RE.match(spec.parent.name)
         if not m:
             continue
@@ -138,7 +157,7 @@ def evaluate(res):
             fail.append(f"{where}: {owner} references undefined {rid}")
     for rid in sorted(res["defined"] - res["deprecated"]):
         if not rid.startswith("Q-") and rid not in res["owned"]:
-            fail.append(f"product/PRD.md: {rid} is owned by no feature in product/FEATURES.md")
+            fail.append(f"{res['prd_path']}: {rid} is owned by no feature in {res['features_path']}")
     for fid, ac, verifies, where in res["acs"]:
         if not verifies:
             fail.append(f"{where}: {ac} verifies no requirement")
@@ -161,8 +180,8 @@ def main(argv=None):
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
     root = Path(args.root).resolve()
-    if not (root / "product" / "PRD.md").exists():
-        print(f"not a Software Factory layout: {root}/product/PRD.md not found", file=sys.stderr)
+    if not find_doc(root / "product", "prd.md"):
+        print(f"not a Software Factory layout: {root}/product/prd.md not found", file=sys.stderr)
         return 2
     res = scan(root, args.tests if args.tests is not None else DEFAULT_TEST_GLOBS)
     fail, warn = evaluate(res)

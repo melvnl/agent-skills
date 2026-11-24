@@ -7,21 +7,21 @@ description: Breaks an approved spec and design into small, ordered, independent
 
 ## Overview
 
-A good plan turns a feature into a sequence of steps that each leave the system working and each prove something. Small, ordered, verifiable tasks keep diffs reviewable, make progress measurable, and let any session (human or agent) resume from the task file instead of from memory. This skill produces that plan in the Software Factory `TASK_BREAKDOWN` format.
+A good plan turns a feature into a sequence of steps that each leave the system working and each prove something. Small, ordered, verifiable tasks keep diffs reviewable, make progress measurable, and let any session (human or agent) resume from the task file instead of from memory. This skill produces that plan in the Software Factory `task-breakdown` format.
 
 ## When to use
 
 - A feature spec (and design, for substantial work) is approved and implementation is next.
 - A change will take more than one sitting, or touch more than one layer.
-- Phase 4 of `PRD_TO_IMPLEMENTATION`; step 6 of the factory `NEW_FEATURE` workflow.
+- Phase 4 of `prd-to-implementation`; step 6 of the factory `new-feature` workflow.
 
 **When not to use:** the spec isn't approved yet → finish `specification-decomposition` / `acceptance-criteria-engineering` first. Trivial changes (factory trivial threshold) need no task file.
 
 ## Inputs and context
 
-1. The approved `SPEC.md` (requirements, acceptance criteria) and `DESIGN.md` (components, data changes, contracts, error handling, observability plan).
+1. The approved `spec.md` (requirements, acceptance criteria) and `design.md` (components, data changes, contracts, error handling, observability plan).
 2. The affected code and tests: what exists, what changes, where the seams are.
-3. Project gates and commands (`engineering/DEVELOPMENT_GUIDE.md`).
+3. Project gates and commands (`engineering/development-guide.md`).
 4. Constraints: migrations needing staged rollout, feature flags, dependencies on other features or teams.
 
 ## Process
@@ -42,7 +42,7 @@ A good plan turns a feature into a sequence of steps that each leave the system 
 
 ## Output
 
-`tasks/<F-ID>-<slug>.md` from `.factory/templates/TASK_BREAKDOWN.md`:
+`tasks/<F-ID>-<slug>.md` from `.factory/templates/task-breakdown.md`:
 
 ```markdown
 | ID | Task | Depends on | Covers (FR/AC) | Done when | Status |

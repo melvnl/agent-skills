@@ -31,14 +31,14 @@ Save at `product/sources/discovery-<YYYY-MM-DD>-<slug>.md`. It is the source the
 
 | Interview content | Goes to | Template |
 |---|---|---|
-| Problem, users, outcome, success measure, goals, non-goals, constraints | `product/PRODUCT_BRIEF.md` | `.factory/templates/PROJECT_BRIEF.md` |
-| User descriptions, context, goals, pain points | `product/PERSONAS.md` | (factory `NEW_PROJECT` step 5) |
-| Core journeys | `product/PRD.md` § Users and key journeys (`J-n`, critical flag) | `.factory/templates/PRD.md` |
-| Capabilities | `product/PRD.md` § Functional requirements (`FR-n`, priority, phase) | same |
-| Limits, thresholds, formulas | `product/PRD.md` § Business rules (`BR-n`) with exact values and inclusivity | same |
-| Scale, latency, availability, security, privacy, audit, observability | `product/PRD.md` § Non-functional requirements (`NFR-n`) | same |
+| Problem, users, outcome, success measure, goals, non-goals, constraints | `product/product-brief.md` | `.factory/templates/project-brief.md` |
+| User descriptions, context, goals, pain points | `product/personas.md` | (factory `new-project` step 5) |
+| Core journeys | `product/prd.md` § Users and key journeys (`J-n`, critical flag) | `.factory/templates/prd.md` |
+| Capabilities | `product/prd.md` § Functional requirements (`FR-n`, priority, phase) | same |
+| Limits, thresholds, formulas | `product/prd.md` § Business rules (`BR-n`) with exact values and inclusivity | same |
+| Scale, latency, availability, security, privacy, audit, observability | `product/prd.md` § Non-functional requirements (`NFR-n`) | same |
 | Non-goals and "later" ideas | PRD § Out of scope; ROADMAP later phases (Future consideration) | same |
 | Unknowns | PRD § Open questions (`Q-n`, with what they block) | same |
-| First version and later phases | `product/ROADMAP.md`: phase 1 independently useful, each phase with acceptance and exit criteria | (factory `NEW_PROJECT` step 8) |
+| First version and later phases | `product/roadmap.md`: phase 1 independently useful, each phase with acceptance and exit criteria | (factory `new-project` step 8) |
 
 Every PRD row cites its source: `discovery 2026-11-08 Q5` (or the existing document it came from), and carries a decision label.

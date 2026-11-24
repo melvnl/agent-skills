@@ -47,7 +47,7 @@ Every skill answers seven questions. Use these headings (or close equivalents) i
 |---|---|
 | `## Overview` | What problem does it solve, and why does it matter? (2–4 sentences) |
 | `## When to use` | When should Claude activate it? Include **When not to use** with the skill to use instead |
-| `## Inputs and context` | What must be read or detected first: project conventions, versions, existing utilities, the factory's `CLAUDE.md` and `tasks/STATUS.md` when present |
+| `## Inputs and context` | What must be read or detected first: project conventions, versions, existing utilities, the factory's `CLAUDE.md` and `tasks/status.md` when present |
 | `## Process` | The procedure: numbered steps, decision criteria, approval gates marked ⏸ |
 | `## Output` | What it produces and in what shape (file, report section, table) |
 | `## Verification` | Exit checklist with the evidence required (commands actually run) |

@@ -13,14 +13,14 @@ Large PRDs, especially ones drafted or expanded with AI, read as complete while 
 
 - A PRD, spec, product brief, or requirements export arrives and work will be planned from it.
 - Asked to "review", "analyze", "break down", or "find gaps in" requirements.
-- Phase 1 of the Software Factory `PRD_TO_IMPLEMENTATION` workflow.
+- Phase 1 of the Software Factory `prd-to-implementation` workflow.
 
 **When not to use:** turning an *approved* analysis into feature specs with ids → `specification-decomposition`. Writing acceptance criteria → `acceptance-criteria-engineering`.
 
 ## Inputs and context
 
 1. **The source document(s)**, in full. Convert formats to text first (Markdown, `pdftotext`, docx export); note anything lost (tables, images, diagrams).
-2. **Existing product context**: in a Software Factory repo, `product/PRD.md`, `product/FEATURES.md`, the glossary, and existing `specs/`, so new requirements are compared against what is already specified or built.
+2. **Existing product context**: in a Software Factory repo, `product/prd.md`, `product/features.md`, the glossary, and existing `specs/`, so new requirements are compared against what is already specified or built.
 3. **The domain**: regulated or financial domains need explicit auditability, data retention, and authorization requirements; their absence is itself a finding.
 4. **Who can answer questions**: the owner of the document.
 

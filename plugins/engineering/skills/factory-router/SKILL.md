@@ -11,21 +11,23 @@ Turns a plain-language request into the right Software Factory process. **Projec
 
 The session-initialization protocol in the project entry point must have run: phase known, state file read, `git status` checked (or "not a git repo" noted). If it has not, run it now.
 
+Factory files and project docs use lowercase kebab-case names (`tasks/status.md`, `.factory/workflows/bug-fix.md`). A repository set up earlier may still use the UPPER_SNAKE spelling (`tasks/STATUS.md`, `BUG_FIX.md`): treat those as the same files and never create a second copy under the new name. `/factory-init --verify` offers the renames.
+
 ## 1. Classify
 
 Choose exactly one primary type per unit of work, based on what the user wants as an outcome, not on the verbs they use.
 
 | Type | Outcome the user wants | Route |
 |---|---|---|
-| FEATURE | New or extended user-visible capability | `.factory/workflows/NEW_FEATURE.md` (+ `.factory/workflows/FINTECH_FEATURE.md` overlay when it changes financial decisions or data) |
-| PRD | Build from a large requirements document | `.factory/workflows/PRD_TO_IMPLEMENTATION.md` → `NEW_FEATURE` per feature |
-| BUG | Actual behavior ≠ specified/expected behavior | Investigate → `.factory/workflows/BUG_FIX.md` if confirmed |
-| INCIDENT | Production is broken, degraded, wrong, or exposing data **now** | `.factory/workflows/PRODUCTION_INCIDENT.md` (mitigation by humans first), then `BUG_FIX` |
-| MIGRATION | Schema change, data migration, or backfill on shared data | `.factory/workflows/DATABASE_MIGRATION.md` |
-| REFACTOR | Better internals, same observable behavior | `.factory/workflows/REFACTORING.md` |
-| REVIEW | An assessment of existing code or a change | `.factory/workflows/CODE_REVIEW.md`; security focus → `.factory/workflows/SECURITY_REVIEW.md`; observability focus → `.factory/workflows/OBSERVABILITY_REVIEW.md` |
-| RESUME | Continue previous or unfinished work | `.factory/workflows/RESUME_WORK.md` → the task's own workflow |
-| NEW_PROJECT | Bootstrap a different project | `.factory/workflows/NEW_PROJECT.md` |
+| FEATURE | New or extended user-visible capability | `.factory/workflows/new-feature.md` (+ `.factory/workflows/fintech-feature.md` overlay when it changes financial decisions or data) |
+| PRD | Build from a large requirements document | `.factory/workflows/prd-to-implementation.md` → `new-feature` per feature |
+| BUG | Actual behavior ≠ specified/expected behavior | Investigate → `.factory/workflows/bug-fix.md` if confirmed |
+| INCIDENT | Production is broken, degraded, wrong, or exposing data **now** | `.factory/workflows/production-incident.md` (mitigation by humans first), then `bug-fix` |
+| MIGRATION | Schema change, data migration, or backfill on shared data | `.factory/workflows/database-migration.md` |
+| REFACTOR | Better internals, same observable behavior | `.factory/workflows/refactoring.md` |
+| REVIEW | An assessment of existing code or a change | `.factory/workflows/code-review.md`; security focus → `.factory/workflows/security-review.md`; observability focus → `.factory/workflows/observability-review.md` |
+| RESUME | Continue previous or unfinished work | `.factory/workflows/resume-work.md` → the task's own workflow |
+| new-project | Bootstrap a different project | `.factory/workflows/new-project.md` |
 | INVESTIGATE | Understand how or why something behaves | § 4.1 (lightweight) |
 | ARCHITECTURE | Decide or evaluate a technical direction | § 4.2 (lightweight; no implementation) |
 | DOCS | Change documentation or requirements text | § 4.3 (lightweight) |
@@ -38,9 +40,9 @@ Disambiguation rules:
 - "Should we…": ARCHITECTURE. Never implement on the back of a question.
 - "Production is down / customers see errors / data looks wrong in prod": INCIDENT first, even if it is also a bug. Stabilize, then fix.
 - "Implement this PRD / build from this spec document": PRD, when the document spans several features; a single small feature is FEATURE.
-- A FEATURE or BUG that needs a schema change runs `DATABASE_MIGRATION` for that part.
-- "I have an idea / let's build X from scratch": NEW_PROJECT (in an empty repository, via `factory-init`), starting with recorded discovery (`product-discovery` skill, mode A).
-- "We need X, but there's no PRD / it's not written down": FEATURE, with discovery in step 1 (`product-discovery`, mode B). If discovery shows several features, write the PRD rows first and continue with `PRD_TO_IMPLEMENTATION` from phase 2.
+- A FEATURE or BUG that needs a schema change runs `database-migration` for that part.
+- "I have an idea / let's build X from scratch": new-project (in an empty repository, via `factory-init`), starting with recorded discovery (`product-discovery` skill, mode A).
+- "We need X, but there's no PRD / it's not written down": FEATURE, with discovery in step 1 (`product-discovery`, mode B). If discovery shows several features, write the PRD rows first and continue with `prd-to-implementation` from phase 2.
 - Composite requests: split into units, order them (blocking bugs → refactors → features → docs), route each, and report per unit.
 
 If a routed workflow file is missing: look for an equivalent in `.factory/workflows/`. If there is none, tell the user about the gap, use the closest documented process explicitly, and recommend adding the workflow. Never improvise a process silently.
@@ -49,7 +51,7 @@ If a routed workflow file is missing: look for an equivalent in `.factory/workfl
 
 | Size | Test | Process weight |
 |---|---|---|
-| Trivial | Meets `.factory/core/PRINCIPLES.md` § 2 trivial threshold | Do → verify → 1-paragraph report |
+| Trivial | Meets `.factory/core/principles.md` § 2 trivial threshold | Do → verify → 1-paragraph report |
 | Small | Inside one existing feature; no change to data model, contracts, security, or acceptance criteria | Short plan in chat → do → verify → update task/state files |
 | Substantial | Anything else | Full workflow with approval gate before implementation |
 
@@ -80,7 +82,7 @@ These are interim procedures for request types that `.factory/workflows/` does n
 2. Read the architecture doc, relevant ADRs, tech stack, and roadmap phase.
 3. Compare 2–3 options against the project's requirements, constraints, and existing ADRs: pros, cons, cost, reversibility, and phase fit.
 4. Recommend one option, with what would change the recommendation.
-5. If the user agrees and the decision is significant, draft an ADR (status **Proposed**) from `.factory/templates/ARCHITECTURE_DECISION_RECORD.md`. **No implementation.**
+5. If the user agrees and the decision is significant, draft an ADR (status **Proposed**) from `.factory/templates/architecture-decision-record.md`. **No implementation.**
 
 ### 4.3 DOCS
 1. Identify the owning document (the entry point's documentation-maintenance table).
@@ -95,7 +97,7 @@ Answer directly and concisely from the docs and code, citing files. Do not start
 
 - **Phase gate:** check the feature's phase in the roadmap or feature catalog. If it belongs to a later phase or depends on unfinished work, explain the conflict and offer: spec now and build later, a current-phase slice, or a roadmap change (approval needed).
 - **Approval gate (substantial work):** present the summary, scope and non-goals, acceptance criteria, affected components and data, risks, open questions, and the task list. Then **stop and wait**.
-- **Approval-required actions:** follow the entry point's approval table and `.factory/core/AGENT_BEHAVIOR.md` H6.
+- **Approval-required actions:** follow the entry point's approval table and `.factory/core/agent-behavior.md` H6.
 - **Verification:** run the project's quality gates and report actual results. Commands that do not exist yet are reported as such, never as passed.
 
 ## 6. Close-out checklist (every unit of work that changed something)
@@ -103,5 +105,5 @@ Answer directly and concisely from the docs and code, citing files. Do not start
 - [ ] Docs updated per the entry point's maintenance table, and only those that actually changed.
 - [ ] Task file and feature status updated.
 - [ ] State file updated: active feature and task, next action, blockers, and last verification (date, command, result).
-- [ ] Report given: inline for trivial/small work, or the `.factory/templates/IMPLEMENTATION_REPORT.md` file for substantial work.
+- [ ] Report given: inline for trivial/small work, or the `.factory/templates/implementation-report.md` file for substantial work.
 - [ ] Assumptions, limitations, and open questions stated.

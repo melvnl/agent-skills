@@ -31,7 +31,7 @@ Improve internal structure (readability, modularity, performance, testability) *
 ## Quality gates
 
 - Tests green before the first change and after every step.
-- **Zero changes to test expectations.** If an expectation must change, stop — that is a behavior change; split it out and follow `NEW_FEATURE.md` or `BUG_FIX.md`.
+- **Zero changes to test expectations.** If an expectation must change, stop — that is a behavior change; split it out and follow `new-feature.md` or `bug-fix.md`.
 - No mixed commits (refactor + behavior change).
 
 ## Human approval required

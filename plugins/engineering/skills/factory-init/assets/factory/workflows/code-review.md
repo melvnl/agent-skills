@@ -42,7 +42,7 @@ A list of findings, each with: **severity**, location (`file:line`), the problem
 ### Correctness
 - [ ] Implements every requirement/acceptance criterion in scope — and nothing unrequested.
 - [ ] Edge cases: empty, zero, null, max, boundary equality, duplicates, concurrency, timezones/dates, unit conversions, rounding.
-- [ ] Error paths handled per `ENGINEERING_STANDARDS.md` § 5.
+- [ ] Error paths handled per `engineering-standards.md` § 5.
 
 ### Business logic
 - [ ] Domain rules match the spec exactly (thresholds, inclusivity of boundaries, units).
@@ -52,14 +52,14 @@ A list of findings, each with: **severity**, location (`file:line`), the problem
 - [ ] Authorization enforced at the server/data layer; per-user/tenant isolation preserved.
 - [ ] Input validated at trust boundaries; output encoded.
 - [ ] No secrets, tokens, or personal data in code, logs, fixtures, or client bundles.
-- [ ] For endpoints, integrations, callbacks, or auth changes, run `SECURITY_REVIEW.md`.
+- [ ] For endpoints, integrations, callbacks, or auth changes, run `security-review.md`.
 
 ### Observability
 - [ ] Important operations in the change have outcome, failure, and latency signals (or existing middleware or tracing covers them).
 - [ ] Log calls are structured, at the right level, concise, not duplicated across layers, and carry correlation ids.
 - [ ] No secrets or raw personal or financial data in logs; no whole objects, bodies, or headers logged.
 - [ ] Correlation survives every boundary the change touches; metric labels are bounded.
-- [ ] For substantial backend changes, run `OBSERVABILITY_REVIEW.md`.
+- [ ] For substantial backend changes, run `observability-review.md`.
 
 ### Data integrity
 - [ ] Invariants touched are enforced (constraints or domain code) and tested.
@@ -74,7 +74,8 @@ A list of findings, each with: **severity**, location (`file:line`), the problem
 - [ ] Expensive work not repeated on every render/request without need.
 
 ### Maintainability
-- [ ] Follows `CODING_STANDARDS.md`: naming, modularity, type safety, no unnecessary abstractions.
+- [ ] Follows `coding-standards.md`: naming, modularity, type safety, no unnecessary abstractions.
+- [ ] No code bigger than the task needs: unused options, checks for states that cannot occur, pass-through wrappers, comments that restate the code.
 - [ ] Docs updated where behavior, architecture, or contracts changed.
 
 ### Test quality

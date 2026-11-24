@@ -29,6 +29,11 @@ def last_commit(project):
     return out.strip() if out else None
 
 
+def is_tracked(project, path):
+    """True if git tracks `path` (project-relative) in the index; False outside a repository."""
+    return _git(project, "ls-files", "--error-unmatch", "--", path) is not None
+
+
 def is_tracked_in_head(project, path):
     return _git(project, "cat-file", "-e", "HEAD:" + path) is not None
 

@@ -5,12 +5,12 @@ How to use these plugins on a machine and in real projects.
 ## 1. Set up a machine
 
 ```bash
-git clone https://github.com/melvnl/agent-skills ~/dev/agent-skills   # or: scripts/bootstrap.sh --profile core
-~/dev/agent-skills/scripts/agent-skills install --profile core --profile guardrails
+git clone https://github.com/melvnl/agent-skills ~/dev/agent-skills   # or: scripts/bootstrap.sh
+~/dev/agent-skills/scripts/agent-skills install    # default profiles: core + guardrails
 ~/dev/agent-skills/scripts/agent-skills doctor
 ```
 
-User-scope installs apply to every project. Requirements: Claude Code, `git`, `python3` 3.8+ (guardrail hooks).
+User-scope installs apply to every project and every session, so the guardrail hooks run whether or not a repository uses the Software Factory. `agent-skills doctor` warns when `engineering-guardrails` is not enabled at user scope. Requirements: Claude Code, `git`, `python3` 3.8+ (guardrail hooks).
 
 ## 2. Choose profiles per project
 
@@ -29,7 +29,7 @@ cd ~/work/eligibility-service
 
 ## 3. Set up a project
 
-1. **Software Factory** (spec-driven projects): in the project, run `/factory-init`. It inspects the stack, installs `.factory/`, populates `product/`, `engineering/`, `tasks/STATUS.md` from evidence, and creates or merges `CLAUDE.md`, asking before touching anything that exists. When the engineering plugin is installed, the router copy in `.claude/skills/` is optional.
+1. **Software Factory** (spec-driven projects): in the project, run `/factory-init`. It inspects the stack, installs `.factory/`, populates `product/`, `engineering/`, `tasks/status.md` from evidence, and creates or merges `CLAUDE.md`, asking before touching anything that exists. When the engineering plugin is installed, the router copy in `.claude/skills/` is optional.
 2. **Guardrails configuration** (optional): add `.claude/guardrails.json` declaring what only the project knows:
 
    ```json
@@ -47,16 +47,16 @@ cd ~/work/eligibility-service
    }
    ```
 
-   The `commands` run only after you enable the plugin option `run_project_commands` (`claude plugin configure engineering-guardrails@melvin-skills`), because they come from the repository.
-3. **Logging conventions**: record the project's logger, standard fields, and correlation mechanism in `engineering/DEVELOPMENT_GUIDE.md` (the observability skills read them before writing log calls).
-4. **Data classification**: record approved identifiers and sensitive fields in `engineering/SECURITY_AND_PRIVACY.md` (the redaction skill and reviewers use it).
+   The `commands` run only after you enable the plugin option `run_project_commands` (`claude plugin configure engineering-guardrails@melvin-skills`), because they come from the repository. With the option on, `format` and `lint` can be left out when the project configures and installs ruff, biome, prettier, eslint or gofmt: the hooks detect them, and the session start lists what will run.
+3. **Logging conventions**: record the project's logger, standard fields, and correlation mechanism in `engineering/development-guide.md` (the observability skills read them before writing log calls).
+4. **Data classification**: record approved identifiers and sensitive fields in `engineering/security-and-privacy.md` (the redaction skill and reviewers use it).
 
 ## 4. Daily use
 
 - Ask in plain language. In factory projects, `factory-router` classifies the request and picks the workflow (feature, PRD, bug, incident, migration, review, …) with its approval gates.
-- Large PRDs: ask to analyze the document first; the PRD-to-implementation workflow stops for your decisions on contradictions and ambiguities.
+- Large PRDs: ask to analyze the document first; the prd-to-implementation workflow stops for your decisions on contradictions and ambiguities.
 - Reviews: ask for an observability, security, fintech-domain, or invariant review; the read-only reviewer agents report findings without editing.
-- Resuming: say "continue"; state comes from `tasks/STATUS.md` and the task files, not from conversation memory.
+- Resuming: say "continue"; state comes from `tasks/status.md` and the task files, not from conversation memory.
 
 ## 5. Keep up to date
 

@@ -14,7 +14,7 @@ Instructions for agents:
 | Date | {{YYYY-MM-DD}} |
 | Author | {{human / agent}} |
 | Spec / Design | {{links}} |
-| Workflow followed | {{NEW_FEATURE / BUG_FIX / REFACTORING / …}} |
+| Workflow followed | {{new-feature / bug-fix / refactoring / …}} |
 
 ## 1. Summary
 {{What was delivered, in 2–4 sentences.}}

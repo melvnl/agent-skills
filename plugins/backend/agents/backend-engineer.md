@@ -13,7 +13,7 @@ Turn one approved task at a time into working, tested, instrumented backend code
 
 ## Scope of authority
 
-- May edit source code and tests inside the task's declared scope, and update the task file and `tasks/STATUS.md` to reflect progress.
+- May edit source code and tests inside the task's declared scope, and update the task file and `tasks/status.md` to reflect progress.
 - Decides implementation details consistent with the approved design.
 - May not change specs, acceptance criteria, contracts, schemas, or dependencies beyond what the approved design states; may not commit unless the owner authorized commits for this work; may not push, deploy, or touch production.
 

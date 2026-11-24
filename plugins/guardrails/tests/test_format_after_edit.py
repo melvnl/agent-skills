@@ -35,12 +35,11 @@ class FormatAfterEditTest(HookTestCase):
         self.assertIsNone(out)
         self.assertEqual(open(self.path).read(), "x = 1\n")
 
-    def test_not_run_without_config_or_outside_globs(self):
+    def test_silent_outside_globs_when_auto_detect_is_off(self):
+        write_config(self.project, {"auto_detect": False, "commands": {"format": {"run": UPPER, "files": ["**/*.js"]}}})
         code, out, _ = self.edit(OPT_IN)
         self.assertIsNone(out)
-        write_config(self.project, {"commands": {"format": {"run": UPPER, "files": ["**/*.js"]}}})
-        code, out, _ = self.edit(OPT_IN)
-        self.assertIsNone(out)
+        self.assertEqual(open(self.path).read(), "x = 1\n")
 
     def test_failing_formatter_is_fed_back(self):
         write_config(self.project, {"commands": {"format": f"{sys.executable} -c \"import sys; print('boom'); sys.exit(3)\""}})

@@ -60,7 +60,7 @@ Not verifiable: <e.g. log pipeline parsing>
 Verdict: approve | approve with follow-ups | request changes
 ```
 
-Severity: Blocker / Major / Minor / Nit (Software Factory `CODE_REVIEW` scale). Sensitive-data findings name the field and tier, never the value.
+Severity: Blocker / Major / Minor / Nit (Software Factory `code-review` scale). Sensitive-data findings name the field and tier, never the value.
 
 ## Quality criteria
 

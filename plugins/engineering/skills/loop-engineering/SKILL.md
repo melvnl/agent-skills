@@ -11,7 +11,7 @@ Autonomous implementation fails in predictable ways: drifting scope, retrying th
 
 ## When to use
 
-- Implementing tasks from a `tasks/<F-ID>-<slug>.md` breakdown (Phase 5 of `PRD_TO_IMPLEMENTATION`, step 7 of `NEW_FEATURE`).
+- Implementing tasks from a `tasks/<F-ID>-<slug>.md` breakdown (Phase 5 of `prd-to-implementation`, step 7 of `new-feature`).
 - Any multi-step change where the agent works for a long stretch without a human in the loop.
 - A fix-and-retry cycle isn't converging.
 
@@ -22,8 +22,8 @@ Autonomous implementation fails in predictable ways: drifting scope, retrying th
 1. The task file and the selected task's row: covers, dependencies, done-when.
 2. The spec and design sections that task covers (not the whole document).
 3. The current repository state: `git status`, branch, and whether the build is green **before** starting.
-4. The project's quality-gate commands (`engineering/DEVELOPMENT_GUIDE.md`, `CLAUDE.md`).
-5. `tasks/STATUS.md`: last checkpoint, blockers.
+4. The project's quality-gate commands (`engineering/development-guide.md`, `CLAUDE.md`).
+5. `tasks/status.md`: last checkpoint, blockers.
 
 ## Process
 
@@ -64,7 +64,7 @@ Stop the loop and report (or escalate) when any of these is true:
 After each task, and before any pause or expected context compaction, persist:
 
 - Task file: status (✅ / 🟨 / ⛔ with reason), notes and decisions made.
-- `tasks/STATUS.md`: active feature and task, **next action**, blockers, and last verification (date, command, result).
+- `tasks/status.md`: active feature and task, **next action**, blockers, and last verification (date, command, result).
 - Git: in projects where the owner authorized commits, one commit per completed task with only that task's files staged; otherwise leave the change uncommitted and say so.
 
 A checkpoint must let a fresh session continue without this conversation.

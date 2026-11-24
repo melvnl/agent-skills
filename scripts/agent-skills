@@ -6,7 +6,7 @@
 #   agent-skills install [--profile P]... [--scope user|project|local] [--source DIR_OR_REPO]
 #                                                 register the marketplace (if needed) and install plugins;
 #                                                 dependencies (e.g. backend -> spec-driven-engineering)
-#                                                 are installed by Claude Code automatically. Default profile: core.
+#                                                 are installed by Claude Code automatically. Default profiles: core, guardrails.
 #   agent-skills update                           refresh the marketplace and update installed melvin-* plugins
 #   agent-skills doctor                           check prerequisites, registration, installed plugins, validators
 #   agent-skills validate                         run the repository validator and hook tests (from a checkout)
@@ -70,7 +70,7 @@ cmd_install() {
       *) die "unknown install option: $1" ;;
     esac
   done
-  [ ${#profiles[@]} -eq 0 ] && profiles=(core)
+  [ ${#profiles[@]} -eq 0 ] && profiles=(core guardrails)
   case "$scope" in user|project|local) ;; *) die "scope must be user, project or local" ;; esac
   need claude; need python3
   local plugins; plugins="$(profile_plugins "${profiles[@]}")" || exit 1
@@ -118,6 +118,10 @@ cmd_doctor() {
       while IFS=$'\t' read -r id scope enabled version; do
         if [ "$enabled" = "True" ]; then echo "ok    $id $version ($scope)"; else echo "WARN  $id $version ($scope) is disabled"; fi
       done <<< "$rows"
+      if ! grep -qE "^engineering-guardrails@$MARKETPLACE"$'\t'"user"$'\t'"True" <<< "$rows"; then
+        echo "WARN  engineering-guardrails is not enabled at user scope: its hooks only run in projects that install it"
+        echo "      (run: agent-skills install --profile guardrails)"
+      fi
     else
       echo "WARN  no $MARKETPLACE plugins installed"
     fi

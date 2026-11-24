@@ -41,7 +41,7 @@ None. The role works from its own engineering knowledge and the project's `.fact
 ## Inputs
 
 - Required: diff range or changed files.
-- Optional: spec, threat assumptions (`engineering/SECURITY_AND_PRIVACY.md`), provider documentation for webhooks.
+- Optional: spec, threat assumptions (`engineering/security-and-privacy.md`), provider documentation for webhooks.
 - Missing base: use the merge base with the default branch and state it.
 
 ## Output

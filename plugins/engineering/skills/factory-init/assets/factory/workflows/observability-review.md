@@ -15,12 +15,12 @@ Confirm, independently of the implementer, that a change will be debuggable in p
 ## Inputs
 
 - The diff and its base.
-- The spec and the design's *Observability plan* (`templates/TECHNICAL_DESIGN.md` § 8), when one exists.
+- The spec and the design's *Observability plan* (`templates/technical-design.md` § 8), when one exists.
 - The project's logging, correlation, and metrics conventions (development guide).
 
 ## Outputs
 
-- A findings list: severity, `file:line`, finding, failure scenario, suggested fix (severity scale from `CODE_REVIEW.md`).
+- A findings list: severity, `file:line`, finding, failure scenario, suggested fix (severity scale from `code-review.md`).
 - The list of operations checked, what is confirmed good, and what couldn't be verified.
 - The *Instrumentation* section of the implementation report, confirmed or corrected.
 

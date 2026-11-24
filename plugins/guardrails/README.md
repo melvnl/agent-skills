@@ -20,13 +20,32 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
   "production_config": ["config/settings/production.py", "deploy/prod/**"],
   "migrations": ["**/migrations/*.py", "db/migrations/*.sql"],
   "commands": {"format": "ruff format {files}", "lint": "ruff check {files}", "typecheck": "mypy {files}", "verify": "make test"},
+  "auto_detect": true,
   "logging": {"event_name_pattern": "^[a-z][a-z0-9_]*$"}
 }
 ```
 
 ### Running project commands (opt-in)
 
-`format-after-edit`, `lint-after-edit`, `typecheck-after-edit` and `verify-before-stop` run commands that come from the repository's `guardrails.json`. A cloned repository could put anything there, so these hooks do nothing until you enable the plugin option **`run_project_commands`** (`/config`, or the prompt shown when the plugin is enabled). Enable it only if you trust the repositories you open. The hooks never guess a tool: an unconfigured command is skipped.
+`format-after-edit`, `lint-after-edit`, `typecheck-after-edit` and `verify-before-stop` run commands that come from the repository's `guardrails.json`. A cloned repository could put anything there, so these hooks do nothing until you enable the plugin option **`run_project_commands`** (`/config`, or the prompt shown when the plugin is enabled). Enable it only if you trust the repositories you open.
+
+### Auto-detected formatter and linter
+
+Without a configured `commands.format` / `commands.lint` (or outside its `files` globs), `format-after-edit` and `lint-after-edit` use the project's own tools. A tool runs only when the project **configures it and has it installed locally**, found from the edited file's folder up to the project root:
+
+| Files | Tool | Needs config | Needs executable | Runs |
+|---|---|---|---|---|
+| `.py`, `.pyi` | ruff | `ruff.toml`, `.ruff.toml`, or `[tool.ruff]` in `pyproject.toml` | `.venv/bin/ruff` or `venv/bin/ruff` | `ruff format <file>`, `ruff check <file>` |
+| `.js`, `.jsx`, `.ts`, `.tsx`, `.mjs`, `.cjs`, `.mts`, `.cts` | biome | `biome.json(c)` | `node_modules/.bin/biome` | `biome format --write <file>`, `biome lint <file>` |
+| same | prettier | `.prettierrc*`, `prettier.config.*`, or `prettier` in `package.json` | `node_modules/.bin/prettier` | `prettier --write <file>` |
+| same | eslint | `eslint.config.*`, `.eslintrc*`, or `eslintConfig` in `package.json` | `node_modules/.bin/eslint` | `eslint <file>` |
+| `.go` | gofmt | `go.mod` | `gofmt` on `PATH` | `gofmt -w <file>` |
+
+- The command runs from the folder holding the tool's config, without a shell, on the edited file only. Monorepos work: each file uses its nearest project folder.
+- An executable tracked by git is never run. A global install is never used instead of the project's.
+- Type checkers, `golangci-lint` and tests check whole projects, so `typecheck-after-edit` and `verify-before-stop` only run configured commands.
+- **When a check can't run, Claude and you are told once per session**, with the reason: unknown file type, no tool configured, tool not installed, or two tools configured for the same job (biome and prettier, biome and eslint). At session start, `session-context-init` lists what will run in each project folder.
+- `"auto_detect": false` turns detection off. A configured command always wins for the files it covers.
 
 ## Hooks
 
@@ -36,11 +55,11 @@ Optional, per project: `<project>/.claude/guardrails.json`. Every key is optiona
 | `block-destructive-commands` | PreToolUse | `Bash` | Parses commands; denies catastrophic ones (force-push, `rm -rf` outside the project, DB drops, `terraform destroy`, S3 deletion); asks before push, `reset --hard`, `clean -f`, rebase, amend. |
 | `detect-secret-exposure` | PreToolUse | `Write\|Edit\|MultiEdit\|Bash` | Denies new content or commands containing known secret formats (AWS, private keys, GitHub, Slack, Stripe, JWT, URL credentials); reports pattern and line, never the value. |
 | `detect-hardcoded-credentials` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back credential-named variables assigned string literals (`password = "..."`), with file:line; skips tests, examples and placeholders. |
-| `format-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.format` on the edited file; asks Claude to re-read a reformatted file; feeds back formatter failures. |
-| `lint-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.lint` on the edited file and feeds back reported problems. |
+| `format-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs `commands.format` or the auto-detected formatter on the edited file; asks Claude to re-read a reformatted file; feeds back formatter failures; says once per session when no formatter can run. |
+| `lint-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs `commands.lint` or the auto-detected linter on the edited file and feeds back reported problems; says once per session when no linter can run. |
 | `typecheck-after-edit` | PostToolUse | `Write\|Edit\|MultiEdit` | Opt-in: runs the project's `commands.typecheck` on the edited file and feeds back type errors. |
 | `verify-before-stop` | Stop | `*` | Opt-in: when the working tree changed, runs the project's `commands.verify` before Claude finishes and blocks the stop once on failure; `stop_hook_active` prevents loops. |
-| `session-context-init` | SessionStart | `startup\|resume\|clear\|compact` | In Software Factory repos, adds the session protocol reminder, a bounded STATUS snapshot, git state and configured protections; after compaction, a re-verify reminder. |
+| `session-context-init` | SessionStart | `startup\|resume\|clear\|compact` | In every repo, adds the code clarity rule (names and types over comments, no narrating comments or docstrings, no speculative code; turn off with `"disabled": ["code-clarity"]`). In Software Factory repos, also adds the session protocol reminder, a bounded STATUS snapshot, git state and configured protections; after compaction, a re-verify reminder. Reports to Claude and the user which formatter and linter will run per project folder, and which checks are skipped and why. |
 | `detect-sensitive-logging` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back Python log calls whose fields, keys or f-string expressions name sensitive data, or that log whole requests, headers or objects; message words are not flagged. |
 | `validate-log-schema` | PostToolUse | `Write\|Edit\|MultiEdit` | When `logging.event_name_pattern` is configured: new Python log calls must use a constant event name matching it, not f-strings, formatting or concatenation. |
 | `check-observability-context` | PostToolUse | `Write\|Edit\|MultiEdit` | Feeds back SQS/SNS publishes without `MessageAttributes` and SQS receives without `MessageAttributeNames` (lost correlation context). |

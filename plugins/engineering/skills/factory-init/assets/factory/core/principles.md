@@ -48,7 +48,7 @@ Every requirement must be testable. If you cannot describe how to verify it, it 
 - Build for today's known requirements plus clearly documented near-term ones — not for hypothetical futures.
 - Introduce an abstraction only when there are **at least two concrete uses** or a **documented, planned** second implementation (e.g. a storage adapter that will be swapped in a scheduled phase).
 - Prefer simple architectures (e.g. a modular monolith) until there is evidence that more complexity is needed.
-- Do not introduce dependencies without justification (see `ENGINEERING_STANDARDS.md` § Dependency management).
+- Do not introduce dependencies without justification (see `engineering-standards.md` § Dependency management).
 
 ## 7. Maintainability
 
@@ -69,7 +69,7 @@ Security and data privacy are mandatory, not features.
 
 ## 9. Evidence-based engineering decisions
 
-- Significant decisions (architecture, data model, major dependency, security model) are recorded in an Architecture Decision Record (`.factory/templates/ARCHITECTURE_DECISION_RECORD.md`).
+- Significant decisions (architecture, data model, major dependency, security model) are recorded in an Architecture Decision Record (`.factory/templates/architecture-decision-record.md`).
 - Claims are backed by evidence: benchmarks, documentation, reproductions, test results — not assertions.
 - When evidence is missing, state the assumption explicitly and mark the decision as *proposed*.
 
@@ -78,7 +78,7 @@ Security and data privacy are mandatory, not features.
 AI agents accelerate work; humans own outcomes.
 
 - A named human approves specifications, architecture decisions, destructive operations, and merges to the main branch.
-- Agents report what they did, what they did not do, and what they are unsure about (see `AGENT_BEHAVIOR.md`).
+- Agents report what they did, what they did not do, and what they are unsure about (see `agent-behavior.md`).
 - Every business requirement must trace to a human-approved source.
 
 ---
