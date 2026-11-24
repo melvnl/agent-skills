@@ -48,7 +48,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 git clone https://github.com/melvnl/agent-skills ~/dev/agent-skills
 cd ~/dev/agent-skills
 scripts/agent-skills profiles                                    # list profiles
-scripts/agent-skills install --profile core --profile guardrails # every project (user scope)
+scripts/agent-skills install                                     # core + guardrails, every project (user scope)
 scripts/agent-skills doctor                                      # verify the setup
 ```
 
@@ -61,7 +61,7 @@ cd ~/work/eligibility-service
 
 **3. Adopt the Software Factory** in a repository by running `/factory-init` inside it. From then on, ask in plain language; `factory-router` classifies the request and runs the right workflow.
 
-**New machine:** `scripts/bootstrap.sh --profile core --profile guardrails` clones this repo (default `--repo https://github.com/melvnl/agent-skills`), installs, and runs `doctor`.
+**New machine:** `scripts/bootstrap.sh` clones this repo (default `--repo https://github.com/melvnl/agent-skills`), installs the default profiles (`core` and `guardrails`), and runs `doctor`. Guardrail hooks then run in every Claude Code session, with or without the Software Factory.
 
 **Manual install:** `claude plugin marketplace add melvnl/agent-skills` (or a local checkout path), then `claude plugin install <plugin>@melvin-skills`.
 

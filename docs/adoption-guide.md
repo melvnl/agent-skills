@@ -5,12 +5,12 @@ How to use these plugins on a machine and in real projects.
 ## 1. Set up a machine
 
 ```bash
-git clone https://github.com/melvnl/agent-skills ~/dev/agent-skills   # or: scripts/bootstrap.sh --profile core
-~/dev/agent-skills/scripts/agent-skills install --profile core --profile guardrails
+git clone https://github.com/melvnl/agent-skills ~/dev/agent-skills   # or: scripts/bootstrap.sh
+~/dev/agent-skills/scripts/agent-skills install    # default profiles: core + guardrails
 ~/dev/agent-skills/scripts/agent-skills doctor
 ```
 
-User-scope installs apply to every project. Requirements: Claude Code, `git`, `python3` 3.8+ (guardrail hooks).
+User-scope installs apply to every project and every session, so the guardrail hooks run whether or not a repository uses the Software Factory. `agent-skills doctor` warns when `engineering-guardrails` is not enabled at user scope. Requirements: Claude Code, `git`, `python3` 3.8+ (guardrail hooks).
 
 ## 2. Choose profiles per project
 
