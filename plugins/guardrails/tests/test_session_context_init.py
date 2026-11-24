@@ -31,7 +31,25 @@ class SessionContextInitTest(HookTestCase):
         code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "compact"})
         self.assertIn("re-read tasks/STATUS.md", reason(out))
 
-    def test_non_factory_repo_is_silent(self):
+    def test_factory_repo_also_gets_clarity_rule(self):
+        self.make_factory()
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"})
+        self.assertIn("Code clarity:", reason(out))
+
+    def test_non_factory_repo_gets_only_clarity_rule(self):
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"})
+        text = reason(out)
+        self.assertIn("Code clarity:", text)
+        self.assertNotIn("Software Factory", text)
+
+    def test_clarity_rule_can_be_disabled(self):
+        write_config(self.project, {"disabled": ["code-clarity"]})
+        code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"})
+        self.assertEqual((code, out), (0, None))
+
+    def test_disabled_hook_is_silent_in_factory_repo(self):
+        self.make_factory()
+        write_config(self.project, {"disabled": ["session-context-init"]})
         code, out, _ = self.hook({"hook_event_name": "SessionStart", "source": "startup"})
         self.assertEqual((code, out), (0, None))
 

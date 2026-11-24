@@ -36,7 +36,7 @@ Inspired by [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills
 | Specialist agents | 11 | `plugins/<profile>/agents/` |
 | Guardrail hooks | 18 (92 unit tests) | `plugins/guardrails/` |
 | Software Factory workflows | 11 (+ fintech overlay) | `plugins/engineering/skills/factory-init/assets/factory/workflows/` |
-| Eval cases (native `claude plugin eval`) | 11 | `plugins/<profile>/evals/` |
+| Eval cases (native `claude plugin eval`) | 13 | `plugins/<profile>/evals/` |
 
 ---
 
@@ -187,7 +187,7 @@ Deterministic checks only; judgment stays with skills and reviewers. **Deny** fo
 | Observability | `detect-sensitive-logging`, `validate-log-schema`, `check-observability-context` |
 | Fintech and data | `protect-financial-core`, `protect-production-config`, `protect-database-migrations`, `financial-test-gate`, `migration-safety-check`, `sensitive-operation-audit` |
 | Quality loop | `format-after-edit`, `lint-after-edit`, `typecheck-after-edit`, `verify-before-stop` (opt-in: `run_project_commands`) |
-| Session | `session-context-init` (Software Factory state at session start and after compaction) |
+| Session | `session-context-init` (code clarity rule in every session; Software Factory state at session start and after compaction) |
 
 Per-project configuration in `.claude/guardrails.json`:
 
@@ -206,7 +206,7 @@ Project `commands` come from the repository, so they run only after you enable t
 
 ## Evals
 
-Native `claude plugin eval` suites for product discovery and PRD analysis. Knowledge skills (backend, observability, fintech, security, TDD, debugging, git, context) were removed after with-and-without evals showed no lift over baseline: a skill stays only if it beats baseline. Each case pairs an `llm` rubric with concrete PASS/FAIL conditions, a `tool_used` grader that the expected skill fired, and, for sensitive data, a free `regex` grader that fails if the reply echoes the sentinel value.
+Native `claude plugin eval` suites for product discovery, PRD analysis and code clarity (the rule `session-context-init` adds). Knowledge skills (backend, observability, fintech, security, TDD, debugging, git, context) were removed after with-and-without evals showed no lift over baseline: a skill stays only if it beats baseline. Each case pairs an `llm` rubric with concrete PASS/FAIL conditions, a `tool_used` grader that the expected skill fired, and, for sensitive data, a free `regex` grader that fails if the reply echoes the sentinel value.
 
 ```bash
 claude plugin eval plugins/engineering --case missing-nfrs --runs 1 --ablation none
