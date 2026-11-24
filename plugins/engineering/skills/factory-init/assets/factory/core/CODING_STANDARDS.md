@@ -57,17 +57,25 @@ Before introducing an interface, base class, generic helper, factory, or wrapper
 
 Otherwise, write the direct code. Duplication of two small similar blocks is acceptable; extract on the third occurrence ("rule of three").
 
-## 6. Documentation requirements
+## 6. Comments and documentation
+
+Make code impossible to misunderstand instead of explaining it. When code needs a comment to be understood, first try a better name, a type, a named constant, or a smaller function. Comment only what the code cannot say.
 
 | What | Required documentation |
 |---|---|
-| Public module API / exported functions with non-obvious behavior | Doc comment: purpose, parameters with units, return, errors thrown |
+| Public API of a library or service boundary whose contract (units, errors, side effects) is not clear from its name and types | Doc comment covering only what the signature does not say |
 | Business rules | Comment linking to the spec/requirement ID it implements (e.g. `// FR-03`) |
-| Non-obvious decisions / workarounds | Comment explaining **why**, not what. Link the issue/ADR. |
+| Non-obvious decisions / workarounds / external constraints | Comment explaining **why**, not what. Link the issue/ADR. |
 | `TODO` | Must include an owner or task reference: `TODO(TASK-12): ...`. No anonymous TODOs. |
 | Architecture-level changes | Update project engineering docs and/or add an ADR in the same change |
 
-Do not write comments that restate the code.
+Do not write:
+- comments that restate the code (`# increment counter`, `# return the result`);
+- docstrings on private, internal, or self-explanatory functions, or docstrings that only repeat parameter names and types;
+- banner or section-divider comments;
+- change-log comments (`# added for X`, `# fixed bug`); version control records history.
+
+Leave existing comments alone unless the change touches the code they describe.
 
 ## 7. Error handling (code level)
 
