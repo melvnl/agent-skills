@@ -60,7 +60,7 @@ When asking: give the options, your recommendation, and its rationale in one con
 
 ## 5. Reporting
 
-Every task ends with a report (inline for small tasks; `IMPLEMENTATION_REPORT.md` template for features) that includes:
+Every task ends with a report (inline for small tasks; `implementation-report.md` template for features) that includes:
 
 - **What changed** — files created/updated/deleted.
 - **Verification** — commands run and their actual results (pass/fail counts). Explicitly list anything not run.
@@ -73,6 +73,6 @@ Be factual. Do not overstate completeness or confidence.
 
 ## 6. Session hygiene
 
-- At the start of a resumed session, follow `.factory/workflows/RESUME_WORK.md`.
+- At the start of a resumed session, follow `.factory/workflows/resume-work.md`.
 - Keep the project's status/task tracking current so the next session (human or agent) can resume without re-deriving state.
 - Leave the working tree in a buildable state at the end of a session, or clearly document why not.

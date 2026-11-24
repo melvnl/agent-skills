@@ -9,7 +9,7 @@ Fix a defect at its root cause with the smallest appropriate change, and prevent
 ## Entry conditions
 
 - Behavior differs from what a spec, acceptance criterion, or business rule defines, **or** a failure needs investigation to decide whether it is a bug.
-- For a live production problem, `PRODUCTION_INCIDENT.md` runs first (mitigate, then diagnose); this workflow fixes the cause.
+- For a live production problem, `production-incident.md` runs first (mitigate, then diagnose); this workflow fixes the cause.
 
 ## Inputs
 
@@ -21,7 +21,7 @@ Fix a defect at its root cause with the smallest appropriate change, and prevent
 
 - A failing-then-passing regression test.
 - The fix.
-- A short report (inline or `IMPLEMENTATION_REPORT.md` for significant bugs) including root cause.
+- A short report (inline or `implementation-report.md` for significant bugs) including root cause.
 - Updated spec if the bug revealed an ambiguous or missing requirement (with approval).
 
 ## Execution steps
@@ -41,7 +41,7 @@ Fix a defect at its root cause with the smallest appropriate change, and prevent
 
 - Regression test failed before the fix and passes after.
 - No existing test was modified to pass, unless the test itself was wrong (justified explicitly in the report).
-- All quality gates in `TESTING_STANDARDS.md` § 10 pass.
+- All quality gates in `testing-standards.md` § 10 pass.
 
 ## Exit conditions
 

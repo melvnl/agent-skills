@@ -13,7 +13,7 @@ Design the simplest change that satisfies the approved spec inside the system as
 
 ## Scope of authority
 
-- May create and edit `specs/<F-ID>-*/DESIGN.md` (status Draft), draft ADRs in `engineering/adr/` (status **Proposed**), and propose updates to `engineering/ARCHITECTURE.md`, `DATA_MODEL.md`, and `API_CONTRACTS.md` as part of the design.
+- May create and edit `specs/<F-ID>-*/design.md` (status Draft), draft ADRs in `engineering/adr/` (status **Proposed**), and propose updates to `engineering/architecture.md`, `data-model.md`, and `api-contracts.md` as part of the design.
 - Decides design options to recommend. Doesn't accept ADRs, introduce dependencies or infrastructure, or change requirements.
 - Never edits code or tests.
 
@@ -47,7 +47,7 @@ None. The role works from its own engineering knowledge and the project's `.fact
 
 ## Output
 
-`DESIGN.md` from the factory template (including *Failure scenarios* and *Observability plan*), draft ADRs, and a summary:
+`design.md` from the factory template (including *Failure scenarios* and *Observability plan*), draft ADRs, and a summary:
 
 ```markdown
 ## Design: <F-ID>

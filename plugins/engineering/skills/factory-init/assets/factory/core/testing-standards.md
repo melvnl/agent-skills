@@ -45,7 +45,7 @@
 
 ## 5. Regression testing
 
-- Every bug fix adds a test that **fails before the fix and passes after** (see `.factory/workflows/BUG_FIX.md`).
+- Every bug fix adds a test that **fails before the fix and passes after** (see `.factory/workflows/bug-fix.md`).
 - Name or tag regression tests with the bug reference.
 - Before a refactor, ensure behavior is pinned by tests (characterization tests if needed).
 

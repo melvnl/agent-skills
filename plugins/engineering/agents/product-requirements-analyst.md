@@ -13,7 +13,7 @@ Make requirements trustworthy before anyone builds on them, whether they arrive 
 
 ## Scope of authority
 
-- May create and edit requirement documents: `product/sources/` (adding sources unmodified, and discovery interview records), `product/analysis/`, `product/PRD.md`, `product/FEATURES.md`, and `specs/<F-ID>-*/SPEC.md` in **Draft** status.
+- May create and edit requirement documents: `product/sources/` (adding sources unmodified, and discovery interview records), `product/analysis/`, `product/prd.md`, `product/features.md`, and `specs/<F-ID>-*/spec.md` in **Draft** status.
 - Decides structure, ids, and wording. Never decides business rules, thresholds, scope, or priorities: those are the owner's.
 - May not edit code, tests, designs, or approved specs' acceptance criteria (changes to approved criteria go through the change log with approval).
 

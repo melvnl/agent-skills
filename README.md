@@ -120,9 +120,9 @@ All options: [engineering-guardrails README](plugins/guardrails/README.md).
 
 ## How a change moves through the Software Factory
 
-For a PRD-driven feature:
+For a prd-driven feature:
 
-1. `factory-router` recognizes "implement this PRD" and starts `PRD_TO_IMPLEMENTATION`.
+1. `factory-router` recognizes "implement this PRD" and starts `prd-to-implementation`.
 2. `prd-analysis` lists contradictions, ambiguities and missing requirements. **You resolve them.**
 3. `specification-decomposition` and `acceptance-criteria-engineering` write specs with stable ids. **You approve them.**
 4. `solution-architect` writes the design, including failure cases and logging.
@@ -130,21 +130,21 @@ For a PRD-driven feature:
 6. `qa-engineer` verifies and the reviewers review. The implementer never approves its own work.
 7. **You approve the release.**
 
-Progress lives in the project (`tasks/STATUS.md`, specs, task files), so any session can pick up where the last one stopped.
+Progress lives in the project (`tasks/status.md`, specs, task files), so any session can pick up where the last one stopped.
 
 | Workflow | Use when |
 |---|---|
-| `NEW_FEATURE` | Adding or extending a capability |
-| `FINTECH_FEATURE` (overlay) | The change affects credit, eligibility, risk, limits or money |
-| `PRD_TO_IMPLEMENTATION` | Building from a large requirements document |
-| `BUG_FIX` | Behavior differs from the spec |
-| `PRODUCTION_INCIDENT` | Production is broken, degraded or leaking data |
-| `DATABASE_MIGRATION` | Schema changes and backfills |
-| `REFACTORING` | Better internals, same behavior |
-| `CODE_REVIEW` | Any change |
-| `SECURITY_REVIEW` | Endpoints, integrations, auth, secrets |
-| `OBSERVABILITY_REVIEW` | Backend changes |
-| `RESUME_WORK`, `NEW_PROJECT` | Continuing work; starting a project |
+| `new-feature` | Adding or extending a capability |
+| `fintech-feature` (overlay) | The change affects credit, eligibility, risk, limits or money |
+| `prd-to-implementation` | Building from a large requirements document |
+| `bug-fix` | Behavior differs from the spec |
+| `production-incident` | Production is broken, degraded or leaking data |
+| `database-migration` | Schema changes and backfills |
+| `refactoring` | Better internals, same behavior |
+| `code-review` | Any change |
+| `security-review` | Endpoints, integrations, auth, secrets |
+| `observability-review` | Backend changes |
+| `resume-work`, `new-project` | Continuing work; starting a project |
 
 ## Skills
 

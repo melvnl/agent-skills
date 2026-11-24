@@ -18,7 +18,7 @@ This repo is a Claude Code marketplace of reusable capabilities. This file confi
 - Names equal their directory or file name and are unique across all plugins.
 - A plugin can't read files outside its own directory once installed. Skills reference only their own folder, or other skills by name.
 - `plugins/engineering/skills/factory-init/assets/factory-router.SKILL.md` is a bundled copy of `plugins/engineering/skills/factory-router/SKILL.md`. Edit the source, then copy it over. The validator fails on drift.
-- `.factory/` content stays project-agnostic; new workflows are wired into the router, `CLAUDE_TEMPLATE.md` and the factory README together.
+- `.factory/` content stays project-agnostic; new workflows are wired into the router, `claude-template.md` and the factory README together.
 - Hooks: stdlib-only Python 3.8+; deny or ask only for high-confidence cases; never echo secret values; project commands run only behind the `run_project_commands` opt-in.
 - Prefer extending an existing component over adding a near-duplicate. Don't restate one skill's content in another; reference it by name.
 - Commits: one independently meaningful module per commit, Conventional Commits, explicit `git add <paths>` (never `git add -A` or `.`), each commit's tree valid on its own, no amend, squash, force-push, or push without approval.

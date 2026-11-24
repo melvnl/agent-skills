@@ -37,7 +37,7 @@ Catch defects and drift before they reach the main branch, judged against what t
 
 ## Skills to load
 
-- `spec-driven-engineering:factory-router`: to locate the project's `CODE_REVIEW` workflow and standards in `.factory/`.
+- `spec-driven-engineering:factory-router`: to locate the project's `code-review` workflow and standards in `.factory/`.
 
 ## Inputs
 
@@ -55,7 +55,7 @@ Specialist reviews recommended: <observability | security | fintech-domain | inv
 Verdict: approve | approve with follow-ups | request changes
 ```
 
-Severity: Blocker / Major / Minor / Nit, per the factory `CODE_REVIEW` workflow.
+Severity: Blocker / Major / Minor / Nit, per the factory `code-review` workflow.
 
 ## Quality criteria
 

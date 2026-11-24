@@ -31,7 +31,7 @@ How to add or change a component. The anatomy docs define the formats; this guid
 ## Changing the Software Factory
 
 - Edit `plugins/engineering/skills/factory-init/assets/factory/`; keep it project-agnostic (skills and agents named only as optional accelerators).
-- New workflows: wire them into `factory-router` (both copies), `references/CLAUDE_TEMPLATE.md`, and the factory `README.md` in the same change.
+- New workflows: wire them into `factory-router` (both copies), `references/claude-template.md`, and the factory `README.md` in the same change.
 - Run `factory-init/scripts/verify_factory.sh` against a throwaway install to check internal references.
 
 ## Checks before committing

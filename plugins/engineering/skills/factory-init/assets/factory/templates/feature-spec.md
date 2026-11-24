@@ -1,7 +1,7 @@
 <!--
 TEMPLATE: Feature Specification
-Location convention: specs/<feature-id>-<slug>/SPEC.md
-Purpose: Define WHAT a feature must do and HOW we will know it is done. No implementation detail (that goes in DESIGN.md).
+Location convention: specs/<feature-id>-<slug>/spec.md
+Purpose: Define WHAT a feature must do and HOW we will know it is done. No implementation detail (that goes in design.md).
 Instructions for agents:
 - Trace every requirement to PRD IDs where they exist.
 - Acceptance criteria must be Given/When/Then and each must name a verification method.
@@ -17,7 +17,7 @@ Instructions for agents:
 | Phase | {{n}} |
 | Owner | {{human}} |
 | PRD references | {{FR-x, NFR-y}} |
-| Design | {{link to DESIGN.md}} |
+| Design | {{link to design.md}} |
 | Last updated | {{YYYY-MM-DD}} |
 
 ## 1. Problem statement

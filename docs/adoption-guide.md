@@ -29,7 +29,7 @@ cd ~/work/eligibility-service
 
 ## 3. Set up a project
 
-1. **Software Factory** (spec-driven projects): in the project, run `/factory-init`. It inspects the stack, installs `.factory/`, populates `product/`, `engineering/`, `tasks/STATUS.md` from evidence, and creates or merges `CLAUDE.md`, asking before touching anything that exists. When the engineering plugin is installed, the router copy in `.claude/skills/` is optional.
+1. **Software Factory** (spec-driven projects): in the project, run `/factory-init`. It inspects the stack, installs `.factory/`, populates `product/`, `engineering/`, `tasks/status.md` from evidence, and creates or merges `CLAUDE.md`, asking before touching anything that exists. When the engineering plugin is installed, the router copy in `.claude/skills/` is optional.
 2. **Guardrails configuration** (optional): add `.claude/guardrails.json` declaring what only the project knows:
 
    ```json
@@ -48,15 +48,15 @@ cd ~/work/eligibility-service
    ```
 
    The `commands` run only after you enable the plugin option `run_project_commands` (`claude plugin configure engineering-guardrails@melvin-skills`), because they come from the repository.
-3. **Logging conventions**: record the project's logger, standard fields, and correlation mechanism in `engineering/DEVELOPMENT_GUIDE.md` (the observability skills read them before writing log calls).
-4. **Data classification**: record approved identifiers and sensitive fields in `engineering/SECURITY_AND_PRIVACY.md` (the redaction skill and reviewers use it).
+3. **Logging conventions**: record the project's logger, standard fields, and correlation mechanism in `engineering/development-guide.md` (the observability skills read them before writing log calls).
+4. **Data classification**: record approved identifiers and sensitive fields in `engineering/security-and-privacy.md` (the redaction skill and reviewers use it).
 
 ## 4. Daily use
 
 - Ask in plain language. In factory projects, `factory-router` classifies the request and picks the workflow (feature, PRD, bug, incident, migration, review, …) with its approval gates.
-- Large PRDs: ask to analyze the document first; the PRD-to-implementation workflow stops for your decisions on contradictions and ambiguities.
+- Large PRDs: ask to analyze the document first; the prd-to-implementation workflow stops for your decisions on contradictions and ambiguities.
 - Reviews: ask for an observability, security, fintech-domain, or invariant review; the read-only reviewer agents report findings without editing.
-- Resuming: say "continue"; state comes from `tasks/STATUS.md` and the task files, not from conversation memory.
+- Resuming: say "continue"; state comes from `tasks/status.md` and the task files, not from conversation memory.
 
 ## 5. Keep up to date
 

@@ -1,6 +1,6 @@
 # Workflow overlay: Fintech Feature
 
-> **Scope:** Project-agnostic overlay on `NEW_FEATURE.md`. It applies when the project's `CLAUDE.md` declares a financial domain, or when a feature changes credit, eligibility, or risk decisions, limits, pricing, or other financially relevant data. It adds gates to each `NEW_FEATURE` stage; it doesn't replace them.
+> **Scope:** Project-agnostic overlay on `new-feature.md`. It applies when the project's `CLAUDE.md` declares a financial domain, or when a feature changes credit, eligibility, or risk decisions, limits, pricing, or other financially relevant data. It adds gates to each `new-feature` stage; it doesn't replace them.
 
 ## Purpose
 
@@ -8,7 +8,7 @@ Ship financial decision features that are correct per the approved policy, recon
 
 ## Entry conditions
 
-- `NEW_FEATURE.md` applies, and one of the scope conditions above holds.
+- `new-feature.md` applies, and one of the scope conditions above holds.
 - A named policy owner exists for the business rules involved.
 
 ## Additional inputs
@@ -24,7 +24,7 @@ Ship financial decision features that are correct per the approved policy, recon
 - Golden dataset results and, for migrations of logic, a parity report.
 - Domain and invariant review records.
 
-## Additional steps per `NEW_FEATURE` stage
+## Additional steps per `new-feature` stage
 
 | Stage | Additional gate |
 |---|---|
@@ -32,7 +32,7 @@ Ship financial decision features that are correct per the approved policy, recon
 | Design (step 5) | Decision record contents; immutable versions and a separate, audited activation step; owner-approved fallback per dependency (no silent approvals); invariants touched and how each is enforced; audit events written atomically; authorization matrix updates; failure behavior chosen as fail-closed, degraded, or (only with owner acceptance) fail-open; a parity plan when logic moves between services. |
 | Tasks (step 6) | Tasks for golden-dataset and boundary tests, duplicate and concurrency tests, audit-record tests, and decision metrics. |
 | Implementation (step 7) | Exact decimal arithmetic; idempotent writes; no copied thresholds outside the policy's single source of truth. |
-| Verification (steps 8–9) | Golden dataset run and every outcome change explained as an approved policy change; reviews by someone other than the implementer for: domain policy, financial invariants, security, and observability (`SECURITY_REVIEW.md`, `OBSERVABILITY_REVIEW.md`). Schema changes follow `DATABASE_MIGRATION.md`. |
+| Verification (steps 8–9) | Golden dataset run and every outcome change explained as an approved policy change; reviews by someone other than the implementer for: domain policy, financial invariants, security, and observability (`security-review.md`, `observability-review.md`). Schema changes follow `database-migration.md`. |
 | Release | Behind a flag or versioned activation; canary compares decision distributions (approval rate, limits, fallback rate, reason codes) with the baseline; rollback rehearsed; activation approved by someone other than the proposer. |
 
 If the `fintech-domain-reviewer` and `financial-invariant-reviewer` agents are available, use them for these gates.
@@ -49,7 +49,7 @@ If the `fintech-domain-reviewer` and `financial-invariant-reviewer` agents are a
 
 ## Exit conditions
 
-- `NEW_FEATURE.md` exit conditions plus every gate above; **or** stopped at a gate with the owner's decision pending, recorded in `tasks/STATUS.md`.
+- `new-feature.md` exit conditions plus every gate above; **or** stopped at a gate with the owner's decision pending, recorded in `tasks/status.md`.
 
 ## Human approval required
 

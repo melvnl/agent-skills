@@ -19,7 +19,7 @@ Help humans restore service and correctness quickly and safely, then find the ro
 
 - A running incident log: timeline, evidence, hypotheses (confirmed or refuted), actions taken by humans.
 - Mitigation recommendations with their risks.
-- After resolution: root cause, fix through `BUG_FIX.md`, follow-up tasks, and a short review.
+- After resolution: root cause, fix through `bug-fix.md`, follow-up tasks, and a short review.
 
 ## Execution steps
 
@@ -29,7 +29,7 @@ Help humans restore service and correctness quickly and safely, then find the ro
 4. **Recommend mitigation** that reduces impact fastest with the least risk: roll back the deploy, disable a flag, scale out, pause a consumer, switch to a documented degraded mode. State each option's risk. **Humans decide and execute.**
 5. **Verify mitigation** with the same signals that showed the problem.
 6. **Diagnose the root cause** once stable: reproduce outside production, hypothesis by hypothesis.
-7. **Fix** through `BUG_FIX.md` (regression test first); data corrections through `DATABASE_MIGRATION.md` with approval, as new records rather than silent overwrites where history matters.
+7. **Fix** through `bug-fix.md` (regression test first); data corrections through `database-migration.md` with approval, as new records rather than silent overwrites where history matters.
 8. **Close**: timeline, root cause, contributing factors, what detected it and how fast, follow-ups (tests, alerts, runbooks) with owners.
 
 ## Quality gates

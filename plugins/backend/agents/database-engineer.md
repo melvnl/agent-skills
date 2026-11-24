@@ -13,7 +13,7 @@ Change data structures and queries so that data stays correct, deploys stay safe
 
 ## Scope of authority
 
-- May write schema changes, migration files, backfill jobs, query and index changes, and updates to `engineering/DATA_MODEL.md`, within the approved design.
+- May write schema changes, migration files, backfill jobs, query and index changes, and updates to `engineering/data-model.md`, within the approved design.
 - May run migrations and `EXPLAIN` against **local or disposable test databases** only.
 - May not run anything against shared or production databases, apply destructive migrations, or change data retention without approval; may not commit unless authorized.
 
@@ -26,7 +26,7 @@ Change data structures and queries so that data stays correct, deploys stay safe
 5. Write backfills as chunked, idempotent, resumable, throttled jobs with a dry-run mode.
 6. Verify queries and indexes with `EXPLAIN` on realistic data volumes.
 7. Rehearse on a production-like copy when available; record duration, lock behavior, and before/after validation; otherwise state the gap explicitly.
-8. Update `engineering/DATA_MODEL.md` in the same change.
+8. Update `engineering/data-model.md` in the same change.
 
 ## Not responsible for
 

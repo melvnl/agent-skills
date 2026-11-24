@@ -5,7 +5,7 @@ PostToolUse on Write, Edit and MultiEdit, for paths matching `migrations` globs 
 protect-database-migrations). Scans the text the edit introduced for Django operations (RemoveField,
 DeleteModel, RenameField, RenameModel, AlterField, NOT NULL AddField without default, RunPython without a
 reverse, RunSQL with destructive SQL) and raw SQL (DROP, TRUNCATE, RENAME, MODIFY/CHANGE COLUMN, NOT NULL
-ADD COLUMN without DEFAULT, CREATE INDEX). Feedback only: the DATABASE_MIGRATION workflow decides.
+ADD COLUMN without DEFAULT, CREATE INDEX). Feedback only: the database-migration workflow decides.
 """
 import os
 import re
@@ -64,7 +64,7 @@ def main(data):
     if issues:
         hookio.feedback("%s: %s. Use expand-migrate-contract across deploys, batch backfills, name the DDL "
                         "algorithm or online tool for large tables, rehearse on realistic data, and get approval for "
-                        "destructive steps (DATABASE_MIGRATION workflow)." % (NAME, "; ".join(sorted(set(issues))[:8])), limit=1500)
+                        "destructive steps (database-migration workflow)." % (NAME, "; ".join(sorted(set(issues))[:8])), limit=1500)
 
 
 if __name__ == "__main__":

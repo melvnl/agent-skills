@@ -13,20 +13,20 @@ Traceability answers two questions with evidence instead of memory: *is every re
 
 - After `specification-decomposition`, to confirm every requirement has an owner and acceptance criteria.
 - When a spec, task breakdown, or test suite changes.
-- Before closing a feature (Definition of Done: "traceable by requirement ID"), and in Phase 6 of `PRD_TO_IMPLEMENTATION`.
+- Before closing a feature (Definition of Done: "traceable by requirement ID"), and in Phase 6 of `prd-to-implementation`.
 - Asked "is everything covered?", "what implements FR-12?", or "why does this code exist?".
 
 **When not to use:** writing the requirements or criteria themselves → `specification-decomposition`, `acceptance-criteria-engineering`.
 
 ## Inputs and context
 
-1. A Software Factory layout: `product/PRD.md`, `product/FEATURES.md`, `specs/<F-ID>-<slug>/SPEC.md`, `tasks/<F-ID>-<slug>.md`. Without one, apply the same chain manually in the project's documents.
+1. A Software Factory layout: `product/prd.md`, `product/features.md`, `specs/<F-ID>-<slug>/spec.md`, `tasks/<F-ID>-<slug>.md`. Without one, apply the same chain manually in the project's documents.
 2. The project's test locations, if they differ from the checker's defaults.
-3. The citation convention in tests: a comment or test name containing `F-07 AC-3` (also accepted: `F-07-AC-3`, `F-07/AC-3`). Code comments cite requirement ids (`# BR-4`), as `CODING_STANDARDS` requires.
+3. The citation convention in tests: a comment or test name containing `F-07 AC-3` (also accepted: `F-07-AC-3`, `F-07/AC-3`). Code comments cite requirement ids (`# BR-4`), as `coding-standards` requires.
 
 ## Process
 
-1. **Keep ids in the tables.** Requirements live in PRD table rows; features list their requirement ids in `FEATURES.md`; each spec's *Verifies* column lists what each AC verifies; each task's *Covers* column lists what it implements. Ranges (`FR-21..FR-27`) are fine.
+1. **Keep ids in the tables.** Requirements live in PRD table rows; features list their requirement ids in `features.md`; each spec's *Verifies* column lists what each AC verifies; each task's *Covers* column lists what it implements. Ranges (`FR-21..FR-27`) are fine.
 2. **Cite in code and tests while working**, not afterwards: a business-rule implementation cites its `BR-n`; each test that verifies an acceptance criterion cites `<F-ID> AC-n`.
 3. **Run the checker**:
 
@@ -44,7 +44,7 @@ Traceability answers two questions with evidence instead of memory: *is every re
 
 | Level | Condition |
 |---|---|
-| FAIL | A feature, spec or task references an id not defined in `PRD.md` |
+| FAIL | A feature, spec or task references an id not defined in `prd.md` |
 | FAIL | A defined FR, NFR or BR is owned by no feature (deprecated ids and `Q-n` exempt) |
 | FAIL | An acceptance criterion verifies nothing |
 | FAIL | A spec-level requirement (`F-07-FR-1`) has no acceptance criterion |

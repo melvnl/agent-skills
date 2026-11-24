@@ -43,14 +43,14 @@ Arrows are `dependencies` in `plugin.json`. Installing a plugin installs what it
 
 ## Workflows
 
-Multi-stage engineering processes (feature development, PRD-to-implementation, migrations, incidents, reviews) are **Software Factory workflows**: Markdown procedures with entry conditions, exit conditions, and human approval gates. They are installed into a project as `.factory/workflows/` by `factory-init`, and selected per request by `factory-router`.
+Multi-stage engineering processes (feature development, prd-to-implementation, migrations, incidents, reviews) are **Software Factory workflows**: Markdown procedures with entry conditions, exit conditions, and human approval gates. They are installed into a project as `.factory/workflows/` by `factory-init`, and selected per request by `factory-router`.
 
 They are deliberately not Claude Code's native `workflows/` component. Native workflows are JavaScript orchestration scripts that can't pause for human input mid-run, so they can't host approval gates. A native workflow may still be used *inside* a factory step for a large fan-out task (a codebase-wide audit), never as the gated process itself.
 
 Rules:
 - Workflow files stay project-agnostic. They name skills and agents as optional accelerators ("if the `observability-engineer` agent is available, use it"), so the factory works without any plugin installed.
 - Every workflow states: purpose, entry conditions, inputs, outputs, steps, quality gates, exit conditions, human approval required.
-- A new workflow is wired into `factory-router` (routing table), `CLAUDE_TEMPLATE.md` (§ 6.1 and repository map), the factory `README.md`, and `verify_factory.sh` (required files) in the same change.
+- A new workflow is wired into `factory-router` (routing table), `claude-template.md` (§ 6.1 and repository map), the factory `README.md`, and `verify_factory.sh` (required files) in the same change.
 
 ## Project state
 
@@ -60,12 +60,12 @@ State lives in the project, not in conversation history, using the Software Fact
 |---|---|
 | Source documents (original PRD) | `product/sources/` |
 | Analysis of a source document | `product/analysis/` |
-| Requirements with stable ids (FR, NFR, BR, Q) | `product/PRD.md`, `product/FEATURES.md` (F-xx) |
-| Feature contract (AC-n) | `specs/<F-ID>-<slug>/SPEC.md` |
-| Design, including failure scenarios and the observability plan | `specs/<F-ID>-<slug>/DESIGN.md` |
+| Requirements with stable ids (FR, NFR, BR, Q) | `product/prd.md`, `product/features.md` (F-xx) |
+| Feature contract (AC-n) | `specs/<F-ID>-<slug>/spec.md` |
+| Design, including failure scenarios and the observability plan | `specs/<F-ID>-<slug>/design.md` |
 | Plan, progress, in-flight decisions | `tasks/<F-ID>-<slug>.md` |
 | Verification evidence | `tasks/reports/<F-ID>-<slug>.md` |
-| Session resume point and handoff | `tasks/STATUS.md` |
+| Session resume point and handoff | `tasks/status.md` |
 | Significant decisions | `engineering/adr/NNNN-<slug>.md` |
 
 ## Evaluations

@@ -21,10 +21,10 @@ Turn a large requirements document into verified, released features without losi
 | Phase | Artifacts |
 |---|---|
 | 1 | `product/sources/<doc>` (unmodified), `product/analysis/<doc>-analysis.md` |
-| 2 | `product/PRD.md` ids, `product/FEATURES.md`, `specs/<F-ID>-<slug>/SPEC.md` |
-| 3 | `specs/<F-ID>-<slug>/DESIGN.md` (incl. failure scenarios and observability plan), ADRs |
+| 2 | `product/prd.md` ids, `product/features.md`, `specs/<F-ID>-<slug>/spec.md` |
+| 3 | `specs/<F-ID>-<slug>/design.md` (incl. failure scenarios and observability plan), ADRs |
 | 4 | `tasks/<F-ID>-<slug>.md` |
-| 5 | code, tests, task status, `tasks/STATUS.md` checkpoints |
+| 5 | code, tests, task status, `tasks/status.md` checkpoints |
 | 6 | review records, traceability check results |
 | 7 | `tasks/reports/<F-ID>-<slug>.md` with release and rollback notes |
 
@@ -48,7 +48,7 @@ Turn a large requirements document into verified, released features without losi
 
 9. Analyze the existing architecture; identify impacted services, API and data changes, and integration boundaries.
 10. Define failure scenarios, resilience behavior, and the **observability plan**; record significant decisions as ADRs.
-11. 🔒 **Gate:** design approval when the feature is substantial (per `NEW_FEATURE.md`).
+11. 🔒 **Gate:** design approval when the feature is substantial (per `new-feature.md`).
 
 ### Phase 4: Task planning (per feature)
 
@@ -56,12 +56,12 @@ Turn a large requirements document into verified, released features without losi
 
 ### Phase 5: Implementation loops (per task)
 
-13. Select task → load context → implement test-first → add the task's instrumentation → run targeted tests → evaluate → diagnose → fix → verify → **checkpoint** → next task, with the stop conditions in `NEW_FEATURE.md` step 7.
+13. Select task → load context → implement test-first → add the task's instrumentation → run targeted tests → evaluate → diagnose → fix → verify → **checkpoint** → next task, with the stop conditions in `new-feature.md` step 7.
 
 ### Phase 6: Independent verification (per feature)
 
 14. Run regression suites and quality gates; verify each acceptance criterion against evidence.
-15. Review security (`SECURITY_REVIEW.md`), data integrity, observability (`OBSERVABILITY_REVIEW.md`), including correlation propagation and sensitive logging; review migrations (`DATABASE_MIGRATION.md`). Financial features add the `FINTECH_FEATURE.md` gates.
+15. Review security (`security-review.md`), data integrity, observability (`observability-review.md`), including correlation propagation and sensitive logging; review migrations (`database-migration.md`). Financial features add the `fintech-feature.md` gates.
 16. Run the traceability check; resolve failures at the source.
 17. Reviewers are never the implementer.
 
@@ -77,12 +77,12 @@ Turn a large requirements document into verified, released features without losi
 |---|---|
 | Analysis complete | Every section read; every statement referenced; blocking issues resolved or accepted |
 | Specs ready | Every requirement owned by one feature; acceptance criteria testable and traced |
-| Feature done | `NEW_FEATURE.md` feature-done gate plus Phase 6 reviews |
+| Feature done | `new-feature.md` feature-done gate plus Phase 6 reviews |
 | Release ready | No open Blocker; rollback documented; approval recorded |
 
 ## Exit conditions
 
-- All in-scope features done and released with approval; **or** stopped at a gate, with `tasks/STATUS.md` naming the phase, feature, decision needed, and next action.
+- All in-scope features done and released with approval; **or** stopped at a gate, with `tasks/status.md` naming the phase, feature, decision needed, and next action.
 
 ## Human approval required
 

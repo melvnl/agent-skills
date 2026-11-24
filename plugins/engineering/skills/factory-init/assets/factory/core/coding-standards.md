@@ -84,13 +84,13 @@ Leave existing comments alone unless the change touches the code they describe.
 - Add context when rethrowing; preserve the original cause.
 - No empty `catch` blocks. No `catch` that only logs and continues unless continuing is correct and commented.
 - Validate preconditions at function entry for public APIs; use assertions for internal invariants.
-- See `ENGINEERING_STANDARDS.md` § Error handling for classification and user-facing rules.
+- See `engineering-standards.md` § Error handling for classification and user-facing rules.
 
 ## 8. Refactoring guidelines
 
 - Refactor in **separate commits/changes** from behavior changes. A diff is either a refactor or a feature/fix, not both.
 - Tests must be green before and after; do not edit test expectations during a pure refactor (if you must, it is not a pure refactor).
-- "Boy Scout rule" is allowed only within files already touched by the task and only for low-risk cleanups (renames, dead code removal, extracting a function). Larger refactors follow `.factory/workflows/REFACTORING.md`.
+- "Boy Scout rule" is allowed only within files already touched by the task and only for low-risk cleanups (renames, dead code removal, extracting a function). Larger refactors follow `.factory/workflows/refactoring.md`.
 - Delete dead code instead of commenting it out; version control remembers.
 
 ## 9. Code hygiene checklist (pre-commit)

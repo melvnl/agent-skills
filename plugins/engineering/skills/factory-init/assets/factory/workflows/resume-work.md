@@ -9,7 +9,7 @@ Rebuild an accurate picture of the project's state from the repository — not f
 ## Inputs
 
 - The repository (code, docs, git history if available).
-- The project's status file (conventionally `tasks/STATUS.md`) and task breakdowns.
+- The project's status file (conventionally `tasks/status.md`) and task breakdowns.
 - Specs, designs, and implementation reports.
 
 ## Outputs
@@ -38,7 +38,7 @@ Rebuild an accurate picture of the project's state from the repository — not f
 
 6. **Reconcile discrepancies.** If docs say done but code/tests disagree (or vice versa), report the discrepancy; do not silently "fix" status.
 7. **Determine the next actionable task:** prefer (a) finishing in-progress work, (b) fixing a red build, (c) the next unblocked pending task in roadmap order. Never redo a task verified as done.
-8. **Update the status file** if it was stale, then proceed with the applicable workflow (`NEW_FEATURE.md`, `BUG_FIX.md`, …).
+8. **Update the status file** if it was stale, then proceed with the applicable workflow (`new-feature.md`, `bug-fix.md`, …).
 
 ## Quality gates
 

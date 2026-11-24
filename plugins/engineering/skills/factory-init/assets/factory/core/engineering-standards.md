@@ -1,6 +1,6 @@
 # Engineering Standards
 
-> **Scope:** Project-agnostic. Each project declares its concrete technology stack in its own documentation (conventionally `engineering/TECH_STACK.md`). This file defines *how* to build, not *what* to build with.
+> **Scope:** Project-agnostic. Each project declares its concrete technology stack in its own documentation (conventionally `engineering/tech-stack.md`). This file defines *how* to build, not *what* to build with.
 
 ---
 
@@ -26,7 +26,7 @@
 Applies to HTTP APIs, RPC, internal service interfaces, events, and client/server data contracts.
 
 - **Explicit schemas** for every request, response, and event, validated at runtime at trust boundaries (incoming requests, external API responses, data read from untrusted storage).
-- **Contracts are documented before implementation** (conventionally in `engineering/API_CONTRACTS.md` or an OpenAPI/schema file).
+- **Contracts are documented before implementation** (conventionally in `engineering/api-contracts.md` or an OpenAPI/schema file).
 - **Consistent error shape** across the contract (e.g. `{ code, message, details? }`); error `code`s are stable, machine-readable identifiers.
 - **Versioning:** public/external APIs are versioned (e.g. `/v1/`). Internal in-process interfaces are not versioned but must be changed atomically with all callers.
 - **REST conventions** (when REST is used): resource nouns, standard HTTP verbs and status codes, pagination for unbounded collections, idempotency for retried writes.
@@ -34,7 +34,7 @@ Applies to HTTP APIs, RPC, internal service interfaces, events, and client/serve
 
 ## 4. Database and data modeling principles
 
-- **Model the domain first**, then the storage. Document entities, relationships, ownership, and invariants (conventionally `engineering/DATA_MODEL.md`).
+- **Model the domain first**, then the storage. Document entities, relationships, ownership, and invariants (conventionally `engineering/data-model.md`).
 - **Every record has a clear owner** (user, tenant, or system). Ownership is a column, not an inference.
 - **Identifiers:** prefer globally unique IDs (UUID/ULID) generated where the record is created, so records can move between stores without collisions.
 - **Timestamps:** store instants in UTC (ISO 8601 / `timestamptz`). Store the user's local date/timezone separately when business logic depends on "which day" something happened.

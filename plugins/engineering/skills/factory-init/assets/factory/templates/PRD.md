@@ -25,7 +25,7 @@ Instructions for agents:
 |---|---|---|---|---|
 | J-1 | {{persona}} | {{start → end in one line}} | {{1}} | {{Yes/No}} |
 
-<!-- Critical journeys require E2E tests (see TESTING_STANDARDS). -->
+<!-- Critical journeys require E2E tests (see testing-standards). -->
 
 ## 3. Functional requirements
 <!-- Group by capability area. Use "must/should/may" (MoSCoW-like): must = required for phase exit. -->
