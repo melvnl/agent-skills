@@ -75,6 +75,7 @@ A list of findings, each with: **severity**, location (`file:line`), the problem
 
 ### Maintainability
 - [ ] Follows `CODING_STANDARDS.md`: naming, modularity, type safety, no unnecessary abstractions.
+- [ ] No code bigger than the task needs: unused options, checks for states that cannot occur, pass-through wrappers, comments that restate the code.
 - [ ] Docs updated where behavior, architecture, or contracts changed.
 
 ### Test quality
